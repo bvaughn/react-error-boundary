@@ -2,7 +2,7 @@
   "name": "react-error-boundary",
   "version": "0.0.1",
   "description": "Simple reusable React error boundary component",
-  "main": "dist/commonjs/react-error-boundary.js",
+  "main": "dist/commonjs/index.js",
   "scripts": {
     "build": "npm run build:commonjs && npm run build:es && npm run build:umd",
     "build:commonjs": "npm run clean:commonjs && cross-env NODE_ENV=production cross-env BABEL_ENV=commonjs babel src --out-dir dist/commonjs",
