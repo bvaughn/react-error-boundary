@@ -7,8 +7,12 @@ type Props = {
   error: Error,
 };
 
+const toTitle = (error: Error, componentStack: string): string => {
+  return `${error}\n\nThis is located at:${componentStack}`;
+};
+
 const ErrorBoundaryFallbackComponent = ({ componentStack, error }: Props) => (
-  <div style={style} title={error.toString()}>
+  <div style={style} title={toTitle(error, componentStack)}>
     <svg style={svgStyle} viewBox="0 0 24 24" preserveAspectRatio="xMidYMid">
       <path d={`M20,12A8,8 0 0,0 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,
         12M22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2A10,10 0 0,1 22,
@@ -33,6 +37,7 @@ const style = {
   backgroundColor: '#C00',
   color: '#FFF',
   boxSizing: 'border-box',
+  cursor: 'help',
 };
 
 const svgStyle = {
