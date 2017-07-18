@@ -1,7 +1,10 @@
 {
   "name": "react-error-boundary",
-  "version": "0.0.1",
+  "version": "0.0.4",
   "description": "Simple reusable React error boundary component",
+  "files": [
+    "dist"
+  ],
   "main": "dist/commonjs/index.js",
   "scripts": {
     "build": "npm run build:commonjs && npm run build:es && npm run build:umd",
