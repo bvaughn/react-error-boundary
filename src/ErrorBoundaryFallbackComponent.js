@@ -8,7 +8,7 @@ type Props = {
 };
 
 const toTitle = (error: Error, componentStack: string): string => {
-  return `${error}\n\nThis is located at:${componentStack}`;
+  return `${error.toString()}\n\nThis is located at:${componentStack}`;
 };
 
 const ErrorBoundaryFallbackComponent = ({ componentStack, error }: Props) => (

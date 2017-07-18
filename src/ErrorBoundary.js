@@ -6,7 +6,7 @@ import ErrorBoundaryFallbackComponent from './ErrorBoundaryFallbackComponent';
 type Props = {
   children?: any,
   FallbackComponent: any,
-  onError?: (error: Error) => void,
+  onError?: (error: Error, componentStack: string) => void,
 };
 
 type ErrorInfo = {
@@ -41,6 +41,14 @@ class ErrorBoundary extends Component {
   }
 
   componentDidError(error: Error, info: ErrorInfo):void {
+    const {onError} = this.props;
+
+    if (typeof onError === 'function') {
+      try {
+        onError(error, info ? info.componentStack : '');
+      } catch (error) {}
+    }
+
     this.setState({error, info});
   }
 
@@ -50,7 +58,7 @@ class ErrorBoundary extends Component {
 
     if (error !== null) {
       return (
-        <FallbackComponent componentStack={info && info.componentStack} error={error} />
+        <FallbackComponent componentStack={info ? info.componentStack : ''} error={error} />
       );
     }
 

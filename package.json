@@ -1,7 +1,7 @@
 {
   "name": "react-error-boundary",
-  "version": "0.0.5",
-  "description": "Simple reusable React error boundary component",
+  "version": "0.0.6",
+  "description": "Sample reusable React error boundary component for React 16+",
   "files": [
     "dist"
   ],
