@@ -1,0 +1,46 @@
+{
+  "env": {
+    "commonjs": {
+      "plugins": [
+        "flow-react-proptypes",
+        [
+          "transform-react-remove-prop-types", {
+            "mode": "wrap"
+          }
+        ]
+      ],
+      "presets": [
+        "es2015",
+        "react",
+        "stage-1"
+      ]
+    },
+    "es": {
+      "plugins": [
+        "transform-runtime",
+        "flow-react-proptypes",
+        [
+          "transform-react-remove-prop-types", {
+            "mode": "wrap"
+          }
+        ]
+      ],
+      "presets": [
+        "es2015-rollup",
+        "react",
+        "stage-1"
+      ]
+    },
+    "production": {
+      "comments": false,
+      "plugins": [
+        "transform-runtime"
+      ],
+      "presets": [
+        "es2015",
+        "react",
+        "stage-1"
+      ]
+    },
+  }
+}
