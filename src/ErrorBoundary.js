@@ -37,10 +37,10 @@ class ErrorBoundary extends Component {
 
   unstable_handleError(error: Error, info: ErrorInfo):void {
     // This method is a fallback for react <= 16.0.0-alpha.13
-    this.componentDidError(error, info);
+    this.componentDidCatch(error, info);
   }
 
-  componentDidError(error: Error, info: ErrorInfo):void {
+  componentDidCatch(error: Error, info: ErrorInfo):void {
     const {onError} = this.props;
 
     if (typeof onError === 'function') {
