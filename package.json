@@ -41,6 +41,7 @@
     "babel-loader": "^7.1.1",
     "babel-runtime": "^6.23.0",
     "prop-types": "^15.5.10",
+    "react": "^16.0.0",
     "webpack": "^3.3.0"
   },
   "peerDependencies": {

@@ -1,7 +1,7 @@
 /** @flow */
 
 import ErrorBoundaryFallbackComponent from './ErrorBoundaryFallbackComponent';
-import ErrorBoundary from './ErrorBoundary';
+import ErrorBoundary, { withErrorBoundary } from './ErrorBoundary';
 
 export default ErrorBoundary;
-export {ErrorBoundary, ErrorBoundaryFallbackComponent};
+export {ErrorBoundary, withErrorBoundary, ErrorBoundaryFallbackComponent};

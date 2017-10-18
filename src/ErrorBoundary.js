@@ -66,4 +66,16 @@ class ErrorBoundary extends Component {
   }
 }
 
+
+export const withErrorBoundary: Function = (
+    Component: *,
+    FallbackComponent: *,
+    onError: Function
+): Function => (props: *): * => (
+        <ErrorBoundary FallbackComponent={FallbackComponent} onError={onError}>
+            <Component {...props} />
+        </ErrorBoundary>
+    );
+
+
 export default ErrorBoundary;
