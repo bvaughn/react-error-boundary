@@ -16,7 +16,7 @@ type ErrorInfo = {
 type State = {
   error: ?Error,
   info: ?ErrorInfo,
-}
+};
 
 class ErrorBoundary extends Component<Props, State> {
   props: Props;
