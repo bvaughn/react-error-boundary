@@ -18,9 +18,11 @@ type State = {
   info: ?ErrorInfo,
 };
 
-class ErrorBoundary extends Component {
+class ErrorBoundary extends Component<Props, State> {
   props: Props;
   state: State;
+
+  setState: Function
 
   static defaultProps = {
     FallbackComponent: ErrorBoundaryFallbackComponent,
@@ -60,5 +62,17 @@ class ErrorBoundary extends Component {
     return children;
   }
 }
+
+
+export const withErrorBoundary: Function = (
+    Component: Class<React.Component<*>>,
+    FallbackComponent: Class<React.Component<*>>,
+    onError: Function
+): Function => props => (
+        <ErrorBoundary FallbackComponent={FallbackComponent} onError={onError}>
+            <Component {...props} />
+        </ErrorBoundary>
+    );
+
 
 export default ErrorBoundary;
