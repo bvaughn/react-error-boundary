@@ -8,3 +8,6 @@ node_modules/.*
 [options]
 
 [lints]
+
+[version]
+^0.57.3

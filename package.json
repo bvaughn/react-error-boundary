@@ -17,12 +17,15 @@
     "clean:umd": "rimraf dist/umd",
     "flow": "flow check src",
     "lint": "eslint 'src/**/*.js'",
+    "prettier": "prettier --config .prettierrc --write \"src/**/*.js\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Brian Vaughn <brian.david.vaughn@gmail.com>",
   "license": "MIT",
   "devDependencies": {
     "babel-cli": "^6.24.1",
+    "babel-core": "^6.25.0",
+    "babel-loader": "^7.1.1",
     "babel-plugin-flow-react-proptypes": "^3.4.2",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.6",
     "babel-plugin-transform-runtime": "^6.23.0",
@@ -31,16 +34,13 @@
     "babel-preset-es2015-rollup": "^3.0.0",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-1": "^6.24.1",
+    "babel-runtime": "^6.23.0",
     "cross-env": "^5.0.1",
     "eslint": "^4.2.0",
-    "flow-cli": "^0.0.0-pre",
-    "rimraf": "^2.6.1"
-  },
-  "dependencies": {
-    "babel-core": "^6.25.0",
-    "babel-loader": "^7.1.1",
-    "babel-runtime": "^6.23.0",
+    "flow-bin": "^0.57.3",
+    "prettier": "^1.7.4",
     "prop-types": "^15.5.10",
+    "rimraf": "^2.6.1",
     "webpack": "^3.3.0"
   },
   "peerDependencies": {
