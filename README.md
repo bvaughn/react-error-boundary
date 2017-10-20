@@ -13,7 +13,15 @@ import ErrorBoundary from 'react-error-boundary';
 </ErrorBoundary>
 ```
 
-You can also react to errors (eg for logging) by providing an `onError` callback:
+You can also use it as a HOC:
+
+```jsx
+import {withErrorBoundary} from 'react-error-boundary';
+
+const ComponentWithErrorBoundary = withErrorBoundary(YourComponent);
+```
+
+You can react to errors (eg for logging) by providing an `onError` callback:
 
 ```jsx
 import ErrorBoundary from 'react-error-boundary';
