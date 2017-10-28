@@ -35,7 +35,7 @@ class ErrorBoundary extends Component<Props, State> {
 
     if (typeof onError === 'function') {
       try {
-        onError(error, info ? info.componentStack : '');
+        onError.call(this, error, info ? info.componentStack : "");
       } catch (ignoredError) {}
     }
 

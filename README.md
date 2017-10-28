@@ -13,14 +13,6 @@ import ErrorBoundary from 'react-error-boundary';
 </ErrorBoundary>
 ```
 
-You can also use it as a HOC:
-
-```jsx
-import {withErrorBoundary} from 'react-error-boundary';
-
-const ComponentWithErrorBoundary = withErrorBoundary(YourComponent);
-```
-
 You can react to errors (eg for logging) by providing an `onError` callback:
 
 ```jsx
@@ -45,4 +37,16 @@ const MyFallbackComponent = ({ componentStack, error }) => (
 <ErrorBoundary FallbackComponent={MyFallbackComponent}>
   <ComponentThatMayError />
 </ErrorBoundary>
+```
+
+You can also use it as a HOC:
+
+```jsx
+import {withErrorBoundary} from 'react-error-boundary';
+
+const ComponentWithErrorBoundary = withErrorBoundary(
+  ComponentToDecorate: Element<any>,
+  CustomFallbackComponent: ?Element<any>,
+  onErrorHandler: ?(error: Error, componentStack: string) => void,
+);
 ```
