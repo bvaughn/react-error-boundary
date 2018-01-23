@@ -2,6 +2,8 @@
   "name": "react-error-boundary",
   "version": "1.2.0",
   "description": "Sample reusable React error boundary component for React 16+",
+  "homepage": "https://github.com/bvaughn/react-error-boundary",
+  "repository": "bvaughn/react-error-boundary",
   "files": [
     "dist"
   ],
