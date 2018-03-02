@@ -3,7 +3,7 @@
 Sample reusable React error boundary component for React 16+
 
 The simplest way to use a boundary is to wrap it around any component that may throw an error.
-This will handle errors thrown by that component's descendents also.
+This will handle errors thrown by that component's descendants also.
 
 ```jsx
 import ErrorBoundary from 'react-error-boundary';
