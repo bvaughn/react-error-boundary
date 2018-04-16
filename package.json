@@ -5,7 +5,8 @@
   "homepage": "https://github.com/bvaughn/react-error-boundary",
   "repository": "bvaughn/react-error-boundary",
   "files": [
-    "dist"
+    "dist",
+    "index.d.ts"
   ],
   "main": "dist/commonjs/index.js",
   "scripts": {
