@@ -11,9 +11,8 @@ export interface ErrorBoundaryProps {
 }
 
 export function withErrorBoundary<P>(
-  ComponentToDecorate: React.ComponentType<P>,
   CustomFallbackComponent?: React.ComponentType<FallbackProps>,
   onErrorHandler?: (error: Error, componentStack: string) => void,
-): React.ComponentType<P>;
+): (BaseComponent: React.ComponentType<P>) => React.ComponentType<P>;
 
 export default class ErrorBoundary extends React.Component<ErrorBoundaryProps>{}
