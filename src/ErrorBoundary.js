@@ -60,12 +60,11 @@ class ErrorBoundary extends Component<Props, State> {
 }
 
 export const withErrorBoundary = (
-  Component: ComponentType<any>,
   FallbackComponent: ComponentType<any>,
   onError: Function,
-): Function => props => (
+): Function => (BaseComponent: ComponentType<any>) => props => (
   <ErrorBoundary FallbackComponent={FallbackComponent} onError={onError}>
-    <Component {...props} />
+    <BaseComponent {...props} />
   </ErrorBoundary>
 );
 
