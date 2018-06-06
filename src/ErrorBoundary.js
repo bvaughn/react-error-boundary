@@ -41,6 +41,13 @@ class ErrorBoundary extends Component<Props, State> {
 
     this.setState({error, info});
   }
+  
+  componentWillReceiveProps() {
+    this.setState({
+      error: null,
+      info: null
+    });
+  }
 
   render() {
     const {children, FallbackComponent} = this.props;
