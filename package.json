@@ -21,7 +21,7 @@
     "flow": "flow check src",
     "lint": "eslint 'src/**/*.js'",
     "prettier": "prettier --config .prettierrc --write \"src/**/*.js\"",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "author": "Brian Vaughn <brian.david.vaughn@gmail.com>",
   "license": "MIT",
@@ -29,6 +29,7 @@
     "babel-cli": "^6.24.1",
     "babel-core": "^6.25.0",
     "babel-eslint": "^8.0.1",
+    "babel-jest": "^23.4.2",
     "babel-loader": "^7.1.1",
     "babel-plugin-flow-react-proptypes": "^3.4.2",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.6",
@@ -40,6 +41,8 @@
     "babel-preset-stage-1": "^6.24.1",
     "babel-runtime": "^6.23.0",
     "cross-env": "^5.0.1",
+    "enzyme": "^3.5.0",
+    "enzyme-adapter-react-16": "^1.3.0",
     "eslint": "^4.2.0",
     "eslint-config-fbjs": "^2.0.0",
     "eslint-plugin-babel": "^4.1.2",
@@ -49,8 +52,12 @@
     "eslint-plugin-react": "^7.4.0",
     "eslint-plugin-relay": "^0.0.19",
     "flow-bin": "^0.57.3",
+    "jest": "^23.5.0",
     "prettier": "^1.7.4",
     "prop-types": "^15.5.10",
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2",
+    "react-test-renderer": "^16.4.2",
     "rimraf": "^2.6.1",
     "webpack": "^3.3.0"
   },
