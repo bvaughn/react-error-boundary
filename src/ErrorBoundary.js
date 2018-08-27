@@ -35,6 +35,7 @@ class ErrorBoundary extends Component<Props, State> {
 
     if (typeof onError === 'function') {
       try {
+        /* istanbul ignore next: Ignoring ternary; can’t reproduce missing info in test environment. */
         onError.call(this, error, info ? info.componentStack : '');
       } catch (ignoredError) {}
     }
@@ -49,7 +50,10 @@ class ErrorBoundary extends Component<Props, State> {
     if (error !== null) {
       return (
         <FallbackComponent
-          componentStack={info ? info.componentStack : ''}
+          componentStack={
+            // istanbul ignore next: Ignoring ternary; can’t reproduce missing info in test environment.
+            info ? info.componentStack : ''
+          }
           error={error}
         />
       );
