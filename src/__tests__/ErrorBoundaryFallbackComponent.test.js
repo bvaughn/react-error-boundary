@@ -1,7 +1,7 @@
 import React from 'react';
 import {shallow} from 'enzyme';
 
-import ErrorBoundaryFallbackComponent from './ErrorBoundaryFallbackComponent';
+import ErrorBoundaryFallbackComponent from '../ErrorBoundaryFallbackComponent';
 
 describe('ErrorBoundaryFallbackComponent', () => {
   let mockError;

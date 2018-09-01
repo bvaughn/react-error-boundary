@@ -1,8 +1,8 @@
 import {mount} from 'enzyme';
 import React from 'react';
 
-import ErrorBoundary, {withErrorBoundary} from './ErrorBoundary';
-import ErrorBoundaryFallbackComponent from './ErrorBoundaryFallbackComponent';
+import ErrorBoundary, {withErrorBoundary} from '../ErrorBoundary';
+import ErrorBoundaryFallbackComponent from '../ErrorBoundaryFallbackComponent';
 
 describe('ErrorBoundary', () => {
   let consoleErrorSpy;
