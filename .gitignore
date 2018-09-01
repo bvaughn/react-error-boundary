@@ -6,3 +6,5 @@ node_modules
 npm-debug.log
 styles.css
 .vscode
+yarn-error.log
+.watchmanconfig
