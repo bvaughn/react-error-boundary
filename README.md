@@ -3,6 +3,9 @@ react-error-boundary
 
 **A simple, reusable React error boundary component for React 16+.**
 
+[![NPM registry](https://img.shields.io/npm/v/react-error-boundary.svg?style=for-the-badge)](https://yarnpkg.com/en/package/react-error-boundary)
+[![NPM license](https://img.shields.io/npm/l/react-error-boundary.svg?style=for-the-badge)](LICENSE)
+
 React [v16](https://reactjs.org/blog/2017/09/26/react-v16.0.html) introduced the concept of [“error boundaries”](https://reactjs.org/docs/error-boundaries.html).
 
 This component provides a simple and reusable wrapper that you can use to wrap around your components. Any rendering errors in your components hierarchy can then be gracefully handled.
