@@ -260,4 +260,23 @@ describe('ErrorBoundary', () => {
       ),
     ).toBe(true);
   });
+
+  it('sets the correct displayName for wrapped components', () => {
+    function NormalComponent() {
+      return null;
+    }
+    expect(withErrorBoundary(NormalComponent).displayName).toBe(
+      'WithErrorBoundary(NormalComponent)',
+    );
+
+    function ComponentWithDisplayNameOverride() {
+      return null;
+    }
+    ComponentWithDisplayNameOverride.displayName = 'Override';
+
+    expect(
+      withErrorBoundary(ComponentWithDisplayNameOverride).displayName,
+    ).toBe('WithErrorBoundary(Override)');
+    expect(withErrorBoundary(() => null).displayName).toBe('WithErrorBoundary');
+  });
 });
