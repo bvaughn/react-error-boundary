@@ -63,6 +63,11 @@ class ErrorBoundary extends Component<Props, State> {
   }
 }
 
+
+function getDisplayName(WrappedComponent) {
+  return WrappedComponent.displayName || WrappedComponent.name || 'Component';
+}
+
 export const withErrorBoundary = (
   Component: ComponentType<any>,
   FallbackComponent: ComponentType<any>,
