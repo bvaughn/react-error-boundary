@@ -59,7 +59,7 @@ class ErrorBoundary extends Component<Props, State> {
       );
     }
 
-    return children;
+    return children || null;
   }
 }
 
@@ -67,10 +67,14 @@ export const withErrorBoundary = (
   Component: ComponentType<any>,
   FallbackComponent: ComponentType<any>,
   onError: Function,
-): Function => props => (
-  <ErrorBoundary FallbackComponent={FallbackComponent} onError={onError}>
-    <Component {...props} />
-  </ErrorBoundary>
-);
+): Function => {
+  const Wrapped = props => (
+    <ErrorBoundary FallbackComponent={FallbackComponent} onError={onError}>
+      <Component {...props} />
+    </ErrorBoundary>
+  );
+  Wrapped.displayName = `WithErrorBoundary(${getDisplayName(Component)})`;
+  return Wrapped;
+};
 
 export default ErrorBoundary;
