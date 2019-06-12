@@ -1,6 +1,7 @@
 /** @flow */
 
 import React, {Component} from 'react';
+import type {Node} from 'react';
 import ErrorBoundaryFallbackComponent from './ErrorBoundaryFallbackComponent';
 
 import type {ComponentType} from 'react';
@@ -43,7 +44,7 @@ class ErrorBoundary extends Component<Props, State> {
     this.setState({error, info});
   }
 
-  render() {
+  render(): Node {
     const {children, FallbackComponent} = this.props;
     const {error, info} = this.state;
 

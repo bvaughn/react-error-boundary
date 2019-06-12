@@ -1,6 +1,7 @@
 /** @flow */
 
 import React from 'react';
+import type {Node} from 'react';
 
 type Props = {
   componentStack: string,
@@ -11,7 +12,7 @@ const toTitle = (error: Error, componentStack: string): string => {
   return `${error.toString()}\n\nThis is located at:${componentStack}`;
 };
 
-const ErrorBoundaryFallbackComponent = ({componentStack, error}: Props) => (
+const ErrorBoundaryFallbackComponent = ({componentStack, error}: Props): Node => (
   <div style={style} title={toTitle(error, componentStack)}>
     <svg style={svgStyle} viewBox="0 0 24 24" preserveAspectRatio="xMidYMid">
       <path
