@@ -41,7 +41,7 @@ const myErrorHandler = (error: Error, componentStack: string) => {
 You can also customize the fallback component’s appearance:
 
 ```jsx
-import { ErrorBoundary } from 'react-error-boundary';
+import ErrorBoundary from 'react-error-boundary';
 
 const MyFallbackComponent = ({ componentStack, error }) => (
   <div>
