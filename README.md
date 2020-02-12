@@ -65,7 +65,7 @@ import { ErrorBoundaryFallbackComponent, withErrorBoundary } from 'react-error-b
 const ComponentWithErrorBoundary = withErrorBoundary(
   ComponentThatMayError,
   ErrorBoundaryFallbackComponent, // Or pass in your own fallback component
-  onErrorHandler: (error, componentStack) => {
+  (error, componentStack) => { // Error Handler 
     // Do something with the error
     // E.g. log to an error logging client here
   },
