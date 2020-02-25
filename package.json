@@ -54,7 +54,6 @@
     "flow-bin": "^0.57.3",
     "jest": "^23.5.0",
     "prettier": "^1.7.4",
-    "prop-types": "^15.5.10",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
     "react-test-renderer": "^16.4.2",
