@@ -16,4 +16,8 @@ export function withErrorBoundary<P>(
   onErrorHandler?: (error: Error, componentStack: string) => void,
 ): React.ComponentType<P>;
 
-export default class ErrorBoundary extends React.Component<ErrorBoundaryProps>{}
+class ErrorBoundary extends React.Component<ErrorBoundaryProps>{}
+
+export default ErrorBoundary;
+
+export { ErrorBoundary };
