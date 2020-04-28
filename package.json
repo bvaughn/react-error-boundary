@@ -1,67 +1,63 @@
 {
   "name": "react-error-boundary",
-  "version": "1.2.4",
-  "description": "Sample reusable React error boundary component for React 16+",
-  "homepage": "https://github.com/bvaughn/react-error-boundary",
-  "repository": "bvaughn/react-error-boundary",
-  "files": [
-    "dist",
-    "index.d.ts"
+  "version": "0.0.0-development",
+  "description": "Simple reusable React error boundary component",
+  "main": "dist/react-error-boundary.cjs.js",
+  "module": "dist/react-error-boundary.esm.js",
+  "browser": "dist/react-error-boundary.umd.js",
+  "sideEffects": false,
+  "keywords": [
+    "react",
+    "error boundary",
+    "error handling"
   ],
-  "main": "dist/commonjs/index.js",
-  "scripts": {
-    "build": "npm run build:commonjs && npm run build:es && npm run build:umd",
-    "build:commonjs": "npm run clean:commonjs && cross-env NODE_ENV=production cross-env BABEL_ENV=commonjs babel src --out-dir dist/commonjs",
-    "build:es": "npm run clean:es && cross-env NODE_ENV=production cross-env BABEL_ENV=es babel src --out-dir dist/es",
-    "build:umd": "npm run clean:umd && cross-env NODE_ENV=production webpack --config webpack.config.umd.js --bail",
-    "clean": "npm run clean:commonjs && npm run clean:es && npm run clean:umd",
-    "clean:commonjs": "rimraf dist/commonjs",
-    "clean:es": "rimraf dist/es",
-    "clean:umd": "rimraf dist/umd",
-    "flow": "flow check src",
-    "lint": "eslint 'src/**/*.js'",
-    "prettier": "prettier --config .prettierrc --write \"src/**/*.js\"",
-    "test": "jest"
-  },
   "author": "Brian Vaughn <brian.david.vaughn@gmail.com>",
   "license": "MIT",
+  "engines": {
+    "node": ">=10",
+    "npm": ">=6"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bvaughn/react-error-boundary"
+  },
+  "bugs": {
+    "url": "https://github.com/bvaughn/react-error-boundary/issues"
+  },
+  "homepage": "https://github.com/bvaughn/react-error-boundary#readme",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "kcd-scripts build --bundle",
+    "lint": "kcd-scripts lint",
+    "setup": "npm install && npm run validate -s",
+    "test": "kcd-scripts test",
+    "test:update": "npm test -- --updateSnapshot --coverage",
+    "validate": "kcd-scripts validate",
+    "semantic-release": "semantic-release"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.8.4"
+  },
   "devDependencies": {
-    "babel-cli": "^6.24.1",
-    "babel-core": "^6.25.0",
-    "babel-eslint": "^8.0.1",
-    "babel-jest": "^23.4.2",
-    "babel-loader": "^7.1.1",
-    "babel-plugin-flow-react-proptypes": "^3.4.2",
-    "babel-plugin-transform-react-remove-prop-types": "^0.4.6",
-    "babel-plugin-transform-runtime": "^6.23.0",
-    "babel-plugin-typecheck": "^3.9.0",
-    "babel-preset-es2015": "^6.24.1",
-    "babel-preset-es2015-rollup": "^3.0.0",
-    "babel-preset-react": "^6.24.1",
-    "babel-preset-stage-1": "^6.24.1",
-    "babel-runtime": "^6.23.0",
-    "cross-env": "^5.0.1",
-    "enzyme": "^3.5.0",
-    "enzyme-adapter-react-16": "^1.3.0",
-    "eslint": "^4.2.0",
-    "eslint-config-fbjs": "^2.0.0",
-    "eslint-plugin-babel": "^4.1.2",
-    "eslint-plugin-flowtype": "^2.39.1",
-    "eslint-plugin-jsx-a11y": "^6.0.2",
-    "eslint-plugin-prettier": "^2.3.1",
-    "eslint-plugin-react": "^7.4.0",
-    "eslint-plugin-relay": "^0.0.19",
-    "flow-bin": "^0.57.3",
-    "jest": "^23.5.0",
-    "prettier": "^1.7.4",
-    "prop-types": "^15.5.10",
-    "react": "^16.4.2",
-    "react-dom": "^16.4.2",
-    "react-test-renderer": "^16.4.2",
-    "rimraf": "^2.6.1",
-    "webpack": "^3.3.0"
+    "@testing-library/jest-dom": "^5.5.0",
+    "@testing-library/react": "^10.0.3",
+    "@testing-library/user-event": "^10.1.0",
+    "kcd-scripts": "^5.10.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "typescript": "^3.8.3",
+    "semantic-release": "^17.0.7"
   },
   "peerDependencies": {
-    "react": "^16.0.0-beta.1"
+    "react": ">=16.0.0"
+  },
+  "eslintConfig": {
+    "extends": "./node_modules/kcd-scripts/eslint.js",
+    "rules": {
+      "react/prop-types": "off",
+      "react/no-did-update-set-state": "off"
+    }
   }
 }

@@ -1,10 +1,9 @@
-.DS_Store
-build
+node_modules
 coverage
 dist
-node_modules
-npm-debug.log
-styles.css
-.vscode
-yarn-error.log
-.watchmanconfig
+.DS_Store
+
+# these cause more harm than good
+# when working with contributors
+package-lock.json
+yarn.lock

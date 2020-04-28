@@ -1,19 +1,30 @@
-import * as React from 'react';
+import * as React from 'react'
 
 export interface FallbackProps {
-  error?: Error;
-  componentStack?: string;
+  error?: Error
+  componentStack?: string
+  resetErrorBoundary: () => void
 }
 
-export interface ErrorBoundaryProps {
-  onError?: (error: Error, componentStack: string) => void;
-  FallbackComponent?: React.ComponentType<FallbackProps>;
+export interface ErrorBoundaryPropsWithComponent {
+  onError?: (error: Error, componentStack: string) => void
+  FallbackComponent: React.ComponentType<FallbackProps>
 }
+
+export interface ErrorBoundaryPropsWithRender {
+  onError?: (error: Error, componentStack: string) => void
+  fallbackRender: (props: FallbackProps) => React.ReactElement<any, any> | null
+}
+
+export type ErrorBoundaryProps =
+  | ErrorBoundaryPropsWithComponent
+  | ErrorBoundaryPropsWithRender
+
+export default class ErrorBoundary extends React.Component<
+  ErrorBoundaryProps
+> {}
 
 export function withErrorBoundary<P>(
   ComponentToDecorate: React.ComponentType<P>,
-  CustomFallbackComponent?: React.ComponentType<FallbackProps>,
-  onErrorHandler?: (error: Error, componentStack: string) => void,
-): React.ComponentType<P>;
-
-export default class ErrorBoundary extends React.Component<ErrorBoundaryProps>{}
+  errorBoundaryProps: ErrorBoundaryProps,
+): React.ComponentType<P>
