@@ -20,11 +20,11 @@ class ErrorBoundary extends React.Component {
         error,
         resetErrorBoundary: this.resetErrorBoundary,
       }
-      if (fallback) {
+      if (React.isValidElement(fallback)) {
         return fallback
-      } else if (fallbackRender) {
+      } else if (typeof fallbackRender === 'function') {
         return fallbackRender(props)
-      } else if (FallbackComponent) {
+      } else if (typeof FallbackComponent === 'function') {
         return <FallbackComponent {...props} />
       } else {
         throw new Error(
