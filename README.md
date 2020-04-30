@@ -205,7 +205,7 @@ MIT
 <!-- prettier-ignore-start -->
 [npm]: https://www.npmjs.com
 [node]: https://nodejs.org
-[build-badge]: https://img.shields.io/travis/org/bvaughn/react-error-boundary.svg?style=flat-square
+[build-badge]: https://img.shields.io/travis/bvaughn/react-error-boundary.svg?style=flat-square
 [build]: https://travis-ci.org/bvaughn/react-error-boundary
 [coverage-badge]: https://img.shields.io/codecov/c/github/bvaughn/react-error-boundary.svg?style=flat-square
 [coverage]: https://codecov.io/github/bvaughn/react-error-boundary

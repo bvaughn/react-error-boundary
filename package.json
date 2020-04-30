@@ -1,6 +1,6 @@
 {
   "name": "react-error-boundary",
-  "version": "0.0.0-development",
+  "version": "0.0.0-semantically-released",
   "description": "Simple reusable React error boundary component",
   "main": "dist/react-error-boundary.cjs.js",
   "module": "dist/react-error-boundary.esm.js",
