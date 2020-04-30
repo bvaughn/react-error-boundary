@@ -24,7 +24,7 @@ export class ErrorBoundary extends React.Component<
   ErrorBoundaryProps
 > {}
 
-export withErrorBoundary<P>(
+export function withErrorBoundary<P>(
   ComponentToDecorate: React.ComponentType<P>,
   errorBoundaryProps: ErrorBoundaryProps,
 ): React.ComponentType<P>
