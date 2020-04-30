@@ -20,11 +20,11 @@ export type ErrorBoundaryProps =
   | ErrorBoundaryPropsWithComponent
   | ErrorBoundaryPropsWithRender
 
-export default class ErrorBoundary extends React.Component<
+export class ErrorBoundary extends React.Component<
   ErrorBoundaryProps
 > {}
 
-export function withErrorBoundary<P>(
+export withErrorBoundary<P>(
   ComponentToDecorate: React.ComponentType<P>,
   errorBoundaryProps: ErrorBoundaryProps,
 ): React.ComponentType<P>
