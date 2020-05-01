@@ -273,6 +273,11 @@ state (which will result in rendering the `children` again). You should use this
 to ensure that re-rendering the children will not result in a repeat of the same
 error happening again.
 
+`onReset` will be called with whatever `resetErrorBoundary` is called with. In
+the case of `resetKeys`, it's called with the `prevResetKeys` and the
+`resetKeys`. This can help you differentiate between a reset that occurred due
+to a "try again" button click and one trigged by a `resetKeys` change.
+
 ### `resetKeys`
 
 Sometimes an error happens as a result of local state to the component that's
