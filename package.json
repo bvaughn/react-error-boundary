@@ -26,7 +26,8 @@
   },
   "homepage": "https://github.com/bvaughn/react-error-boundary#readme",
   "files": [
-    "dist"
+    "dist",
+    "index.d.ts"
   ],
   "scripts": {
     "build": "kcd-scripts build --bundle",
