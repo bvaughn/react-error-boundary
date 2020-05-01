@@ -36,7 +36,15 @@ then be gracefully handled.
 - [Installation](#installation)
 - [Usage](#usage)
   - [Error Recovery](#error-recovery)
-  - [fallback prop](#fallback-prop)
+- [API](#api)
+  - [`ErrorBoundary` props](#errorboundary-props)
+  - [`children`](#children)
+  - [`FallbackComponent`](#fallbackcomponent)
+  - [`fallbackRender`](#fallbackrender)
+  - [`fallback`](#fallback)
+  - [`onError`](#onerror)
+  - [`onReset`](#onreset)
+  - [`resetKeys`](#resetkeys)
 - [Issues](#issues)
   - [🐛 Bugs](#-bugs)
   - [💡 Feature Requests](#-feature-requests)
@@ -62,20 +70,26 @@ its descendants too.
 ```jsx
 import {ErrorBoundary} from 'react-error-boundary'
 
-function ErrorFallback({error, componentStack}) {
+function ErrorFallback({error, componentStack, resetErrorBoundary}) {
   return (
     <div role="alert">
       <p>Something went wrong:</p>
       <pre>{error.message}</pre>
       <pre>{componentStack}</pre>
+      <button onClick={resetErrorBoundary}>Try again</button>
     </div>
   )
 }
 
 const ui = (
-  <ErrorBoundary FallbackComponent={ErrorFallback}>
+  <ErrorBoundary
+    FallbackComponent={ErrorFallback}
+    onReset={() => {
+      // reset the state of your app so the error doesn't happen again
+    }}
+  >
     <ComponentThatMayError />
-  </ErrorBoundary>,
+  </ErrorBoundary>
 )
 ```
 
@@ -115,27 +129,89 @@ const ui = <ComponentWithErrorBoundary />
 
 ### Error Recovery
 
-Often you may want to recover from the error. You can do this using the
-`resetErrorBoundary` prop:
+In the event of an error if you want to recover from that error and allow the
+user to "try again" or continue with their work, you'll need a way to reset the
+ErrorBoundary's internal state. You can do this various ways, but here's the
+most idiomatic approach:
 
 ```jsx
-function ErrorFallback({error, resetErrorBoundary}) {
+function ErrorFallback({error, componentStack, resetErrorBoundary}) {
   return (
     <div role="alert">
-      <div>Oh no</div>
+      <p>Something went wrong:</p>
       <pre>{error.message}</pre>
+      <pre>{componentStack}</pre>
       <button onClick={resetErrorBoundary}>Try again</button>
+    </div>
+  )
+}
+
+function Bomb() {
+  throw new Error('💥 CABOOM 💥')
+}
+
+function App() {
+  const [explode, setExplode] = React.useState(false)
+  return (
+    <div>
+      <button onClick={() => setExplode(e => !e)}>toggle explode</button>
+      <ErrorBoundary
+        FallbackComponent={ErrorFallback}
+        onReset={() => setExplode(false)}
+        resetKeys={[explode]}
+      >
+        {explode ? <Bomb /> : null}
+      </ErrorBoundary>
     </div>
   )
 }
 ```
 
-However, normally "trying again" like that will just result in the user
-experiencing the same error. Typically some other state in your app will need to
-be reset as well. The problem is, the `ErrorFallback` component won't usually
-have access to the state that needs to be reset.
+So, with this setup, you've got a button which when clicked will trigger an
+error. Clicking the button again will trigger a re-render which recovers from
+the error (we no longer render the `<Bomb />`). We also pass the `resetKeys`
+prop which is an array of elements for the `ErrorBoundary` to check each render
+(if there's currently an error state). If any of those elements change between
+renders, then the `ErrorBoundary` will reset the state which will re-render the
+children.
 
-So alternatively, you can use the `fallbackRender` prop:
+We have the `onReset` prop so that if the user clicks the "Try again" button we
+have an opportunity to re-initialize our state into a good place before
+attempting to re-render the children.
+
+This combination allows us both the opportunity to give the user something
+specific to do to recover from the error, and recover from the error by
+interacting with other areas of the app that might fix things for us. It's hard
+to describe here, but hopefully it makes sense when you apply it to your
+specific scenario.
+
+## API
+
+### `ErrorBoundary` props
+
+### `children`
+
+This is what you want rendered when everything's working fine. If there's an
+error that React can handle within the children of the `ErrorBoundary`, the
+`ErrorBoundary` will catch that and allow you to handle it gracefully.
+
+### `FallbackComponent`
+
+This is a component you want rendered in the event of an error. As props it will
+be passed the `error`, `componentStack`, and `resetErrorBoundary` (which will
+reset the error boundary's state when called, useful for a "try again" button
+when used in combination with the `onReset` prop).
+
+This is required if no `fallback` or `fallbackRender` prop is provided.
+
+### `fallbackRender`
+
+This is a render-prop based API that allows you to inline your error fallback UI
+into the component that's using the `ErrorBoundary`. This is useful if you need
+access to something that's in the scope of the component you're using.
+
+It will be called with an object that has `error`, `componentStack`, and
+`resetErrorBoundary`:
 
 ```jsx
 const ui = (
@@ -146,7 +222,10 @@ const ui = (
         <pre>{error.message}</pre>
         <button
           onClick={() => {
-            resetComponentState() // <-- this is why the fallbackRender is useful
+            // this next line is why the fallbackRender is useful
+            resetComponentState()
+            // though you could accomplish this with a combination
+            // of the FallbackCallback and onReset props as well.
             resetErrorBoundary()
           }}
         >
@@ -165,7 +244,9 @@ around. Unfortunately, the current React Error Boundary API only supports class
 components at the moment, so render props are the best solution we have to this
 problem.
 
-### fallback prop
+This is required if no `FallbackComponent` or `fallback` prop is provided.
+
+### `fallback`
 
 In the spirit of consistency with the `React.Suspense` component, we also
 support a simple `fallback` prop which you can use for a generic fallback. This
@@ -179,6 +260,28 @@ const ui = (
   </ErrorBoundary>
 )
 ```
+
+### `onError`
+
+This will be called when there's been an error that the `ErrorBoundary` has
+handled. It will be called with two arguments: `error`, `componentStack`.
+
+### `onReset`
+
+This will be called immediately before the `ErrorBoundary` resets it's internal
+state (which will result in rendering the `children` again). You should use this
+to ensure that re-rendering the children will not result in a repeat of the same
+error happening again.
+
+### `resetKeys`
+
+Sometimes an error happens as a result of local state to the component that's
+rendering the error. If this is the case, then you can pass `resetKeys` which is
+an array of values. If the `ErrorBoundary` is in an error state, then it will
+check these values each render and if they change from one render to the next,
+then it will reset automatically (triggering a re-render of the `children`).
+
+See the recovery examples above.
 
 ## Issues
 

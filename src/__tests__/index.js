@@ -251,6 +251,42 @@ test('requires either a fallback, fallbackRender, or FallbackComponent', () => {
   console.error.mockClear()
 })
 
+test('supports automatic reset of error boundary when resetKeys change', () => {
+  function App() {
+    const [explode, setExplode] = React.useState(false)
+    return (
+      <div>
+        <button onClick={() => setExplode(e => !e)}>toggle explode</button>
+        <ErrorBoundary
+          FallbackComponent={ErrorFallback}
+          onReset={() => setExplode(false)}
+          resetKeys={[explode]}
+        >
+          {explode ? <Bomb /> : null}
+        </ErrorBoundary>
+      </div>
+    )
+  }
+  render(<App />)
+  userEvent.click(screen.getByText('toggle explode'))
+
+  screen.getByRole('alert')
+  expect(console.error).toHaveBeenCalledTimes(2)
+  console.error.mockClear()
+
+  userEvent.click(screen.getByText(/try again/i))
+  expect(screen.queryByRole('alert')).not.toBeInTheDocument()
+
+  userEvent.click(screen.getByText('toggle explode'))
+  screen.getByRole('alert')
+  expect(console.error).toHaveBeenCalledTimes(2)
+  console.error.mockClear()
+
+  userEvent.click(screen.getByText('toggle explode'))
+  expect(screen.queryByRole('alert')).not.toBeInTheDocument()
+  expect(console.error).not.toHaveBeenCalled()
+})
+
 /*
 eslint
   no-console: "off",
