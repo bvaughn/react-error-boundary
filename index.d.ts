@@ -7,6 +7,7 @@ export interface FallbackProps {
 }
 
 export interface ErrorBoundaryPropsWithComponent {
+  onResetKeysChange?: (prevResetKeys: Array<any>, resetKeys: Array<any>) => void
   onReset?: () => void
   onError?: (error: Error, componentStack: string) => void
   resetKeys?: Array<any>
@@ -14,6 +15,7 @@ export interface ErrorBoundaryPropsWithComponent {
 }
 
 export interface ErrorBoundaryPropsWithRender {
+  onResetKeysChange?: (prevResetKeys: Array<any>, resetKeys: Array<any>) => void
   onReset?: () => void
   onError?: (error: Error, componentStack: string) => void
   resetKeys?: Array<any>
@@ -21,6 +23,7 @@ export interface ErrorBoundaryPropsWithRender {
 }
 
 export interface ErrorBoundaryPropsWithFallback {
+  onResetKeysChange?: (prevResetKeys: Array<any>, resetKeys: Array<any>) => void
   onReset?: () => void
   onError?: (error: Error, componentStack: string) => void
   resetKeys?: Array<any>

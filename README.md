@@ -45,6 +45,7 @@ then be gracefully handled.
   - [`onError`](#onerror)
   - [`onReset`](#onreset)
   - [`resetKeys`](#resetkeys)
+  - [`onResetKeysChange`](#onresetkeyschange)
 - [Issues](#issues)
   - [🐛 Bugs](#-bugs)
   - [💡 Feature Requests](#-feature-requests)
@@ -273,10 +274,10 @@ state (which will result in rendering the `children` again). You should use this
 to ensure that re-rendering the children will not result in a repeat of the same
 error happening again.
 
-`onReset` will be called with whatever `resetErrorBoundary` is called with. In
-the case of `resetKeys`, it's called with the `prevResetKeys` and the
-`resetKeys`. This can help you differentiate between a reset that occurred due
-to a "try again" button click and one trigged by a `resetKeys` change.
+`onReset` will be called with whatever `resetErrorBoundary` is called with.
+
+**Important**: `onReset` will _not_ be called when reset happens from a change
+in `resetKeys`. Use `onResetKeysChange` for that.
 
 ### `resetKeys`
 
@@ -287,6 +288,11 @@ check these values each render and if they change from one render to the next,
 then it will reset automatically (triggering a re-render of the `children`).
 
 See the recovery examples above.
+
+### `onResetKeysChange`
+
+This is called when the `resetKeys` are changed (triggering a reset of the
+`ErrorBoundary`). It's called with the `prevResetKeys` and the `resetKeys`.
 
 ## Issues
 
