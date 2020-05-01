@@ -1,13 +1,27 @@
 import React from 'react'
 
+const changedArray = (a = [], b = []) =>
+  a.some((item, index) => !Object.is(item, b[index]))
+
 const initialState = {error: null, info: null}
 class ErrorBoundary extends React.Component {
   state = initialState
-  resetErrorBoundary = () => this.setState(initialState)
+  resetErrorBoundary = () => {
+    this.props.onReset?.()
+    this.setState(initialState)
+  }
 
   componentDidCatch(error, info) {
     this.props.onError?.(error, info?.componentStack)
     this.setState({error, info})
+  }
+
+  componentDidUpdate(prevProps) {
+    const {error} = this.state
+    const {resetKeys} = this.props
+    if (error !== null && changedArray(prevProps.resetKeys, resetKeys)) {
+      this.resetErrorBoundary()
+    }
   }
 
   render() {
