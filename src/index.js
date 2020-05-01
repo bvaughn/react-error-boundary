@@ -6,8 +6,8 @@ const changedArray = (a = [], b = []) =>
 const initialState = {error: null, info: null}
 class ErrorBoundary extends React.Component {
   state = initialState
-  resetErrorBoundary = () => {
-    this.props.onReset?.()
+  resetErrorBoundary = (...args) => {
+    this.props.onReset?.(...args)
     this.setState(initialState)
   }
 
@@ -20,7 +20,7 @@ class ErrorBoundary extends React.Component {
     const {error} = this.state
     const {resetKeys} = this.props
     if (error !== null && changedArray(prevProps.resetKeys, resetKeys)) {
-      this.resetErrorBoundary()
+      this.resetErrorBoundary(prevProps.resetKeys, resetKeys)
     }
   }
 

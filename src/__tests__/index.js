@@ -252,14 +252,30 @@ test('requires either a fallback, fallbackRender, or FallbackComponent', () => {
 })
 
 test('supports automatic reset of error boundary when resetKeys change', () => {
+  const handleReset = jest.fn()
+  const TRY_AGAIN_ARG1 = 'TRY_AGAIN_ARG1'
+  const TRY_AGAIN_ARG2 = 'TRY_AGAIN_ARG2'
   function App() {
     const [explode, setExplode] = React.useState(false)
     return (
       <div>
         <button onClick={() => setExplode(e => !e)}>toggle explode</button>
         <ErrorBoundary
-          FallbackComponent={ErrorFallback}
-          onReset={() => setExplode(false)}
+          fallbackRender={({resetErrorBoundary}) => (
+            <div role="alert">
+              <button
+                onClick={() =>
+                  resetErrorBoundary(TRY_AGAIN_ARG1, TRY_AGAIN_ARG2)
+                }
+              >
+                Try again
+              </button>
+            </div>
+          )}
+          onReset={(...args) => {
+            setExplode(false)
+            handleReset(...args)
+          }}
           resetKeys={[explode]}
         >
           {explode ? <Bomb /> : null}
@@ -268,21 +284,32 @@ test('supports automatic reset of error boundary when resetKeys change', () => {
     )
   }
   render(<App />)
-  userEvent.click(screen.getByText('toggle explode'))
 
+  // blow it up
+  userEvent.click(screen.getByText('toggle explode'))
   screen.getByRole('alert')
   expect(console.error).toHaveBeenCalledTimes(2)
   console.error.mockClear()
 
+  // recover via try again button
   userEvent.click(screen.getByText(/try again/i))
   expect(screen.queryByRole('alert')).not.toBeInTheDocument()
+  expect(console.error).not.toHaveBeenCalled()
+  expect(handleReset).toHaveBeenCalledWith(TRY_AGAIN_ARG1, TRY_AGAIN_ARG2)
+  expect(handleReset).toHaveBeenCalledTimes(1)
+  handleReset.mockClear()
 
+  // blow it up again
   userEvent.click(screen.getByText('toggle explode'))
   screen.getByRole('alert')
   expect(console.error).toHaveBeenCalledTimes(2)
   console.error.mockClear()
 
+  // recover via resetKeys change
   userEvent.click(screen.getByText('toggle explode'))
+  expect(handleReset).toHaveBeenCalledWith([true], [false])
+  expect(handleReset).toHaveBeenCalledTimes(1)
+  handleReset.mockClear()
   expect(screen.queryByRole('alert')).not.toBeInTheDocument()
   expect(console.error).not.toHaveBeenCalled()
 })
