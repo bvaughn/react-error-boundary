@@ -255,6 +255,7 @@ test('supports automatic reset of error boundary when resetKeys change', () => {
   const handleReset = jest.fn()
   const TRY_AGAIN_ARG1 = 'TRY_AGAIN_ARG1'
   const TRY_AGAIN_ARG2 = 'TRY_AGAIN_ARG2'
+  const handleResetKeysChange = jest.fn()
   function App() {
     const [explode, setExplode] = React.useState(false)
     return (
@@ -276,6 +277,7 @@ test('supports automatic reset of error boundary when resetKeys change', () => {
             setExplode(false)
             handleReset(...args)
           }}
+          onResetKeysChange={handleResetKeysChange}
           resetKeys={[explode]}
         >
           {explode ? <Bomb /> : null}
@@ -298,6 +300,7 @@ test('supports automatic reset of error boundary when resetKeys change', () => {
   expect(handleReset).toHaveBeenCalledWith(TRY_AGAIN_ARG1, TRY_AGAIN_ARG2)
   expect(handleReset).toHaveBeenCalledTimes(1)
   handleReset.mockClear()
+  expect(handleResetKeysChange).not.toHaveBeenCalled()
 
   // blow it up again
   userEvent.click(screen.getByText('toggle explode'))
@@ -307,9 +310,10 @@ test('supports automatic reset of error boundary when resetKeys change', () => {
 
   // recover via resetKeys change
   userEvent.click(screen.getByText('toggle explode'))
-  expect(handleReset).toHaveBeenCalledWith([true], [false])
-  expect(handleReset).toHaveBeenCalledTimes(1)
-  handleReset.mockClear()
+  expect(handleResetKeysChange).toHaveBeenCalledWith([true], [false])
+  expect(handleResetKeysChange).toHaveBeenCalledTimes(1)
+  handleResetKeysChange.mockClear()
+  expect(handleReset).not.toHaveBeenCalled()
   expect(screen.queryByRole('alert')).not.toBeInTheDocument()
   expect(console.error).not.toHaveBeenCalled()
 })
