@@ -35,21 +35,19 @@
     "setup": "npm install && npm run validate -s",
     "test": "kcd-scripts test",
     "test:update": "npm test -- --updateSnapshot --coverage",
-    "validate": "kcd-scripts validate",
-    "semantic-release": "semantic-release"
+    "validate": "kcd-scripts validate"
   },
   "dependencies": {
-    "@babel/runtime": "^7.8.4"
+    "@babel/runtime": "^7.9.6"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.5.0",
-    "@testing-library/react": "^10.0.3",
+    "@testing-library/react": "^10.0.4",
     "@testing-library/user-event": "^10.1.0",
-    "kcd-scripts": "^5.10.0",
+    "kcd-scripts": "^5.11.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "typescript": "^3.8.3",
-    "semantic-release": "^17.0.7"
+    "typescript": "^3.8.3"
   },
   "peerDependencies": {
     "react": ">=16.0.0"
