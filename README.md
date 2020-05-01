@@ -60,7 +60,7 @@ that may throw an error. This will handle errors thrown by that component and
 its descendants too.
 
 ```jsx
-import ErrorBoundary from 'react-error-boundary'
+import {ErrorBoundary} from 'react-error-boundary'
 
 function ErrorFallback({error, componentStack}) {
   return (
@@ -82,7 +82,7 @@ const ui = (
 You can react to errors (e.g. for logging) by providing an `onError` callback:
 
 ```jsx
-import ErrorBoundary from 'react-error-boundary'
+import {ErrorBoundary} from 'react-error-boundary'
 
 const myErrorHandler = (error: Error, componentStack: string) => {
   // Do something with the error
