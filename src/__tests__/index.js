@@ -251,6 +251,7 @@ test('requires either a fallback, fallbackRender, or FallbackComponent', () => {
   console.error.mockClear()
 })
 
+// eslint-disable-next-line max-statements
 test('supports automatic reset of error boundary when resetKeys change', () => {
   const handleReset = jest.fn()
   const TRY_AGAIN_ARG1 = 'TRY_AGAIN_ARG1'
@@ -258,6 +259,7 @@ test('supports automatic reset of error boundary when resetKeys change', () => {
   const handleResetKeysChange = jest.fn()
   function App() {
     const [explode, setExplode] = React.useState(false)
+    const [extra, setExtra] = React.useState(false)
     return (
       <div>
         <button onClick={() => setExplode(e => !e)}>toggle explode</button>
@@ -271,6 +273,9 @@ test('supports automatic reset of error boundary when resetKeys change', () => {
               >
                 Try again
               </button>
+              <button onClick={() => setExtra(e => !e)}>
+                toggle extra resetKey
+              </button>
             </div>
           )}
           onReset={(...args) => {
@@ -278,9 +283,9 @@ test('supports automatic reset of error boundary when resetKeys change', () => {
             handleReset(...args)
           }}
           onResetKeysChange={handleResetKeysChange}
-          resetKeys={[explode]}
+          resetKeys={extra ? [explode, extra] : [explode]}
         >
-          {explode ? <Bomb /> : null}
+          {explode || extra ? <Bomb /> : null}
         </ErrorBoundary>
       </div>
     )
@@ -314,6 +319,39 @@ test('supports automatic reset of error boundary when resetKeys change', () => {
   expect(handleResetKeysChange).toHaveBeenCalledTimes(1)
   handleResetKeysChange.mockClear()
   expect(handleReset).not.toHaveBeenCalled()
+  expect(screen.queryByRole('alert')).not.toBeInTheDocument()
+  expect(console.error).not.toHaveBeenCalled()
+
+  // blow it up again
+  userEvent.click(screen.getByText('toggle explode'))
+  screen.getByRole('alert')
+  expect(console.error).toHaveBeenCalledTimes(2)
+  console.error.mockClear()
+
+  // check it calls onResetKeysChange if resetKeys length changes
+  userEvent.click(screen.getByText('toggle extra resetKey'))
+  expect(handleResetKeysChange).toHaveBeenCalledTimes(1)
+  expect(handleResetKeysChange).toHaveBeenCalledWith([true], [true, true])
+  handleResetKeysChange.mockClear()
+  expect(console.error).toHaveBeenCalledTimes(2)
+  console.error.mockClear()
+  screen.getByRole('alert')
+  userEvent.click(screen.getByText('toggle explode'))
+  expect(handleReset).not.toHaveBeenCalled()
+  expect(handleResetKeysChange).toHaveBeenCalledTimes(1)
+  expect(handleResetKeysChange).toHaveBeenCalledWith(
+    [true, true],
+    [false, true],
+  )
+  handleResetKeysChange.mockClear()
+  expect(console.error).toHaveBeenCalledTimes(2)
+  screen.getByRole('alert')
+  console.error.mockClear()
+  userEvent.click(screen.getByText('toggle extra resetKey'))
+  expect(handleReset).not.toHaveBeenCalled()
+  expect(handleResetKeysChange).toHaveBeenCalledTimes(1)
+  expect(handleResetKeysChange).toHaveBeenCalledWith([false, true], [false])
+  handleResetKeysChange.mockClear()
   expect(screen.queryByRole('alert')).not.toBeInTheDocument()
   expect(console.error).not.toHaveBeenCalled()
 })
