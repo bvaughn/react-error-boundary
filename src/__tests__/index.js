@@ -328,14 +328,18 @@ test('supports automatic reset of error boundary when resetKeys change', () => {
   expect(console.error).toHaveBeenCalledTimes(2)
   console.error.mockClear()
 
-  // check it calls onResetKeysChange if resetKeys length changes
+  // toggles adding an extra resetKey to the array
+  // expect error to re-render
   userEvent.click(screen.getByText('toggle extra resetKey'))
   expect(handleResetKeysChange).toHaveBeenCalledTimes(1)
   expect(handleResetKeysChange).toHaveBeenCalledWith([true], [true, true])
   handleResetKeysChange.mockClear()
+  screen.getByRole('alert')
   expect(console.error).toHaveBeenCalledTimes(2)
   console.error.mockClear()
-  screen.getByRole('alert')
+
+  // toggle explode back to false
+  // expect error to re-render again
   userEvent.click(screen.getByText('toggle explode'))
   expect(handleReset).not.toHaveBeenCalled()
   expect(handleResetKeysChange).toHaveBeenCalledTimes(1)
@@ -343,10 +347,13 @@ test('supports automatic reset of error boundary when resetKeys change', () => {
     [true, true],
     [false, true],
   )
+  screen.getByRole('alert')
   handleResetKeysChange.mockClear()
   expect(console.error).toHaveBeenCalledTimes(2)
-  screen.getByRole('alert')
   console.error.mockClear()
+
+  // toggle extra resetKey
+  // expect error to be reset
   userEvent.click(screen.getByText('toggle extra resetKey'))
   expect(handleReset).not.toHaveBeenCalled()
   expect(handleResetKeysChange).toHaveBeenCalledTimes(1)
