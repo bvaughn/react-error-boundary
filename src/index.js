@@ -1,7 +1,7 @@
 import React from 'react'
 
 const changedArray = (a = [], b = []) =>
-  a.some((item, index) => !Object.is(item, b[index]))
+  a.length !== b.length || a.some((item, index) => !Object.is(item, b[index]))
 
 const initialState = {error: null, info: null}
 class ErrorBoundary extends React.Component {
