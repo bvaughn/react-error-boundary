@@ -5,6 +5,7 @@
   "main": "dist/react-error-boundary.cjs.js",
   "module": "dist/react-error-boundary.esm.js",
   "browser": "dist/react-error-boundary.umd.js",
+  "types": "index.d.ts",
   "sideEffects": false,
   "keywords": [
     "react",
