@@ -41,3 +41,7 @@ export function withErrorBoundary<P>(
   ComponentToDecorate: React.ComponentType<P>,
   errorBoundaryProps: ErrorBoundaryProps,
 ): React.ComponentType<P>
+
+export function useErrorHandler<P = Error>(
+  error?: P,
+): React.Dispatch<React.SetStateAction<P>>
