@@ -294,7 +294,7 @@ test('supports automatic reset of error boundary when resetKeys change', () => {
 
   // blow it up
   userEvent.click(screen.getByText('toggle explode'))
-  screen.getByRole('alert')
+  expect(screen.getByRole('alert')).toBeInTheDocument()
   expect(console.error).toHaveBeenCalledTimes(2)
   console.error.mockClear()
 
@@ -309,7 +309,7 @@ test('supports automatic reset of error boundary when resetKeys change', () => {
 
   // blow it up again
   userEvent.click(screen.getByText('toggle explode'))
-  screen.getByRole('alert')
+  expect(screen.getByRole('alert')).toBeInTheDocument()
   expect(console.error).toHaveBeenCalledTimes(2)
   console.error.mockClear()
 
@@ -324,7 +324,7 @@ test('supports automatic reset of error boundary when resetKeys change', () => {
 
   // blow it up again
   userEvent.click(screen.getByText('toggle explode'))
-  screen.getByRole('alert')
+  expect(screen.getByRole('alert')).toBeInTheDocument()
   expect(console.error).toHaveBeenCalledTimes(2)
   console.error.mockClear()
 
@@ -334,7 +334,7 @@ test('supports automatic reset of error boundary when resetKeys change', () => {
   expect(handleResetKeysChange).toHaveBeenCalledTimes(1)
   expect(handleResetKeysChange).toHaveBeenCalledWith([true], [true, true])
   handleResetKeysChange.mockClear()
-  screen.getByRole('alert')
+  expect(screen.getByRole('alert')).toBeInTheDocument()
   expect(console.error).toHaveBeenCalledTimes(2)
   console.error.mockClear()
 
@@ -347,7 +347,7 @@ test('supports automatic reset of error boundary when resetKeys change', () => {
     [true, true],
     [false, true],
   )
-  screen.getByRole('alert')
+  expect(screen.getByRole('alert')).toBeInTheDocument()
   handleResetKeysChange.mockClear()
   expect(console.error).toHaveBeenCalledTimes(2)
   console.error.mockClear()
@@ -362,8 +362,3 @@ test('supports automatic reset of error boundary when resetKeys change', () => {
   expect(screen.queryByRole('alert')).not.toBeInTheDocument()
   expect(console.error).not.toHaveBeenCalled()
 })
-
-/*
-eslint
-  no-console: "off",
-*/
