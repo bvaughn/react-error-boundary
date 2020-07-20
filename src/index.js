@@ -68,4 +68,11 @@ function withErrorBoundary(Component, errorBoundaryProps) {
   return Wrapped
 }
 
-export {ErrorBoundary, withErrorBoundary}
+function useErrorHandler(givenError) {
+  const [error, setError] = React.useState(null)
+  if (givenError) throw givenError
+  if (error) throw error
+  return setError
+}
+
+export {ErrorBoundary, withErrorBoundary, useErrorHandler}

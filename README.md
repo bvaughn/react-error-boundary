@@ -38,14 +38,7 @@ then be gracefully handled.
   - [Error Recovery](#error-recovery)
 - [API](#api)
   - [`ErrorBoundary` props](#errorboundary-props)
-  - [`children`](#children)
-  - [`FallbackComponent`](#fallbackcomponent)
-  - [`fallbackRender`](#fallbackrender)
-  - [`fallback`](#fallback)
-  - [`onError`](#onerror)
-  - [`onReset`](#onreset)
-  - [`resetKeys`](#resetkeys)
-  - [`onResetKeysChange`](#onresetkeyschange)
+  - [`useErrorHandler(error?: Error)`](#useerrorhandlererror-error)
 - [Issues](#issues)
   - [🐛 Bugs](#-bugs)
   - [💡 Feature Requests](#-feature-requests)
@@ -190,13 +183,13 @@ specific scenario.
 
 ### `ErrorBoundary` props
 
-### `children`
+#### `children`
 
 This is what you want rendered when everything's working fine. If there's an
 error that React can handle within the children of the `ErrorBoundary`, the
 `ErrorBoundary` will catch that and allow you to handle it gracefully.
 
-### `FallbackComponent`
+#### `FallbackComponent`
 
 This is a component you want rendered in the event of an error. As props it will
 be passed the `error`, `componentStack`, and `resetErrorBoundary` (which will
@@ -205,7 +198,7 @@ when used in combination with the `onReset` prop).
 
 This is required if no `fallback` or `fallbackRender` prop is provided.
 
-### `fallbackRender`
+#### `fallbackRender`
 
 This is a render-prop based API that allows you to inline your error fallback UI
 into the component that's using the `ErrorBoundary`. This is useful if you need
@@ -247,7 +240,7 @@ problem.
 
 This is required if no `FallbackComponent` or `fallback` prop is provided.
 
-### `fallback`
+#### `fallback`
 
 In the spirit of consistency with the `React.Suspense` component, we also
 support a simple `fallback` prop which you can use for a generic fallback. This
@@ -262,12 +255,12 @@ const ui = (
 )
 ```
 
-### `onError`
+#### `onError`
 
 This will be called when there's been an error that the `ErrorBoundary` has
 handled. It will be called with two arguments: `error`, `componentStack`.
 
-### `onReset`
+#### `onReset`
 
 This will be called immediately before the `ErrorBoundary` resets it's internal
 state (which will result in rendering the `children` again). You should use this
@@ -279,7 +272,7 @@ error happening again.
 **Important**: `onReset` will _not_ be called when reset happens from a change
 in `resetKeys`. Use `onResetKeysChange` for that.
 
-### `resetKeys`
+#### `resetKeys`
 
 Sometimes an error happens as a result of local state to the component that's
 rendering the error. If this is the case, then you can pass `resetKeys` which is
@@ -289,10 +282,122 @@ then it will reset automatically (triggering a re-render of the `children`).
 
 See the recovery examples above.
 
-### `onResetKeysChange`
+#### `onResetKeysChange`
 
 This is called when the `resetKeys` are changed (triggering a reset of the
 `ErrorBoundary`). It's called with the `prevResetKeys` and the `resetKeys`.
+
+### `useErrorHandler(error?: Error)`
+
+React's error boundaries feature is limited in that the boundaries can only
+handle errors thrown during React's lifecycles. To quote
+[the React docs on Error Boundaries](https://reactjs.org/docs/error-boundaries.html):
+
+> Error boundaries do not catch errors for:
+>
+> - Event handlers
+>   ([learn more](https://reactjs.org/docs/error-boundaries.html#how-about-event-handlers))
+> - Asynchronous code (e.g. setTimeout or requestAnimationFrame callbacks)
+> - Server side rendering
+> - Errors thrown in the error boundary itself (rather than its children)
+
+This means you have to handle those errors yourself, but you probably would like
+to reuse the error boundaries you worked hard on creating for those kinds of
+errors as well. This is what `useErrorHandler` is for.
+
+There are two ways to use `useErrorHandler`:
+
+1. `const handleError = useErrorHandler()`: call `handleError(theError)`
+2. `useErrorHandler(error)`: useful if you are managing the error state yourself
+   or get it from another hook.
+
+Here's an example:
+
+```javascript
+function Greeting() {
+  const [greeting, setGreeting] = React.useState(null)
+  const handleError = useHandleError()
+
+  function handleSubmit(event) {
+    event.preventDefault()
+    const name = event.target.elements.name.value
+    fetchGreeting(name).then(
+      newGreeting => setGreeting(newGreeting),
+      handleError,
+    )
+  }
+
+  return greeting ? (
+    <div>{greeting}</div>
+  ) : (
+    <form onSubmit={handleSubmit}>
+      <label>Name</label>
+      <input id="name" />
+      <button type="submit" onClick={handleClick}>
+        get a greeting
+      </button>
+    </form>
+  )
+}
+```
+
+> Note, in case it's not clear what's happening here, you could also write
+> `handleClick` like this:
+
+```javascript
+function handleSubmit(event) {
+  event.preventDefault()
+  const name = event.target.elements.name.value
+  fetchGreeting(name).then(
+    newGreeting => setGreeting(newGreeting),
+    error => handleError(error),
+  )
+}
+```
+
+Alternatively, let's say you're using a hook that gives you the error:
+
+```javascript
+function Greeting() {
+  const [name, setName] = React.useState('')
+  const {greeting, error} = useGreeting(name)
+  useHandleError(error)
+
+  function handleSubmit(event) {
+    event.preventDefault()
+    const name = event.target.elements.name.value
+    setName(name)
+  }
+
+  return greeting ? (
+    <div>{greeting}</div>
+  ) : (
+    <form onSubmit={handleSubmit}>
+      <label>Name</label>
+      <input id="name" />
+      <button type="submit" onClick={handleClick}>
+        get a greeting
+      </button>
+    </form>
+  )
+}
+```
+
+In this case, if the `error` is ever set to a truthy value, then it will be
+propagated to the nearest error boundary.
+
+In either case, you could handle those errors like this:
+
+```javascript
+const ui = (
+  <ErrorBoundary FallbackComponent={ErrorFallback}>
+    <Greeting />
+  </ErrorBoundary>
+)
+```
+
+And now that'll handle your runtime errors as well as the async errors in the
+`fetchGreeting` or `useGreeting` code.
 
 ## Issues
 
