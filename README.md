@@ -28,6 +28,12 @@ This component provides a simple and reusable wrapper that you can use to wrap
 around your components. Any rendering errors in your components hierarchy can
 then be gracefully handled.
 
+Reading this blog post will help you understand what react-error-boundary does
+for you:
+[Use react-error-boundary to handle errors in React](https://kentcdodds.com/blog/use-react-error-boundary-to-handle-errors-in-react)
+– How to simplify your React apps by handling React errors effectively with
+react-error-boundary
+
 ## Table of Contents
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
