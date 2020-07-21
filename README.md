@@ -322,7 +322,7 @@ Here's an example:
 ```javascript
 function Greeting() {
   const [greeting, setGreeting] = React.useState(null)
-  const handleError = useHandleError()
+  const handleError = useErrorHandler()
 
   function handleSubmit(event) {
     event.preventDefault()
@@ -367,7 +367,7 @@ Alternatively, let's say you're using a hook that gives you the error:
 function Greeting() {
   const [name, setName] = React.useState('')
   const {greeting, error} = useGreeting(name)
-  useHandleError(error)
+  useErrorHandler(error)
 
   function handleSubmit(event) {
     event.preventDefault()
