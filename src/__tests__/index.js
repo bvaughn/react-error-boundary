@@ -348,3 +348,34 @@ test('supports automatic reset of error boundary when resetKeys change', () => {
   expect(screen.queryByRole('alert')).not.toBeInTheDocument()
   expect(console.error).not.toHaveBeenCalled()
 })
+
+test('should support not only function as FallbackComponent', () => {
+  const container = document.createElement('div')
+  document.body.appendChild(container)
+  ;[React.forwardRef, React.memo, component => component].forEach(
+    componentCreator => {
+      const FancyFallback = componentCreator(({error}) => (
+        <div>
+          <p>Everything is broken. Try again</p>
+          <pre>{error.message}</pre>
+        </div>
+      ))
+      expect(() =>
+        render(
+          <ErrorBoundary FallbackComponent={FancyFallback}>
+            <Bomb />
+          </ErrorBoundary>,
+          {
+            container,
+          },
+        ),
+      ).not.toThrow()
+
+      expect(
+        screen.getByText('Everything is broken. Try again'),
+      ).toBeInTheDocument()
+    },
+  )
+
+  console.error.mockClear()
+})
