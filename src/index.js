@@ -39,7 +39,7 @@ class ErrorBoundary extends React.Component {
         return fallback
       } else if (typeof fallbackRender === 'function') {
         return fallbackRender(props)
-      } else if (typeof FallbackComponent === 'function') {
+      } else if (FallbackComponent) {
         return <FallbackComponent {...props} />
       } else {
         throw new Error(

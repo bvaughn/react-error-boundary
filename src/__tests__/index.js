@@ -348,3 +348,39 @@ test('supports automatic reset of error boundary when resetKeys change', () => {
   expect(screen.queryByRole('alert')).not.toBeInTheDocument()
   expect(console.error).not.toHaveBeenCalled()
 })
+
+test('should support not only function as FallbackComponent', () => {
+  const FancyFallback = React.forwardRef(({error}) => (
+    <div>
+      <p>Everything is broken. Try again</p>
+      <pre>{error.message}</pre>
+    </div>
+  ))
+  FancyFallback.displayName = 'FancyFallback'
+
+  expect(() =>
+    render(
+      <ErrorBoundary FallbackComponent={FancyFallback}>
+        <Bomb />
+      </ErrorBoundary>,
+    ),
+  ).not.toThrow()
+
+  expect(
+    screen.getByText('Everything is broken. Try again'),
+  ).toBeInTheDocument()
+
+  console.error.mockClear()
+})
+
+test('should throw error if FallbackComponent is not valid', () => {
+  expect(() =>
+    render(
+      <ErrorBoundary FallbackComponent={{}}>
+        <Bomb />
+      </ErrorBoundary>,
+    ),
+  ).toThrowError(/Element type is invalid/i)
+
+  console.error.mockClear()
+})
