@@ -1,5 +1,4 @@
 import React from 'react'
-import {isValidElementType} from 'react-is'
 
 const changedArray = (a = [], b = []) =>
   a.length !== b.length || a.some((item, index) => !Object.is(item, b[index]))
@@ -40,7 +39,7 @@ class ErrorBoundary extends React.Component {
         return fallback
       } else if (typeof fallbackRender === 'function') {
         return fallbackRender(props)
-      } else if (isValidElementType(FallbackComponent)) {
+      } else if (FallbackComponent) {
         return <FallbackComponent {...props} />
       } else {
         throw new Error(

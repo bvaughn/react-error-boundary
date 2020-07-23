@@ -379,3 +379,15 @@ test('should support not only function as FallbackComponent', () => {
 
   console.error.mockClear()
 })
+
+test('should throw error if FallbackComponent is not valid', () => {
+  expect(() =>
+    render(
+      <ErrorBoundary FallbackComponent={{}}>
+        <Bomb />
+      </ErrorBoundary>,
+    ),
+  ).toThrowError(/Element type is invalid/i)
+
+  console.error.mockClear()
+})
