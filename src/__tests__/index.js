@@ -350,32 +350,25 @@ test('supports automatic reset of error boundary when resetKeys change', () => {
 })
 
 test('should support not only function as FallbackComponent', () => {
-  const container = document.createElement('div')
-  document.body.appendChild(container)
-  ;[React.forwardRef, React.memo, component => component].forEach(
-    componentCreator => {
-      const FancyFallback = componentCreator(({error}) => (
-        <div>
-          <p>Everything is broken. Try again</p>
-          <pre>{error.message}</pre>
-        </div>
-      ))
-      expect(() =>
-        render(
-          <ErrorBoundary FallbackComponent={FancyFallback}>
-            <Bomb />
-          </ErrorBoundary>,
-          {
-            container,
-          },
-        ),
-      ).not.toThrow()
+  const FancyFallback = React.forwardRef(({error}) => (
+    <div>
+      <p>Everything is broken. Try again</p>
+      <pre>{error.message}</pre>
+    </div>
+  ))
+  FancyFallback.displayName = 'FancyFallback'
 
-      expect(
-        screen.getByText('Everything is broken. Try again'),
-      ).toBeInTheDocument()
-    },
-  )
+  expect(() =>
+    render(
+      <ErrorBoundary FallbackComponent={FancyFallback}>
+        <Bomb />
+      </ErrorBoundary>,
+    ),
+  ).not.toThrow()
+
+  expect(
+    screen.getByText('Everything is broken. Try again'),
+  ).toBeInTheDocument()
 
   console.error.mockClear()
 })
