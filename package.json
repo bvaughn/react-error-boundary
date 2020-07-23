@@ -47,13 +47,11 @@
     "@testing-library/user-event": "^12.0.11",
     "kcd-scripts": "^6.2.4",
     "react": "^16.13.1",
-    "react-is": "^16.13.1",
     "react-dom": "^16.13.1",
     "typescript": "^3.9.7"
   },
   "peerDependencies": {
-    "react": ">=16.13.1",
-    "react-is": ">=16.13.1"
+    "react": ">=16.13.1"
   },
   "eslintConfig": {
     "extends": "./node_modules/kcd-scripts/eslint.js",
