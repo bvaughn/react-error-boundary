@@ -384,3 +384,8 @@ test('should throw error if FallbackComponent is not valid', () => {
 
   console.error.mockClear()
 })
+
+/*
+eslint
+  jest/no-if: "off",
+*/
