@@ -348,7 +348,7 @@ function Greeting() {
 ```
 
 > Note, in case it's not clear what's happening here, you could also write
-> `handleClick` like this:
+> `handleSubmit` like this:
 
 ```javascript
 function handleSubmit(event) {
