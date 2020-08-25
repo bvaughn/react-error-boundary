@@ -339,7 +339,7 @@ function Greeting() {
     <form onSubmit={handleSubmit}>
       <label>Name</label>
       <input id="name" />
-      <button type="submit" onClick={handleClick}>
+      <button type="submit"}>
         get a greeting
       </button>
     </form>
@@ -381,9 +381,7 @@ function Greeting() {
     <form onSubmit={handleSubmit}>
       <label>Name</label>
       <input id="name" />
-      <button type="submit" onClick={handleClick}>
-        get a greeting
-      </button>
+      <button type="submit">get a greeting</button>
     </form>
   )
 }
