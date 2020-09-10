@@ -43,8 +43,8 @@
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.11.4",
-    "@testing-library/react": "^10.4.9",
-    "@testing-library/user-event": "^12.1.2",
+    "@testing-library/react": "^11.0.2",
+    "@testing-library/user-event": "^12.1.4",
     "kcd-scripts": "^6.3.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
