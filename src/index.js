@@ -5,6 +5,10 @@ const changedArray = (a = [], b = []) =>
 
 const initialState = {error: null, info: null}
 class ErrorBoundary extends React.Component {
+  static getDerivedStateFromError(error) {
+    return {error}
+  }
+
   state = initialState
   resetErrorBoundary = (...args) => {
     this.props.onReset?.(...args)
@@ -13,13 +17,17 @@ class ErrorBoundary extends React.Component {
 
   componentDidCatch(error, info) {
     this.props.onError?.(error, info?.componentStack)
-    this.setState({error, info})
+    this.setState({info})
   }
 
   componentDidUpdate(prevProps) {
-    const {error} = this.state
+    const {error, info} = this.state
     const {resetKeys} = this.props
-    if (error !== null && changedArray(prevProps.resetKeys, resetKeys)) {
+    if (
+      error !== null &&
+      info !== null &&
+      changedArray(prevProps.resetKeys, resetKeys)
+    ) {
       this.props.onResetKeysChange?.(prevProps.resetKeys, resetKeys)
       this.setState(initialState)
     }
@@ -30,6 +38,15 @@ class ErrorBoundary extends React.Component {
     const {fallbackRender, FallbackComponent, fallback} = this.props
 
     if (error !== null) {
+      // we'll get a re-render with the error state in getDerivedStateFromError
+      // but we don't have the info yet, so just render null
+      // note that this won't be committed to the DOM thanks to our componentDidCatch
+      // so the user won't see a flash of nothing, so this works fine.
+      // the benefit of doing things this way rather than just putting both the
+      // error and info setState within componentDidCatch is we avoid re-rendering
+      // busted stuff: https://github.com/bvaughn/react-error-boundary/issues/66
+      if (!info) return null
+
       const props = {
         componentStack: info?.componentStack,
         error,
