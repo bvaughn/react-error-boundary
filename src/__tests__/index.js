@@ -3,12 +3,11 @@ import {render, screen} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {ErrorBoundary, withErrorBoundary} from '..'
 
-function ErrorFallback({error, componentStack, resetErrorBoundary}) {
+function ErrorFallback({error, resetErrorBoundary}) {
   return (
     <div role="alert">
       <p>Something went wrong:</p>
       <pre>{error.message}</pre>
-      <pre>{componentStack}</pre>
       <button onClick={resetErrorBoundary}>Try again</button>
     </div>
   )
@@ -72,14 +71,6 @@ test('standard use-case', async () => {
       </p>
       <pre>
         💥 CABOOM 💥
-      </pre>
-      <pre>
-        
-        in Bomb
-        in ErrorBoundary
-        in div
-        in div
-        in Unknown
       </pre>
       <button>
         Try again
@@ -170,10 +161,12 @@ test('withErrorBoundary HOC', () => {
   const [error, onErrorComponentStack] = onErrorHandler.mock.calls[0]
   expect(error.message).toMatchInlineSnapshot(`"💥 CABOOM 💥"`)
   expect(onErrorComponentStack).toMatchInlineSnapshot(`
-    "
+    Object {
+      "componentStack": "
         in Unknown (created by withErrorBoundary(Unknown))
         in ErrorBoundary (created by withErrorBoundary(Unknown))
-        in withErrorBoundary(Unknown)"
+        in withErrorBoundary(Unknown)",
+    }
   `)
   expect(onErrorHandler).toHaveBeenCalledTimes(1)
 })
@@ -222,18 +215,6 @@ test('requires either a fallback, fallbackRender, or FallbackComponent', () => {
   ).toThrowErrorMatchingInlineSnapshot(
     `"react-error-boundary requires either a fallback, fallbackRender, or FallbackComponent prop"`,
   )
-  const [, , [actualError], [componentStack]] = console.error.mock.calls
-  expect(firstLine(actualError)).toMatchInlineSnapshot(
-    `"Error: Uncaught [Error: react-error-boundary requires either a fallback, fallbackRender, or FallbackComponent prop]"`,
-  )
-  expect(componentStack).toMatchInlineSnapshot(`
-    "The above error occurred in the <ErrorBoundary> component:
-        in ErrorBoundary
-
-    Consider adding an error boundary to your tree to customize error handling behavior.
-    Visit https://fb.me/react-error-boundaries to learn more about error boundaries."
-  `)
-  expect(console.error).toHaveBeenCalledTimes(4)
   console.error.mockClear()
 })
 
