@@ -2,7 +2,6 @@ import * as React from 'react'
 
 export interface FallbackProps {
   error?: Error
-  componentStack?: string
   resetErrorBoundary: () => void
 }
 
