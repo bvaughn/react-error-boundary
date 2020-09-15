@@ -8,7 +8,7 @@ export interface FallbackProps {
 export interface ErrorBoundaryPropsWithComponent {
   onResetKeysChange?: (prevResetKeys: Array<any>, resetKeys: Array<any>) => void
   onReset?: () => void
-  onError?: (error: Error, componentStack: string) => void
+  onError?: (error: Error, info: { componentStack: string }) => void
   resetKeys?: Array<any>
   FallbackComponent: React.ComponentType<FallbackProps>
 }
@@ -16,7 +16,7 @@ export interface ErrorBoundaryPropsWithComponent {
 export interface ErrorBoundaryPropsWithRender {
   onResetKeysChange?: (prevResetKeys: Array<any>, resetKeys: Array<any>) => void
   onReset?: () => void
-  onError?: (error: Error, componentStack: string) => void
+  onError?: (error: Error, info: { componentStack: string }) => void
   resetKeys?: Array<any>
   fallbackRender: (props: FallbackProps) => React.ReactElement<any, any> | null
 }
@@ -24,7 +24,7 @@ export interface ErrorBoundaryPropsWithRender {
 export interface ErrorBoundaryPropsWithFallback {
   onResetKeysChange?: (prevResetKeys: Array<any>, resetKeys: Array<any>) => void
   onReset?: () => void
-  onError?: (error: Error, componentStack: string) => void
+  onError?: (error: Error, info: { componentStack: string }) => void
   resetKeys?: Array<any>
   fallback: React.ReactElement<any, any> | null
 }
