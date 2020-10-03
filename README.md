@@ -1,7 +1,7 @@
 <div align="center">
-<h1>react-error-boundary</h1>
+<P><h1>react-error-boundary</h1></p>
 
-<p>Simple reusable React error boundary component</p>
+<h3><p>Simple reusable React error boundary component</p></h3>
 </div>
 
 ---
