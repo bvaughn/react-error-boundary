@@ -336,7 +336,7 @@ function Greeting() {
     <form onSubmit={handleSubmit}>
       <label>Name</label>
       <input id="name" />
-      <button type="submit"}>
+      <button type="submit">
         get a greeting
       </button>
     </form>
