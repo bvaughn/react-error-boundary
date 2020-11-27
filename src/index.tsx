@@ -10,8 +10,8 @@ interface FallbackProps {
 
 interface ErrorBoundaryPropsWithComponent {
   onResetKeysChange?: (
-    prevResetKeys: Array<unknown>,
-    resetKeys: Array<unknown>,
+    prevResetKeys: Array<unknown> | undefined,
+    resetKeys: Array<unknown> | undefined,
   ) => void
   onReset?: (...args: Array<unknown>) => void
   onError?: (error: Error, info: {componentStack: string}) => void
@@ -28,8 +28,8 @@ declare function FallbackRender(
 
 interface ErrorBoundaryPropsWithRender {
   onResetKeysChange?: (
-    prevResetKeys: Array<unknown>,
-    resetKeys: Array<unknown>,
+    prevResetKeys: Array<unknown> | undefined,
+    resetKeys: Array<unknown> | undefined,
   ) => void
   onReset?: (...args: Array<unknown>) => void
   onError?: (error: Error, info: {componentStack: string}) => void
@@ -39,8 +39,8 @@ interface ErrorBoundaryPropsWithRender {
 
 interface ErrorBoundaryPropsWithFallback {
   onResetKeysChange?: (
-    prevResetKeys: Array<unknown>,
-    resetKeys: Array<unknown>,
+    prevResetKeys: Array<unknown> | undefined,
+    resetKeys: Array<unknown> | undefined,
   ) => void
   onReset?: (...args: Array<unknown>) => void
   onError?: (error: Error, info: {componentStack: string}) => void
@@ -57,10 +57,9 @@ type ErrorBoundaryProps =
   | ErrorBoundaryPropsWithRender
 
 type ErrorBoundaryState = {error: Error | null}
-const initialState = {error: null}
+const initialState: ErrorBoundaryState = {error: null}
 class ErrorBoundary extends React.Component<
-  // TODO: why is there not a PropsWithRefAndChildren? 🤔
-  React.PropsWithRef<ErrorBoundaryProps>,
+  React.PropsWithRef<React.PropsWithChildren<ErrorBoundaryProps>>,
   ErrorBoundaryState
 > {
   static getDerivedStateFromError(error: Error) {
@@ -94,20 +93,13 @@ class ErrorBoundary extends React.Component<
     // So we make sure that we don't check the resetKeys on the first call
     // of cDU after the error is set
 
-    // TODO: figure out why this is considered an unnecessary condition...
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     if (error !== null && !this.updatedWithError) {
       this.updatedWithError = true
       return
     }
 
-    // TODO: figure out why this is considered an unnecessary condition...
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     if (error !== null && changedArray(prevProps.resetKeys, resetKeys)) {
-      this.props.onResetKeysChange?.(
-        prevProps.resetKeys as Array<unknown>,
-        resetKeys as Array<unknown>,
-      )
+      this.props.onResetKeysChange?.(prevProps.resetKeys, resetKeys)
       this.reset()
     }
   }
@@ -117,13 +109,11 @@ class ErrorBoundary extends React.Component<
     // @ts-expect-error ts(2339) (at least one of these will be defined though, and we check for their existance)
     const {fallbackRender, FallbackComponent, fallback} = this.props
 
-    // TODO: figure out why this is considered an unnecessary condition...
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     if (error !== null) {
-      const props = ({
+      const props = {
         error,
         resetErrorBoundary: this.resetErrorBoundary,
-      } as unknown) as FallbackProps
+      }
       if (React.isValidElement(fallback)) {
         return fallback
       } else if (typeof fallbackRender === 'function') {

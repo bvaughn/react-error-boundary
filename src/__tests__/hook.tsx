@@ -49,7 +49,7 @@ test('handleError forwards along async errors', async () => {
     "The above error occurred in one of your React components:
 
         at <PROJECT_ROOT>/src/__tests__/hook.tsx:21:41
-        at ErrorBoundary (<PROJECT_ROOT>/src/index.tsx:65:3)
+        at ErrorBoundary (<PROJECT_ROOT>/src/index.tsx:64:3)
 
     React will try to recreate this component tree from scratch using the error boundary you provided, ErrorBoundary."
   `)
@@ -95,7 +95,7 @@ test('can pass an error to useErrorHandler', async () => {
     "The above error occurred in one of your React components:
 
         at <PROJECT_ROOT>/src/__tests__/hook.tsx:66:37
-        at ErrorBoundary (<PROJECT_ROOT>/src/index.tsx:65:3)
+        at ErrorBoundary (<PROJECT_ROOT>/src/index.tsx:64:3)
 
     React will try to recreate this component tree from scratch using the error boundary you provided, ErrorBoundary."
   `)
