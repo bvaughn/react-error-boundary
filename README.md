@@ -12,7 +12,6 @@
 [![version][version-badge]][package]
 [![downloads][downloads-badge]][npmtrends]
 [![MIT License][license-badge]][license]
-
 [![PRs Welcome][prs-badge]][prs]
 [![Code of Conduct][coc-badge]][coc]
 <!-- prettier-ignore-end -->
@@ -336,9 +335,7 @@ function Greeting() {
     <form onSubmit={handleSubmit}>
       <label>Name</label>
       <input id="name" />
-      <button type="submit">
-        get a greeting
-      </button>
+      <button type="submit">get a greeting</button>
     </form>
   )
 }
@@ -425,20 +422,20 @@ MIT
 <!-- prettier-ignore-start -->
 [npm]: https://www.npmjs.com
 [node]: https://nodejs.org
-[build-badge]: https://img.shields.io/travis/bvaughn/react-error-boundary.svg?style=flat-square
-[build]: https://travis-ci.org/bvaughn/react-error-boundary
+[build-badge]: https://img.shields.io/github/workflow/status/bvaughn/react-error-boundary/validate?logo=github&style=flat-square
+[build]: https://github.com/bvaughn/react-error-boundary/actions?query=workflow%3Avalidate
 [coverage-badge]: https://img.shields.io/codecov/c/github/bvaughn/react-error-boundary.svg?style=flat-square
 [coverage]: https://codecov.io/github/bvaughn/react-error-boundary
 [version-badge]: https://img.shields.io/npm/v/react-error-boundary.svg?style=flat-square
 [package]: https://www.npmjs.com/package/react-error-boundary
 [downloads-badge]: https://img.shields.io/npm/dm/react-error-boundary.svg?style=flat-square
-[npmtrends]: http://www.npmtrends.com/react-error-boundary
+[npmtrends]: https://www.npmtrends.com/react-error-boundary
 [license-badge]: https://img.shields.io/npm/l/react-error-boundary.svg?style=flat-square
 [license]: https://github.com/bvaughn/react-error-boundary/blob/master/LICENSE
 [prs-badge]: https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square
-[prs]: http://makeapullrequest.com
+[prs]: https://makeapullrequest.com
 [coc-badge]: https://img.shields.io/badge/code%20of-conduct-ff69b4.svg?style=flat-square
-[coc]: https://github.com/bvaughn/react-error-boundary/blob/master/other/CODE_OF_CONDUCT.md
+[coc]: https://github.com/bvaughn/react-error-boundary/blob/master/CODE_OF_CONDUCT.md
 [bugs]: https://github.com/bvaughn/react-error-boundary/issues?utf8=%E2%9C%93&q=is%3Aissue+is%3Aopen+sort%3Acreated-desc+label%3Abug
 [requests]: https://github.com/bvaughn/react-error-boundary/issues?utf8=%E2%9C%93&q=is%3Aissue+is%3Aopen+sort%3Areactions-%2B1-desc+label%3Aenhancement
 [good-first-issue]: https://github.com/bvaughn/react-error-boundary/issues?utf8=%E2%9C%93&q=is%3Aissue+is%3Aopen+sort%3Areactions-%2B1-desc+label%3Aenhancement+label%3A%22good+first+issue%22

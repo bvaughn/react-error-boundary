@@ -2,8 +2,9 @@ import React from 'react'
 import {render, screen} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {ErrorBoundary, withErrorBoundary} from '..'
+import type {FallbackProps} from '..'
 
-function ErrorFallback({error, resetErrorBoundary}) {
+function ErrorFallback({error, resetErrorBoundary}: FallbackProps) {
   return (
     <div role="alert">
       <p>Something went wrong:</p>
@@ -15,14 +16,17 @@ function ErrorFallback({error, resetErrorBoundary}) {
 
 function Bomb() {
   throw new Error('💥 CABOOM 💥')
+  return null
 }
 
-const firstLine = str => str.split('\n')[0]
+const firstLine = (str: string) => str.split('\n')[0]
 
-test('standard use-case', async () => {
+test('standard use-case', () => {
+  const consoleError = console.error as jest.Mock<void, unknown[]>
+
   function App() {
     const [username, setUsername] = React.useState('')
-    function handleChange(e) {
+    function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
       setUsername(e.target.value)
     }
     return (
@@ -43,24 +47,25 @@ test('standard use-case', async () => {
 
   render(<App />)
 
-  await userEvent.type(screen.getByRole('textbox', {name: /username/i}), 'fail')
+  userEvent.type(screen.getByRole('textbox', {name: /username/i}), 'fail')
 
-  const [[actualError], [componentStack]] = console.error.mock.calls
-  expect(firstLine(actualError)).toMatchInlineSnapshot(
+  const [[actualError], [componentStack]] = consoleError.mock.calls
+  expect(firstLine(actualError as string)).toMatchInlineSnapshot(
     `"Error: Uncaught [Error: 💥 CABOOM 💥]"`,
   )
   expect(componentStack).toMatchInlineSnapshot(`
     "The above error occurred in the <Bomb> component:
-        in Bomb
-        in ErrorBoundary
-        in div
-        in div
-        in Unknown
+
+        at Bomb (<PROJECT_ROOT>/src/__tests__/index.tsx:18:9)
+        at ErrorBoundary (<PROJECT_ROOT>/src/index.tsx:65:3)
+        at div
+        at div
+        at <PROJECT_ROOT>/src/__tests__/index.tsx:28:43
 
     React will try to recreate this component tree from scratch using the error boundary you provided, ErrorBoundary."
   `)
-  expect(console.error).toHaveBeenCalledTimes(2)
-  console.error.mockClear()
+  expect(consoleError).toHaveBeenCalledTimes(2)
+  consoleError.mockClear()
 
   expect(screen.getByRole('alert')).toMatchInlineSnapshot(`
     <div
@@ -79,12 +84,14 @@ test('standard use-case', async () => {
   `)
 
   // can recover from errors when the component is rerendered and reset is clicked
-  await userEvent.type(screen.getByRole('textbox', {name: /username/i}), '-not')
+  userEvent.type(screen.getByRole('textbox', {name: /username/i}), '-not')
   userEvent.click(screen.getByRole('button', {name: /try again/i}))
   expect(screen.queryByRole('alert')).not.toBeInTheDocument()
 })
 
 test('fallbackRender prop', () => {
+  const consoleError = console.error as jest.Mock<void, unknown[]>
+
   const workingMessage = 'Phew, we are safe!'
 
   function App() {
@@ -110,8 +117,8 @@ test('fallbackRender prop', () => {
   }
 
   render(<App />)
-  expect(console.error).toHaveBeenCalledTimes(2)
-  console.error.mockClear()
+  expect(consoleError).toHaveBeenCalledTimes(2)
+  consoleError.mockClear()
 
   // the render prop API allows a single action to reset the app state
   // as well as reset the ErrorBoundary state
@@ -120,19 +127,23 @@ test('fallbackRender prop', () => {
 })
 
 test('simple fallback is supported', () => {
+  const consoleError = console.error as jest.Mock<void, unknown[]>
+
   render(
     <ErrorBoundary fallback={<div>Oh no</div>}>
       <Bomb />
       <span>child</span>
     </ErrorBoundary>,
   )
-  expect(console.error).toHaveBeenCalledTimes(2)
-  console.error.mockClear()
+  expect(consoleError).toHaveBeenCalledTimes(2)
+  consoleError.mockClear()
   expect(screen.getByText(/oh no/i)).toBeInTheDocument()
   expect(screen.queryByText(/child/i)).not.toBeInTheDocument()
 })
 
 test('withErrorBoundary HOC', () => {
+  const consoleError = console.error as jest.Mock<void, unknown[]>
+
   const onErrorHandler = jest.fn()
   const Boundary = withErrorBoundary(
     () => {
@@ -142,39 +153,44 @@ test('withErrorBoundary HOC', () => {
   )
   render(<Boundary />)
 
-  const [[actualError], [componentStack]] = console.error.mock.calls
-  const firstLineOfError = firstLine(actualError)
+  const [[actualError], [componentStack]] = consoleError.mock.calls
+  const firstLineOfError = firstLine(actualError as string)
   expect(firstLineOfError).toMatchInlineSnapshot(
     `"Error: Uncaught [Error: 💥 CABOOM 💥]"`,
   )
   expect(componentStack).toMatchInlineSnapshot(`
     "The above error occurred in one of your React components:
-        in Unknown (created by withErrorBoundary(Unknown))
-        in ErrorBoundary (created by withErrorBoundary(Unknown))
-        in withErrorBoundary(Unknown)
+
+        at Boundary.FallbackComponent (<PROJECT_ROOT>/src/__tests__/index.tsx:150:13)
+        at ErrorBoundary (<PROJECT_ROOT>/src/index.tsx:65:3)
+        at withErrorBoundary(Unknown)
 
     React will try to recreate this component tree from scratch using the error boundary you provided, ErrorBoundary."
   `)
-  expect(console.error).toHaveBeenCalledTimes(2)
-  console.error.mockClear()
+  expect(consoleError).toHaveBeenCalledTimes(2)
+  consoleError.mockClear()
 
-  const [error, onErrorComponentStack] = onErrorHandler.mock.calls[0]
+  const [error, onErrorComponentStack] = (onErrorHandler.mock.calls as [
+    [Error, string],
+  ])[0]
   expect(error.message).toMatchInlineSnapshot(`"💥 CABOOM 💥"`)
   expect(onErrorComponentStack).toMatchInlineSnapshot(`
     Object {
       "componentStack": "
-        in Unknown (created by withErrorBoundary(Unknown))
-        in ErrorBoundary (created by withErrorBoundary(Unknown))
-        in withErrorBoundary(Unknown)",
+        at Boundary.FallbackComponent (<PROJECT_ROOT>/src/__tests__/index.tsx:150:13)
+        at ErrorBoundary (<PROJECT_ROOT>/src/index.tsx:65:3)
+        at withErrorBoundary(Unknown)",
     }
   `)
   expect(onErrorHandler).toHaveBeenCalledTimes(1)
 })
 
 test('supported but undocumented reset method', () => {
+  const consoleError = console.error as jest.Mock<void, unknown[]>
+
   const children = 'Boundry children'
   function App() {
-    const errorBoundaryRef = React.useRef()
+    const errorBoundaryRef = React.useRef<ErrorBoundary | null>(null)
     const [explode, setExplode] = React.useState(false)
     return (
       <>
@@ -182,7 +198,7 @@ test('supported but undocumented reset method', () => {
         <button
           onClick={() => {
             setExplode(false)
-            errorBoundaryRef.current.resetErrorBoundary()
+            errorBoundaryRef.current?.resetErrorBoundary()
           }}
         >
           recover
@@ -197,17 +213,20 @@ test('supported but undocumented reset method', () => {
   userEvent.click(screen.getByText('explode'))
 
   expect(screen.queryByText(children)).not.toBeInTheDocument()
-  expect(console.error).toHaveBeenCalledTimes(2)
-  console.error.mockClear()
+  expect(consoleError).toHaveBeenCalledTimes(2)
+  consoleError.mockClear()
 
   userEvent.click(screen.getByText('recover'))
   expect(screen.getByText(children)).toBeInTheDocument()
-  expect(console.error).toHaveBeenCalledTimes(0)
+  expect(consoleError).toHaveBeenCalledTimes(0)
 })
 
 test('requires either a fallback, fallbackRender, or FallbackComponent', () => {
+  const consoleError = console.error as jest.Mock<void, unknown[]>
+
   expect(() =>
     render(
+      // @ts-expect-error we're testing the runtime check of missing props here
       <ErrorBoundary>
         <Bomb />
       </ErrorBoundary>,
@@ -215,11 +234,13 @@ test('requires either a fallback, fallbackRender, or FallbackComponent', () => {
   ).toThrowErrorMatchingInlineSnapshot(
     `"react-error-boundary requires either a fallback, fallbackRender, or FallbackComponent prop"`,
   )
-  console.error.mockClear()
+  consoleError.mockClear()
 })
 
 // eslint-disable-next-line max-statements
 test('supports automatic reset of error boundary when resetKeys change', () => {
+  const consoleError = console.error as jest.Mock<void, unknown[]>
+
   const handleReset = jest.fn()
   const TRY_AGAIN_ARG1 = 'TRY_AGAIN_ARG1'
   const TRY_AGAIN_ARG2 = 'TRY_AGAIN_ARG2'
@@ -262,13 +283,13 @@ test('supports automatic reset of error boundary when resetKeys change', () => {
   // blow it up
   userEvent.click(screen.getByText('toggle explode'))
   expect(screen.getByRole('alert')).toBeInTheDocument()
-  expect(console.error).toHaveBeenCalledTimes(2)
-  console.error.mockClear()
+  expect(consoleError).toHaveBeenCalledTimes(2)
+  consoleError.mockClear()
 
   // recover via try again button
   userEvent.click(screen.getByText(/try again/i))
   expect(screen.queryByRole('alert')).not.toBeInTheDocument()
-  expect(console.error).not.toHaveBeenCalled()
+  expect(consoleError).not.toHaveBeenCalled()
   expect(handleReset).toHaveBeenCalledWith(TRY_AGAIN_ARG1, TRY_AGAIN_ARG2)
   expect(handleReset).toHaveBeenCalledTimes(1)
   handleReset.mockClear()
@@ -277,8 +298,8 @@ test('supports automatic reset of error boundary when resetKeys change', () => {
   // blow it up again
   userEvent.click(screen.getByText('toggle explode'))
   expect(screen.getByRole('alert')).toBeInTheDocument()
-  expect(console.error).toHaveBeenCalledTimes(2)
-  console.error.mockClear()
+  expect(consoleError).toHaveBeenCalledTimes(2)
+  consoleError.mockClear()
 
   // recover via resetKeys change
   userEvent.click(screen.getByText('toggle explode'))
@@ -287,13 +308,13 @@ test('supports automatic reset of error boundary when resetKeys change', () => {
   handleResetKeysChange.mockClear()
   expect(handleReset).not.toHaveBeenCalled()
   expect(screen.queryByRole('alert')).not.toBeInTheDocument()
-  expect(console.error).not.toHaveBeenCalled()
+  expect(consoleError).not.toHaveBeenCalled()
 
   // blow it up again
   userEvent.click(screen.getByText('toggle explode'))
   expect(screen.getByRole('alert')).toBeInTheDocument()
-  expect(console.error).toHaveBeenCalledTimes(2)
-  console.error.mockClear()
+  expect(consoleError).toHaveBeenCalledTimes(2)
+  consoleError.mockClear()
 
   // toggles adding an extra resetKey to the array
   // expect error to re-render
@@ -302,8 +323,8 @@ test('supports automatic reset of error boundary when resetKeys change', () => {
   expect(handleResetKeysChange).toHaveBeenCalledWith([true], [true, true])
   handleResetKeysChange.mockClear()
   expect(screen.getByRole('alert')).toBeInTheDocument()
-  expect(console.error).toHaveBeenCalledTimes(2)
-  console.error.mockClear()
+  expect(consoleError).toHaveBeenCalledTimes(2)
+  consoleError.mockClear()
 
   // toggle explode back to false
   // expect error to re-render again
@@ -316,8 +337,8 @@ test('supports automatic reset of error boundary when resetKeys change', () => {
   )
   expect(screen.getByRole('alert')).toBeInTheDocument()
   handleResetKeysChange.mockClear()
-  expect(console.error).toHaveBeenCalledTimes(2)
-  console.error.mockClear()
+  expect(consoleError).toHaveBeenCalledTimes(2)
+  consoleError.mockClear()
 
   // toggle extra resetKey
   // expect error to be reset
@@ -327,11 +348,13 @@ test('supports automatic reset of error boundary when resetKeys change', () => {
   expect(handleResetKeysChange).toHaveBeenCalledWith([false, true], [false])
   handleResetKeysChange.mockClear()
   expect(screen.queryByRole('alert')).not.toBeInTheDocument()
-  expect(console.error).not.toHaveBeenCalled()
+  expect(consoleError).not.toHaveBeenCalled()
 })
 
 test('should support not only function as FallbackComponent', () => {
-  const FancyFallback = React.forwardRef(({error}) => (
+  const consoleError = console.error as jest.Mock<void, unknown[]>
+
+  const FancyFallback = React.forwardRef(({error}: FallbackProps) => (
     <div>
       <p>Everything is broken. Try again</p>
       <pre>{error.message}</pre>
@@ -351,19 +374,22 @@ test('should support not only function as FallbackComponent', () => {
     screen.getByText('Everything is broken. Try again'),
   ).toBeInTheDocument()
 
-  console.error.mockClear()
+  consoleError.mockClear()
 })
 
 test('should throw error if FallbackComponent is not valid', () => {
+  const consoleError = console.error as jest.Mock<void, unknown[]>
+
   expect(() =>
     render(
+      // @ts-expect-error we're testing the error case
       <ErrorBoundary FallbackComponent={{}}>
         <Bomb />
       </ErrorBoundary>,
     ),
   ).toThrowError(/Element type is invalid/i)
 
-  console.error.mockClear()
+  consoleError.mockClear()
 })
 
 /*

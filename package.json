@@ -5,7 +5,7 @@
   "main": "dist/react-error-boundary.cjs.js",
   "module": "dist/react-error-boundary.esm.js",
   "browser": "dist/react-error-boundary.umd.js",
-  "types": "index.d.ts",
+  "types": "dist/index.d.ts",
   "sideEffects": false,
   "keywords": [
     "react",
@@ -27,8 +27,7 @@
   },
   "homepage": "https://github.com/bvaughn/react-error-boundary#readme",
   "files": [
-    "dist",
-    "index.d.ts"
+    "dist"
   ],
   "scripts": {
     "build": "kcd-scripts build --bundle",
@@ -36,19 +35,22 @@
     "setup": "npm install && npm run validate -s",
     "test": "kcd-scripts test",
     "test:update": "npm test -- --updateSnapshot --coverage",
+    "typecheck": "kcd-scripts typecheck",
     "validate": "kcd-scripts validate"
   },
   "dependencies": {
-    "@babel/runtime": "^7.11.2"
+    "@babel/runtime": "^7.12.5"
   },
   "devDependencies": {
-    "@testing-library/jest-dom": "^5.11.4",
-    "@testing-library/react": "^11.0.2",
-    "@testing-library/user-event": "^12.1.4",
-    "kcd-scripts": "^6.3.0",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "typescript": "^4.0.2"
+    "@testing-library/jest-dom": "^5.11.6",
+    "@testing-library/react": "^11.2.2",
+    "@testing-library/user-event": "^12.2.2",
+    "@types/jest": "^26.0.15",
+    "@types/react": "^17.0.0",
+    "kcd-scripts": "^7.3.0",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "typescript": "^4.1.2"
   },
   "peerDependencies": {
     "react": ">=16.13.1"
