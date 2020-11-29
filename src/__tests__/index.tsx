@@ -57,7 +57,7 @@ test('standard use-case', () => {
     "The above error occurred in the <Bomb> component:
 
         at Bomb (<PROJECT_ROOT>/src/__tests__/index.tsx:18:9)
-        at ErrorBoundary (<PROJECT_ROOT>/src/index.tsx:64:3)
+        at ErrorBoundary (<PROJECT_ROOT>/src/index.tsx:66:3)
         at div
         at div
         at <PROJECT_ROOT>/src/__tests__/index.tsx:28:43
@@ -162,7 +162,7 @@ test('withErrorBoundary HOC', () => {
     "The above error occurred in one of your React components:
 
         at Boundary.FallbackComponent (<PROJECT_ROOT>/src/__tests__/index.tsx:150:13)
-        at ErrorBoundary (<PROJECT_ROOT>/src/index.tsx:64:3)
+        at ErrorBoundary (<PROJECT_ROOT>/src/index.tsx:66:3)
         at withErrorBoundary(Unknown)
 
     React will try to recreate this component tree from scratch using the error boundary you provided, ErrorBoundary."
@@ -178,7 +178,7 @@ test('withErrorBoundary HOC', () => {
     Object {
       "componentStack": "
         at Boundary.FallbackComponent (<PROJECT_ROOT>/src/__tests__/index.tsx:150:13)
-        at ErrorBoundary (<PROJECT_ROOT>/src/index.tsx:64:3)
+        at ErrorBoundary (<PROJECT_ROOT>/src/index.tsx:66:3)
         at withErrorBoundary(Unknown)",
     }
   `)

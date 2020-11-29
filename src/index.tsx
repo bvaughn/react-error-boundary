@@ -57,7 +57,9 @@ type ErrorBoundaryProps =
   | ErrorBoundaryPropsWithRender
 
 type ErrorBoundaryState = {error: Error | null}
+
 const initialState: ErrorBoundaryState = {error: null}
+
 class ErrorBoundary extends React.Component<
   React.PropsWithRef<React.PropsWithChildren<ErrorBoundaryProps>>,
   ErrorBoundaryState
@@ -92,7 +94,6 @@ class ErrorBoundary extends React.Component<
     // error to be thrown.
     // So we make sure that we don't check the resetKeys on the first call
     // of cDU after the error is set
-
     if (error !== null && !this.updatedWithError) {
       this.updatedWithError = true
       return
@@ -151,7 +152,7 @@ function withErrorBoundary<P>(
 }
 
 function useErrorHandler<P = Error>(
-  givenError?: P,
+  givenError?: P | null | undefined,
 ): React.Dispatch<React.SetStateAction<P | null>> {
   const [error, setError] = React.useState<P | null>(null)
   if (givenError) throw givenError
