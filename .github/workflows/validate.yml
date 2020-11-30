@@ -3,7 +3,7 @@ on:
   push:
     branches:
       - '+([0-9])?(.{+([0-9]),x}).x'
-      - 'main'
+      - 'master'
       - 'next'
       - 'next-major'
       - 'beta'
@@ -43,7 +43,7 @@ jobs:
     runs-on: ubuntu-latest
     if:
       ${{ github.repository == 'bvaughn/react-error-boundary' &&
-      contains('refs/heads/main,refs/heads/beta,refs/heads/next,refs/heads/alpha',
+      contains('refs/heads/master,refs/heads/beta,refs/heads/next,refs/heads/alpha',
       github.ref) && github.event_name == 'push' }}
     steps:
       - name: ⬇️ Checkout repo
@@ -69,7 +69,7 @@ jobs:
           branches: |
             [
               '+([0-9])?(.{+([0-9]),x}).x',
-              'main',
+              'master',
               'next',
               'next-major',
               {name: 'beta', prerelease: true},
