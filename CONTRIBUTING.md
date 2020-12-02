@@ -34,7 +34,7 @@ sure to include those changes (if they exist) in your commit.
 
 ## Help needed
 
-Please checkout the [the open issues][issues]
+Please checkout the [open issues][issues]
 
 Also, please watch the repo and respond to questions/bug reports/feature
 requests! Thanks!
