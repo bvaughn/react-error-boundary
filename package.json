@@ -4,7 +4,8 @@
   "description": "Simple reusable React error boundary component",
   "main": "dist/react-error-boundary.cjs.js",
   "module": "dist/react-error-boundary.esm.js",
-  "browser": "dist/react-error-boundary.umd.js",
+  "umd:main": "dist/react-error-boundary.umd.js",
+  "unpkg": "dist/react-error-boundary.umd.min.js",
   "types": "dist/index.d.ts",
   "sideEffects": false,
   "keywords": [
