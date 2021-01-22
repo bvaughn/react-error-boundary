@@ -107,7 +107,7 @@ class ErrorBoundary extends React.Component<
 
   render() {
     const {error} = this.state
-    // @ts-expect-error ts(2339) (at least one of these will be defined though, and we check for their existance)
+    // @ts-expect-error ts(2339) (at least one of these will be defined though, and we check for their existence)
     const {fallbackRender, FallbackComponent, fallback} = this.props
 
     if (error !== null) {
