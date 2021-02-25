@@ -60,7 +60,7 @@ test('standard use-case', () => {
         at ErrorBoundary (<PROJECT_ROOT>/src/index.tsx:66:3)
         at div
         at div
-        at <PROJECT_ROOT>/src/__tests__/index.tsx:28:43
+        at App (<PROJECT_ROOT>/src/__tests__/index.tsx:28:43)
 
     React will try to recreate this component tree from scratch using the error boundary you provided, ErrorBoundary."
   `)

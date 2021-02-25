@@ -46,9 +46,9 @@ test('handleError forwards along async errors', async () => {
     `"Error: Uncaught [Error: 💥 CABOOM 💥]"`,
   )
   expect(componentStack).toMatchInlineSnapshot(`
-    "The above error occurred in one of your React components:
+    "The above error occurred in the <AsyncBomb> component:
 
-        at <PROJECT_ROOT>/src/__tests__/hook.tsx:21:41
+        at AsyncBomb (<PROJECT_ROOT>/src/__tests__/hook.tsx:21:41)
         at ErrorBoundary (<PROJECT_ROOT>/src/index.tsx:66:3)
 
     React will try to recreate this component tree from scratch using the error boundary you provided, ErrorBoundary."
@@ -92,9 +92,9 @@ test('can pass an error to useErrorHandler', async () => {
     `"Error: Uncaught [Error: 💥 CABOOM 💥]"`,
   )
   expect(componentStack).toMatchInlineSnapshot(`
-    "The above error occurred in one of your React components:
+    "The above error occurred in the <AsyncBomb> component:
 
-        at <PROJECT_ROOT>/src/__tests__/hook.tsx:66:37
+        at AsyncBomb (<PROJECT_ROOT>/src/__tests__/hook.tsx:66:37)
         at ErrorBoundary (<PROJECT_ROOT>/src/index.tsx:66:3)
 
     React will try to recreate this component tree from scratch using the error boundary you provided, ErrorBoundary."
