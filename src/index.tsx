@@ -84,6 +84,14 @@ class ErrorBoundary extends React.Component<
     this.props.onError?.(error, info)
   }
 
+  componentDidMount() {
+    const {error} = this.state
+
+    if (error !== null) {
+      this.updatedWithError = true
+    }
+  }
+
   componentDidUpdate(prevProps: ErrorBoundaryProps) {
     const {error} = this.state
     const {resetKeys} = this.props

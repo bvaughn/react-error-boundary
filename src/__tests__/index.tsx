@@ -60,7 +60,7 @@ test('standard use-case', () => {
         at ErrorBoundary (<PROJECT_ROOT>/src/index.tsx:66:3)
         at div
         at div
-        at <PROJECT_ROOT>/src/__tests__/index.tsx:28:43
+        at App (<PROJECT_ROOT>/src/__tests__/index.tsx:28:43)
 
     React will try to recreate this component tree from scratch using the error boundary you provided, ErrorBoundary."
   `)
@@ -349,6 +349,43 @@ test('supports automatic reset of error boundary when resetKeys change', () => {
   handleResetKeysChange.mockClear()
   expect(screen.queryByRole('alert')).not.toBeInTheDocument()
   expect(consoleError).not.toHaveBeenCalled()
+})
+
+test('supports reset via resetKeys right after error is triggered on component mount', () => {
+  const consoleError = console.error as jest.Mock<void, unknown[]>
+  const handleResetKeysChange = jest.fn()
+  function App() {
+    const [explode, setExplode] = React.useState(true)
+    return (
+      <div>
+        <button onClick={() => setExplode(e => !e)}>toggle explode</button>
+        <ErrorBoundary
+          fallbackRender={() => (
+            <div role="alert">
+              <p>Something went wrong</p>
+            </div>
+          )}
+          onResetKeysChange={handleResetKeysChange}
+          resetKeys={[explode]}
+        >
+          {explode ? <Bomb /> : null}
+        </ErrorBoundary>
+      </div>
+    )
+  }
+  render(<App />)
+
+  // it blows up on render
+  expect(screen.getByRole('alert')).toBeInTheDocument()
+  expect(consoleError).toHaveBeenCalledTimes(2)
+  consoleError.mockClear()
+
+  // recover via "toggle explode" button
+  userEvent.click(screen.getByText('toggle explode'))
+  expect(screen.queryByRole('alert')).not.toBeInTheDocument()
+  expect(consoleError).not.toHaveBeenCalled()
+  expect(handleResetKeysChange).toHaveBeenCalledWith([true], [false])
+  expect(handleResetKeysChange).toHaveBeenCalledTimes(1)
 })
 
 test('should support not only function as FallbackComponent', () => {
