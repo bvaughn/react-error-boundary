@@ -159,12 +159,10 @@ function withErrorBoundary<P>(
   return Wrapped
 }
 
-function useErrorHandler<P = Error>(
-  givenError?: P | null | undefined,
-): React.Dispatch<React.SetStateAction<P | null>> {
-  const [error, setError] = React.useState<P | null>(null)
-  if (givenError) throw givenError
-  if (error) throw error
+function useErrorHandler(givenError?: unknown): (error: unknown) => void {
+  const [error, setError] = React.useState<unknown>(null)
+  if (givenError != null) throw givenError
+  if (error != null) throw error
   return setError
 }
 
