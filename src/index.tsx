@@ -16,7 +16,9 @@ interface ErrorBoundaryPropsWithComponent {
   onReset?: (...args: Array<unknown>) => void
   onError?: (error: Error, info: {componentStack: string}) => void
   resetKeys?: Array<unknown>
+  fallback?: never
   FallbackComponent: React.ComponentType<FallbackProps>
+  fallbackRender?: never
 }
 
 declare function FallbackRender(
@@ -34,6 +36,8 @@ interface ErrorBoundaryPropsWithRender {
   onReset?: (...args: Array<unknown>) => void
   onError?: (error: Error, info: {componentStack: string}) => void
   resetKeys?: Array<unknown>
+  fallback?: never
+  FallbackComponent?: never
   fallbackRender: typeof FallbackRender
 }
 
@@ -49,6 +53,8 @@ interface ErrorBoundaryPropsWithFallback {
     unknown,
     string | React.FunctionComponent | typeof React.Component
   > | null
+  FallbackComponent?: never
+  fallbackRender?: never
 }
 
 type ErrorBoundaryProps =
@@ -115,7 +121,7 @@ class ErrorBoundary extends React.Component<
 
   render() {
     const {error} = this.state
-    // @ts-expect-error ts(2339) (at least one of these will be defined though, and we check for their existence)
+
     const {fallbackRender, FallbackComponent, fallback} = this.props
 
     if (error !== null) {
@@ -126,7 +132,7 @@ class ErrorBoundary extends React.Component<
       if (React.isValidElement(fallback)) {
         return fallback
       } else if (typeof fallbackRender === 'function') {
-        return (fallbackRender as typeof FallbackRender)(props)
+        return fallbackRender(props)
       } else if (FallbackComponent) {
         return <FallbackComponent {...props} />
       } else {
