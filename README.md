@@ -289,7 +289,7 @@ See the recovery examples above.
 This is called when the `resetKeys` are changed (triggering a reset of the
 `ErrorBoundary`). It's called with the `prevResetKeys` and the `resetKeys`.
 
-### `useErrorHandler(error?: Error)`
+### `useErrorHandler(error?: unknown)`
 
 React's error boundaries feature is limited in that the boundaries can only
 handle errors thrown during React's lifecycles. To quote
