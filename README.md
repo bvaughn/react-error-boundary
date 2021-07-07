@@ -316,6 +316,8 @@ There are two ways to use `useErrorHandler`:
 Here's an example:
 
 ```javascript
+import { useErrorHandler } from 'react-error-boundary'
+
 function Greeting() {
   const [greeting, setGreeting] = React.useState(null)
   const handleError = useErrorHandler()
@@ -358,6 +360,8 @@ function handleSubmit(event) {
 Alternatively, let's say you're using a hook that gives you the error:
 
 ```javascript
+import { useErrorHandler } from 'react-error-boundary'
+
 function Greeting() {
   const [name, setName] = React.useState('')
   const {greeting, error} = useGreeting(name)
