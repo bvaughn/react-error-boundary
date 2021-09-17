@@ -43,7 +43,7 @@ react-error-boundary
   - [Error Recovery](#error-recovery)
 - [API](#api)
   - [`ErrorBoundary` props](#errorboundary-props)
-  - [`useErrorHandler(error?: Error)`](#useerrorhandlererror-error)
+  - [`useErrorHandler(error?: unknown)`](#useerrorhandlererror-unknown)
 - [Issues](#issues)
   - [🐛 Bugs](#-bugs)
   - [💡 Feature Requests](#-feature-requests)
