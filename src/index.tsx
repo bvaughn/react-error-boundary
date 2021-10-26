@@ -75,14 +75,12 @@ class ErrorBoundary extends React.Component<
   }
 
   state = initialState
-  updatedWithError = false
   resetErrorBoundary = (...args: Array<unknown>) => {
     this.props.onReset?.(...args)
     this.reset()
   }
 
   reset() {
-    this.updatedWithError = false
     this.setState(initialState)
   }
 
@@ -90,15 +88,10 @@ class ErrorBoundary extends React.Component<
     this.props.onError?.(error, info)
   }
 
-  componentDidMount() {
-    const {error} = this.state
-
-    if (error !== null) {
-      this.updatedWithError = true
-    }
-  }
-
-  componentDidUpdate(prevProps: ErrorBoundaryProps) {
+  componentDidUpdate(
+    prevProps: ErrorBoundaryProps,
+    prevState: ErrorBoundaryState,
+  ) {
     const {error} = this.state
     const {resetKeys} = this.props
 
@@ -108,12 +101,12 @@ class ErrorBoundary extends React.Component<
     // error to be thrown.
     // So we make sure that we don't check the resetKeys on the first call
     // of cDU after the error is set
-    if (error !== null && !this.updatedWithError) {
-      this.updatedWithError = true
-      return
-    }
 
-    if (error !== null && changedArray(prevProps.resetKeys, resetKeys)) {
+    if (
+      error !== null &&
+      prevState.error !== null &&
+      changedArray(prevProps.resetKeys, resetKeys)
+    ) {
       this.props.onResetKeysChange?.(prevProps.resetKeys, resetKeys)
       this.reset()
     }
@@ -183,6 +176,7 @@ export type {
 
 /*
 eslint
+  @typescript-eslint/sort-type-union-intersection-members: "off",
   @typescript-eslint/no-throw-literal: "off",
   @typescript-eslint/prefer-nullish-coalescing: "off"
 */
