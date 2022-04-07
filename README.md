@@ -279,7 +279,7 @@ in `resetKeys`. Use `onResetKeysChange` for that.
 Sometimes an error happens as a result of local state to the component that's
 rendering the error. If this is the case, then you can pass `resetKeys` which is
 an array of values. If the `ErrorBoundary` is in an error state, then it will
-check these values each render and if they change from one render to the next,
+check these values after each render and if they change from one render to the next,
 then it will reset automatically (triggering a re-render of the `children`).
 
 See the recovery examples above.
