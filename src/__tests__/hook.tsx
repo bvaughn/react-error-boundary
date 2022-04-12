@@ -8,7 +8,11 @@ function ErrorFallback({error, resetErrorBoundary}: FallbackProps) {
   return (
     <div role="alert">
       <p>Something went wrong:</p>
-      <pre>{error.message}</pre>
+      <pre>
+        {error instanceof Error
+          ? `This is Error Instance: ${error.message}`
+          : `It's not Error Instance: ${error}`}
+      </pre>
       <button onClick={resetErrorBoundary}>Try again</button>
     </div>
   )
@@ -48,7 +52,7 @@ test('handleError forwards along async errors', async () => {
   expect(componentStack).toMatchInlineSnapshot(`
     "The above error occurred in the <AsyncBomb> component:
 
-        at AsyncBomb (<PROJECT_ROOT>/src/__tests__/hook.tsx:21:41)
+        at AsyncBomb (<PROJECT_ROOT>/src/__tests__/hook.tsx:25:41)
         at ErrorBoundary (<PROJECT_ROOT>/src/index.tsx:72:3)
 
     React will try to recreate this component tree from scratch using the error boundary you provided, ErrorBoundary."
@@ -94,7 +98,7 @@ test('can pass an error to useErrorHandler', async () => {
   expect(componentStack).toMatchInlineSnapshot(`
     "The above error occurred in the <AsyncBomb> component:
 
-        at AsyncBomb (<PROJECT_ROOT>/src/__tests__/hook.tsx:66:37)
+        at AsyncBomb (<PROJECT_ROOT>/src/__tests__/hook.tsx:70:37)
         at ErrorBoundary (<PROJECT_ROOT>/src/index.tsx:72:3)
 
     React will try to recreate this component tree from scratch using the error boundary you provided, ErrorBoundary."

@@ -8,7 +8,11 @@ function ErrorFallback({error, resetErrorBoundary}: FallbackProps) {
   return (
     <div role="alert">
       <p>Something went wrong:</p>
-      <pre>{error.message}</pre>
+      <pre>
+        {error instanceof Error
+          ? `This is Error Instance: ${error.message}`
+          : `It's not Error Instance: ${error}`}
+      </pre>
       <button onClick={resetErrorBoundary}>Try again</button>
     </div>
   )
@@ -56,11 +60,11 @@ test('standard use-case', () => {
   expect(componentStack).toMatchInlineSnapshot(`
     "The above error occurred in the <Bomb> component:
 
-        at Bomb (<PROJECT_ROOT>/src/__tests__/index.tsx:18:9)
+        at Bomb (<PROJECT_ROOT>/src/__tests__/index.tsx:22:9)
         at ErrorBoundary (<PROJECT_ROOT>/src/index.tsx:72:3)
         at div
         at div
-        at App (<PROJECT_ROOT>/src/__tests__/index.tsx:28:43)
+        at App (<PROJECT_ROOT>/src/__tests__/index.tsx:32:43)
 
     React will try to recreate this component tree from scratch using the error boundary you provided, ErrorBoundary."
   `)
@@ -75,7 +79,7 @@ test('standard use-case', () => {
         Something went wrong:
       </p>
       <pre>
-        💥 CABOOM 💥
+        This is Error Instance: 💥 CABOOM 💥
       </pre>
       <button>
         Try again
@@ -161,7 +165,7 @@ test('withErrorBoundary HOC', () => {
   expect(componentStack).toMatchInlineSnapshot(`
     "The above error occurred in one of your React components:
 
-        at Boundary.FallbackComponent (<PROJECT_ROOT>/src/__tests__/index.tsx:150:13)
+        at Boundary.FallbackComponent (<PROJECT_ROOT>/src/__tests__/index.tsx:154:13)
         at ErrorBoundary (<PROJECT_ROOT>/src/index.tsx:72:3)
         at withErrorBoundary(Unknown)
 
@@ -177,7 +181,7 @@ test('withErrorBoundary HOC', () => {
   expect(onErrorComponentStack).toMatchInlineSnapshot(`
     Object {
       "componentStack": "
-        at Boundary.FallbackComponent (<PROJECT_ROOT>/src/__tests__/index.tsx:150:13)
+        at Boundary.FallbackComponent (<PROJECT_ROOT>/src/__tests__/index.tsx:154:13)
         at ErrorBoundary (<PROJECT_ROOT>/src/index.tsx:72:3)
         at withErrorBoundary(Unknown)",
     }
@@ -394,7 +398,11 @@ test('should support not only function as FallbackComponent', () => {
   const FancyFallback = React.forwardRef(({error}: FallbackProps) => (
     <div>
       <p>Everything is broken. Try again</p>
-      <pre>{error.message}</pre>
+      <pre>
+        {error instanceof Error
+          ? `This is Error Instance: ${error.message}`
+          : `It's not Error Instance: ${error}`}
+      </pre>
     </div>
   ))
   FancyFallback.displayName = 'FancyFallback'

@@ -4,7 +4,7 @@ const changedArray = (a: Array<unknown> = [], b: Array<unknown> = []) =>
   a.length !== b.length || a.some((item, index) => !Object.is(item, b[index]))
 
 interface FallbackProps {
-  error: Error
+  error: unknown
   resetErrorBoundary: (...args: Array<unknown>) => void
 }
 
