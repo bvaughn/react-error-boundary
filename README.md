@@ -44,6 +44,8 @@ react-error-boundary
 - [API](#api)
   - [`ErrorBoundary` props](#errorboundary-props)
   - [`useErrorHandler(error?: unknown)`](#useerrorhandlererror-unknown)
+  - [`useError`](#useerror)
+  - [`useResetErrorBoundary`](#usereseterrorboundary)
 - [Issues](#issues)
   - [🐛 Bugs](#-bugs)
   - [💡 Feature Requests](#-feature-requests)
@@ -245,9 +247,9 @@ This is required if no `FallbackComponent` or `fallback` prop is provided.
 #### `fallback`
 
 In the spirit of consistency with the `React.Suspense` component, we also
-support a simple `fallback` prop which you can use for a generic fallback. This
-will not be passed any props so you can't show the user anything actually useful
-though, so it's not really recommended.
+support a simple `fallback` prop which you can use for a generic fallback. You
+can call `useError` and `useResetErrorBoundary` to get current `error` and
+`resetErrorBoundary` function.
 
 ```jsx
 const ui = (
@@ -316,7 +318,7 @@ There are two ways to use `useErrorHandler`:
 Here's an example:
 
 ```javascript
-import { useErrorHandler } from 'react-error-boundary'
+import {useErrorHandler} from 'react-error-boundary'
 
 function Greeting() {
   const [greeting, setGreeting] = React.useState(null)
@@ -360,7 +362,7 @@ function handleSubmit(event) {
 Alternatively, let's say you're using a hook that gives you the error:
 
 ```javascript
-import { useErrorHandler } from 'react-error-boundary'
+import {useErrorHandler} from 'react-error-boundary'
 
 function Greeting() {
   const [name, setName] = React.useState('')
@@ -400,6 +402,65 @@ const ui = (
 
 And now that'll handle your runtime errors as well as the async errors in the
 `fetchGreeting` or `useGreeting` code.
+
+### `useError`
+
+You can get the current error from the `useError` hook.
+
+```jsx
+import {ErrorBoundary, useError} from 'react-error-boundary'
+
+function ErrorView() {
+  const error = useError()
+  return <pre>{error.message}</pre>
+}
+
+const ui = (
+  <ErrorBoundary
+    fallback={
+      <div>
+        Oh no
+        <br />
+        <ErrorView />
+      </div>
+    }
+  >
+    <ComponentThatMayError />
+  </ErrorBoundary>
+)
+```
+
+`useError` only should be used inside `<ErrorBoundary fallback />`.
+
+### `useResetErrorBoundary`
+
+You can get `resetErrorBoundary` function from the `useResetErrorBoundary` hook.
+It will help to create a reusable reset button.
+
+```jsx
+import {ErrorBoundary, useResetErrorBoundary} from 'react-error-boundary'
+
+function ResetButton() {
+  const resetErrorBoundary = useResetErrorBoundary()
+  return <button onClick={resetErrorBoundary}>Try again</button>
+}
+
+const ui = (
+  <ErrorBoundary
+    fallback={
+      <div>
+        Oh no
+        <br />
+        <ResetButton />
+      </div>
+    }
+  >
+    <ComponentThatMayError />
+  </ErrorBoundary>
+)
+```
+
+`resetErrorBoundary` only should be used inside `<ErrorBoundary fallback />`.
 
 ## Issues
 

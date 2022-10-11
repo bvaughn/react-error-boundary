@@ -1,7 +1,12 @@
 import React from 'react'
 import {render, screen} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import {ErrorBoundary, withErrorBoundary} from '..'
+import {
+  ErrorBoundary,
+  useError,
+  useResetErrorBoundary,
+  withErrorBoundary,
+} from '..'
 import type {FallbackProps} from '..'
 
 function ErrorFallback({error, resetErrorBoundary}: FallbackProps) {
@@ -12,6 +17,16 @@ function ErrorFallback({error, resetErrorBoundary}: FallbackProps) {
       <button onClick={resetErrorBoundary}>Try again</button>
     </div>
   )
+}
+
+function ResetButton() {
+  const resetErrorBoundary = useResetErrorBoundary()
+  return <button onClick={resetErrorBoundary}>Try again</button>
+}
+
+function ErrorView() {
+  const error = useError()
+  return <pre>{error.message}</pre>
 }
 
 function Bomb() {
@@ -56,11 +71,11 @@ test('standard use-case', () => {
   expect(componentStack).toMatchInlineSnapshot(`
     "The above error occurred in the <Bomb> component:
 
-        at Bomb (<PROJECT_ROOT>/src/__tests__/index.tsx:18:9)
-        at ErrorBoundary (<PROJECT_ROOT>/src/index.tsx:72:3)
+        at Bomb (<PROJECT_ROOT>/src/__tests__/index.tsx:33:9)
+        at ErrorBoundary (<PROJECT_ROOT>/src/index.tsx:79:3)
         at div
         at div
-        at App (<PROJECT_ROOT>/src/__tests__/index.tsx:28:43)
+        at App (<PROJECT_ROOT>/src/__tests__/index.tsx:43:43)
 
     React will try to recreate this component tree from scratch using the error boundary you provided, ErrorBoundary."
   `)
@@ -141,6 +156,55 @@ test('simple fallback is supported', () => {
   expect(screen.queryByText(/child/i)).not.toBeInTheDocument()
 })
 
+test('fallback with context is supported', () => {
+  const consoleError = console.error as jest.Mock<void, unknown[]>
+
+  function App() {
+    const [explode, setExplode] = React.useState(true)
+    return (
+      <ErrorBoundary
+        onReset={() => {
+          setExplode(false)
+        }}
+        fallback={
+          <div role="alert">
+            <p>Oh no</p>
+            <ErrorView />
+            <ResetButton />
+          </div>
+        }
+      >
+        {explode && <Bomb />}
+        <span>child</span>
+      </ErrorBoundary>
+    )
+  }
+
+  render(<App />)
+  expect(consoleError).toHaveBeenCalledTimes(2)
+  consoleError.mockClear()
+
+  expect(screen.getByText(/oh no/i)).toBeInTheDocument()
+  expect(screen.queryByText(/child/i)).not.toBeInTheDocument()
+  expect(screen.getByRole('alert')).toMatchInlineSnapshot(`
+    <div
+      role="alert"
+    >
+      <p>
+        Oh no
+      </p>
+      <pre>
+        💥 CABOOM 💥
+      </pre>
+      <button>
+        Try again
+      </button>
+    </div>
+  `)
+  userEvent.click(screen.getByText(/Try again/i))
+  expect(screen.getByText(/child/i)).toBeInTheDocument()
+})
+
 test('withErrorBoundary HOC', () => {
   const consoleError = console.error as jest.Mock<void, unknown[]>
 
@@ -161,8 +225,8 @@ test('withErrorBoundary HOC', () => {
   expect(componentStack).toMatchInlineSnapshot(`
     "The above error occurred in one of your React components:
 
-        at Boundary.FallbackComponent (<PROJECT_ROOT>/src/__tests__/index.tsx:150:13)
-        at ErrorBoundary (<PROJECT_ROOT>/src/index.tsx:72:3)
+        at Boundary.FallbackComponent (<PROJECT_ROOT>/src/__tests__/index.tsx:214:13)
+        at ErrorBoundary (<PROJECT_ROOT>/src/index.tsx:79:3)
         at withErrorBoundary(Unknown)
 
     React will try to recreate this component tree from scratch using the error boundary you provided, ErrorBoundary."
@@ -177,8 +241,8 @@ test('withErrorBoundary HOC', () => {
   expect(onErrorComponentStack).toMatchInlineSnapshot(`
     Object {
       "componentStack": "
-        at Boundary.FallbackComponent (<PROJECT_ROOT>/src/__tests__/index.tsx:150:13)
-        at ErrorBoundary (<PROJECT_ROOT>/src/index.tsx:72:3)
+        at Boundary.FallbackComponent (<PROJECT_ROOT>/src/__tests__/index.tsx:214:13)
+        at ErrorBoundary (<PROJECT_ROOT>/src/index.tsx:79:3)
         at withErrorBoundary(Unknown)",
     }
   `)
@@ -426,6 +490,23 @@ test('should throw error if FallbackComponent is not valid', () => {
     ),
   ).toThrowError(/Element type is invalid/i)
 
+  consoleError.mockClear()
+})
+
+test('should throw error if useError used outside of <ErrorBoundary fallback/>', () => {
+  const consoleError = console.error as jest.Mock<void, unknown[]>
+
+  expect(() => render(<ErrorView />)).toThrowErrorMatchingInlineSnapshot(
+    `"useError must be used inside the <ErrorBoundary fallback />"`,
+  )
+  consoleError.mockClear()
+})
+test('should throw error if useResetErrorBoundary used outside of <ErrorBoundary fallback/>', () => {
+  const consoleError = console.error as jest.Mock<void, unknown[]>
+
+  expect(() => render(<ResetButton />)).toThrowErrorMatchingInlineSnapshot(
+    `"useResetErrorBoundary must be used inside the <ErrorBoundary fallback />"`,
+  )
   consoleError.mockClear()
 })
 

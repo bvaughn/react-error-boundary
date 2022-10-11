@@ -21,6 +21,13 @@ interface ErrorBoundaryPropsWithComponent {
   fallbackRender?: never
 }
 
+const ErrorContext = React.createContext<FallbackProps['error'] | undefined>(
+  undefined,
+)
+const ResetErrorBoundaryContext = React.createContext<
+  FallbackProps['resetErrorBoundary'] | undefined
+>(undefined)
+
 declare function FallbackRender(
   props: FallbackProps,
 ): React.ReactElement<
@@ -123,7 +130,13 @@ class ErrorBoundary extends React.Component<
         resetErrorBoundary: this.resetErrorBoundary,
       }
       if (React.isValidElement(fallback)) {
-        return fallback
+        return (
+          <ErrorContext.Provider value={error}>
+            <ResetErrorBoundaryContext.Provider value={this.resetErrorBoundary}>
+              {fallback}
+            </ResetErrorBoundaryContext.Provider>
+          </ErrorContext.Provider>
+        )
       } else if (typeof fallbackRender === 'function') {
         return fallbackRender(props)
       } else if (FallbackComponent) {
@@ -165,7 +178,33 @@ function useErrorHandler(givenError?: unknown): (error: unknown) => void {
   return setError
 }
 
-export {ErrorBoundary, withErrorBoundary, useErrorHandler}
+function useError() {
+  const context = React.useContext(ErrorContext)
+  if (context === undefined) {
+    throw new Error(
+      'useError must be used inside the <ErrorBoundary fallback />',
+    )
+  }
+  return context
+}
+
+function useResetErrorBoundary() {
+  const context = React.useContext(ResetErrorBoundaryContext)
+  if (context === undefined) {
+    throw new Error(
+      'useResetErrorBoundary must be used inside the <ErrorBoundary fallback />',
+    )
+  }
+  return context
+}
+
+export {
+  ErrorBoundary,
+  withErrorBoundary,
+  useErrorHandler,
+  useError,
+  useResetErrorBoundary,
+}
 export type {
   FallbackProps,
   ErrorBoundaryPropsWithComponent,
