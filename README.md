@@ -426,7 +426,7 @@ MIT
 <!-- prettier-ignore-start -->
 [npm]: https://www.npmjs.com
 [node]: https://nodejs.org
-[build-badge]: https://img.shields.io/github/workflow/status/bvaughn/react-error-boundary/validate?logo=github&style=flat-square
+[build-badge]: https://img.shields.io/github/actions/workflow/status/bvaughn/react-error-boundary/validate.yml?branch=master&logo=github&style=flat-square
 [build]: https://github.com/bvaughn/react-error-boundary/actions?query=workflow%3Avalidate
 [coverage-badge]: https://img.shields.io/codecov/c/github/bvaughn/react-error-boundary.svg?style=flat-square
 [coverage]: https://codecov.io/github/bvaughn/react-error-boundary
