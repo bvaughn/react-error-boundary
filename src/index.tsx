@@ -115,9 +115,9 @@ class ErrorBoundary extends React.Component<
   render() {
     const {error} = this.state
 
-    const {fallbackRender, FallbackComponent, fallback} = this.props
-
     if (error !== null) {
+      const {fallbackRender, FallbackComponent, fallback} = this.props
+      
       const props = {
         error,
         resetErrorBoundary: this.resetErrorBoundary,
