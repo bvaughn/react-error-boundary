@@ -1,55 +1,50 @@
 {
   "name": "react-error-boundary",
-  "version": "0.0.0-semantically-released",
+  "version": "4.0.0",
   "description": "Simple reusable React error boundary component",
-  "main": "dist/react-error-boundary.cjs.js",
-  "module": "dist/react-error-boundary.esm.js",
-  "browser": "dist/react-error-boundary.umd.js",
-  "types": "dist/index.d.ts",
-  "sideEffects": false,
-  "keywords": [
-    "react",
-    "error boundary",
-    "error handling"
-  ],
   "author": "Brian Vaughn <brian.david.vaughn@gmail.com>",
   "license": "MIT",
-  "engines": {
-    "node": ">=10",
-    "npm": ">=6"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/bvaughn/react-error-boundary"
   },
-  "bugs": {
-    "url": "https://github.com/bvaughn/react-error-boundary/issues"
-  },
-  "homepage": "https://github.com/bvaughn/react-error-boundary#readme",
+  "source": "src/index.ts",
+  "main": "dist/react-error-boundary.js",
+  "module": "dist/react-error-boundary.module.js",
+  "types": "dist/react-error-boundary.d.ts",
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "kcd-scripts build --bundle",
-    "lint": "kcd-scripts lint",
-    "setup": "npm install && npm run validate -s",
-    "test": "kcd-scripts test",
-    "test:update": "npm test -- --updateSnapshot --coverage",
-    "typecheck": "kcd-scripts typecheck",
-    "validate": "kcd-scripts validate"
+    "clear": "npm run clear:parcel-cache & npm run clear:builds & npm run clear:node_modules",
+    "clear:builds": "rm -rf ./packages/*/dist",
+    "clear:parcel-cache": "rm -rf ./.parcel-cache",
+    "clear:node_modules": "rm -rf ./node_modules",
+    "prerelease": "rm -rf ./.parcel-cache && parcel build",
+    "prettier": "prettier --write \"**/*.{css,html,js,json,jsx,ts,tsx}\"",
+    "prettier:ci": "prettier --check \"**/*.{css,html,js,json,jsx,ts,tsx}\"",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "typescript": "tsc --noEmit",
+    "typescript:watch": "tsc --noEmit --watch"
   },
   "dependencies": {
     "@babel/runtime": "^7.12.5"
   },
   "devDependencies": {
-    "@testing-library/jest-dom": "^5.11.6",
-    "@testing-library/react": "^11.2.2",
-    "@testing-library/user-event": "^12.2.2",
+    "@parcel/core": "^2.8.3",
+    "@parcel/packager-ts": "^2.8.3",
+    "@parcel/transformer-typescript-types": "^2.8.3",
     "@types/jest": "^26.0.15",
-    "@types/react": "^17.0.0",
-    "kcd-scripts": "^7.3.0",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "jest": "^29.4.3",
+    "jest-environment-jsdom": "^29.4.3",
+    "parcel": "^2.8.3",
+    "prettier": "^2.8.6",
+    "react": "^18",
+    "react-dom": "^18",
+    "ts-jest": "^29.0.5",
     "typescript": "^4.1.2"
   },
   "peerDependencies": {
