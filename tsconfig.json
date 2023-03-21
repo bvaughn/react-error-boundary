@@ -1,3 +1,17 @@
 {
-  "extends": "./node_modules/kcd-scripts/shared-tsconfig.json"
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "lib": ["DOM", "ES2015", "ES2021.WeakRef"],
+    "module": "es2020",
+    "moduleResolution": "node",
+    "noImplicitAny": true,
+    "jsx": "react-jsx",
+    "resolveJsonModule": true,
+    "strict": true,
+    "target": "es2018",
+    "typeRoots": ["node_modules/@types", "definitions"],
+    "types": ["jest"]
+  },
+  "exclude": ["node_modules"],
+  "include": ["src"]
 }
