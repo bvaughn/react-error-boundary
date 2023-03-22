@@ -1,8 +1,8 @@
 # react-error-boundary
 
-Reusable React [error boundary](https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary) component. Check out [this blog post](https://kentcdodds.com/blog/use-react-error-boundary-to-handle-errors-in-react) for examples of how this package can be used.
+Reusable React [error boundary](https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary) component. Supports all React renderers (including React DOM and React Native). Refer to [this blog post](https://kentcdodds.com/blog/use-react-error-boundary-to-handle-errors-in-react) for more examples of how this package can be used.
 
-#### If you like this project, [buy me a coffee](http://givebrian.coffee/).
+### If you like this project, [buy me a coffee](http://givebrian.coffee/).
 
 ## Getting started
 
