@@ -98,6 +98,8 @@ const ui = (
 ### `useErrorBoundary` hook
 Convenience hook for imperatively showing or dismissing error boundaries.
 
+#### Show the nearest error boundary from an event handler
+
 React only handles errors thrown during render or during component lifecycle methods (e.g. effects and did-mount/did-update). Errors thrown in event handlers, or after async code has run, will not be caught.
 
 This hook can be used to pass those errors to the nearest error boundary:
@@ -106,7 +108,7 @@ This hook can be used to pass those errors to the nearest error boundary:
 import { useErrorBoundary } from "react-error-boundary";
 
 function Example() {
-  const { resetBoundary, showErrorBoundary } = useErrorBoundary();
+  const { showBoundary } = useErrorBoundary();
 
   useEffect(() => {
     fetchGreeting(name).then(
@@ -115,12 +117,31 @@ function Example() {
       },
       error => {
         // Show error boundary
-        showErrorBoundary(error);
+        showBoundary(error);
       }
     );
   });
 
   // Render ...
+}
+```
+
+#### Dismiss the nearest error boundary
+A fallback component can use this hook to request the nearest error boundary retry the render that original failed.
+
+```js
+import { useErrorBoundary } from "react-error-boundary";
+
+function ErrorFallback({ error }) {
+  const { resetBoundary } = useErrorBoundary();
+
+  return (
+    <div role="alert">
+      <p>Something went wrong:</p>
+      <pre style={{ color: "red" }}>{error.message}</pre>
+      <button onClick={resetBoundary}>Try again</button>
+    </div>
+  );
 }
 ```
 
