@@ -6,10 +6,7 @@ import {
   PropsWithChildren,
   PropsWithRef,
 } from "react";
-import {
-  ErrorBoundaryContextType,
-  ErrorBoundaryContext,
-} from "./ErrorBoundaryContext";
+import { ErrorBoundaryContext } from "./ErrorBoundaryContext";
 import { ErrorBoundaryProps, FallbackProps } from "./types";
 
 type ErrorBoundaryState = { didCatch: boolean; error: any };
@@ -78,6 +75,8 @@ export class ErrorBoundary extends Component<
       this.props;
     const { didCatch, error } = this.state;
 
+    let childToRender = children;
+
     if (didCatch) {
       const props: FallbackProps = {
         error,
@@ -85,11 +84,11 @@ export class ErrorBoundary extends Component<
       };
 
       if (isValidElement(fallback)) {
-        return fallback;
+        childToRender = fallback;
       } else if (typeof fallbackRender === "function") {
-        return fallbackRender(props);
+        childToRender = fallbackRender(props);
       } else if (FallbackComponent) {
-        return createElement(FallbackComponent, props);
+        childToRender = createElement(FallbackComponent, props);
       } else {
         throw new Error(
           "react-error-boundary requires either a fallback, fallbackRender, or FallbackComponent prop"
@@ -106,7 +105,7 @@ export class ErrorBoundary extends Component<
           resetErrorBoundary: this.resetErrorBoundary,
         },
       },
-      children
+      childToRender
     );
   }
 }

@@ -62,4 +62,40 @@ describe("useErrorBoundary", () => {
     });
     expect(container.textContent).toBe("Child");
   });
+
+  it("should work within a fallback component", () => {
+    let resetBoundary: UseErrorBoundaryApi<Error>["resetBoundary"] | null =
+      null;
+    let showBoundary: UseErrorBoundaryApi<Error>["showBoundary"] | null = null;
+
+    function FallbackComponent() {
+      resetBoundary = useErrorBoundary<Error>().resetBoundary;
+      return <div>Error</div>;
+    }
+
+    function Child() {
+      showBoundary = useErrorBoundary<Error>().showBoundary;
+      return <div>Child</div>;
+    }
+
+    const root = createRoot(container);
+    act(() => {
+      root.render(
+        <ErrorBoundary FallbackComponent={FallbackComponent}>
+          <Child />
+        </ErrorBoundary>
+      );
+    });
+    expect(container.textContent).toBe("Child");
+
+    act(() => {
+      showBoundary!(new Error("Example"));
+    });
+    expect(container.textContent).toBe("Error");
+
+    act(() => {
+      resetBoundary!();
+    });
+    expect(container.textContent).toBe("Child");
+  });
 });
