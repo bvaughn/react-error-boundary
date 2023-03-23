@@ -5,6 +5,7 @@ import {
   isValidElement,
   PropsWithChildren,
   PropsWithRef,
+  ReactElement,
 } from "react";
 import { ErrorBoundaryContext } from "./ErrorBoundaryContext";
 import { ErrorBoundaryProps, FallbackProps } from "./types";
@@ -106,7 +107,7 @@ export class ErrorBoundary extends Component<
         },
       },
       childToRender
-    );
+    ) as ReactElement;
   }
 }
 
