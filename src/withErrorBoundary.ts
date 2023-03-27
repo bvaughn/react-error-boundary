@@ -1,21 +1,30 @@
-import { ComponentType, createElement } from "react";
+import {
+  createElement,
+  forwardRef,
+  ForwardedRef,
+  RefAttributes,
+  ForwardRefExoticComponent,
+  PropsWithoutRef,
+  ComponentType,
+} from "react";
 import { ErrorBoundary } from "./ErrorBoundary";
 import { ErrorBoundaryProps } from "./types";
 
 export function withErrorBoundary<Props extends Object>(
-  Component: ComponentType<Props>,
+  component: ComponentType<Props>,
   errorBoundaryProps: ErrorBoundaryProps
-): ComponentType<Props> {
-  const Wrapped: ComponentType<Props> = (props: Props) => {
-    return createElement(
-      ErrorBoundary,
-      errorBoundaryProps,
-      createElement(Component, props)
-    );
-  };
+): ForwardRefExoticComponent<PropsWithoutRef<Props> & RefAttributes<any>> {
+  const Wrapped = forwardRef<ComponentType<Props>, Props>(
+    (props: Props, ref: ForwardedRef<ComponentType<Props>>) =>
+      createElement(
+        ErrorBoundary,
+        errorBoundaryProps,
+        createElement(component, { ...props, ref })
+      )
+  );
 
   // Format for display in DevTools
-  const name = Component.displayName || Component.name || "Unknown";
+  const name = component.displayName || component.name || "Unknown";
   Wrapped.displayName = `withErrorBoundary(${name})`;
 
   return Wrapped;

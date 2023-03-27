@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 
-import { PropsWithChildren } from "react";
+import { Component, createRef, PropsWithChildren } from "react";
 import { createRoot } from "react-dom/client";
 import { act } from "react-dom/test-utils";
 import { withErrorBoundary } from "./withErrorBoundary";
@@ -52,5 +52,29 @@ describe("withErrorBoundary", () => {
     shouldThrow = true;
     render();
     expect(container.textContent).toBe("Error");
+  });
+
+  it("should forward refs", () => {
+    type Props = { foo: string };
+
+    class Inner extends Component<Props> {
+      test() {}
+      render() {
+        return this.props.foo;
+      }
+    }
+
+    const Wrapped = withErrorBoundary(Inner, {
+      fallback: <div>Error</div>,
+    });
+
+    const ref = createRef<Inner>();
+
+    act(() => {
+      root.render(<Wrapped foo="abc" ref={ref} />);
+    });
+
+    expect(ref.current).not.toBeNull();
+    expect(typeof ref.current?.test).toBe("function");
   });
 });
