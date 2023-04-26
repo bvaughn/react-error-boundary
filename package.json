@@ -15,6 +15,7 @@
   "files": [
     "dist"
   ],
+  "sideEffects": false,
   "scripts": {
     "clear": "npm run clear:parcel-cache & npm run clear:builds & npm run clear:node_modules",
     "clear:builds": "rm -rf ./packages/*/dist",
