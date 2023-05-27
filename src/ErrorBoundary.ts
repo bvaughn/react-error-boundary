@@ -21,8 +21,10 @@ export class ErrorBoundary extends Component<
   PropsWithRef<PropsWithChildren<ErrorBoundaryProps>>,
   ErrorBoundaryState
 > {
-  constructor(props: ErrorBoundaryProps ){
+  constructor(props: ErrorBoundaryProps) {
     super(props);
+
+    this.resetErrorBoundary = this.resetErrorBoundary.bind(this);
     this.state = initialState;
   }
 
@@ -41,7 +43,7 @@ export class ErrorBoundary extends Component<
 
       this.setState(initialState);
     }
-  };
+  }
 
   componentDidCatch(error: Error, info: ErrorInfo) {
     this.props.onError?.(error, info);
@@ -84,7 +86,7 @@ export class ErrorBoundary extends Component<
     if (didCatch) {
       const props: FallbackProps = {
         error,
-        resetErrorBoundary: this.resetErrorBoundary.bind(this),
+        resetErrorBoundary: this.resetErrorBoundary,
       };
 
       if (isValidElement(fallback)) {
@@ -106,7 +108,7 @@ export class ErrorBoundary extends Component<
         value: {
           didCatch,
           error,
-          resetErrorBoundary: this.resetErrorBoundary.bind(this),
+          resetErrorBoundary: this.resetErrorBoundary,
         },
       },
       childToRender
