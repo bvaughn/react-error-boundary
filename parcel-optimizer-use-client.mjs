@@ -1,8 +1,11 @@
-const { Optimizer } = require("@parcel/plugin");
-const { default: SourceMap } = require("@parcel/source-map/dist/node.js");
-const { blobToBuffer } = require("@parcel/utils");
+import { Optimizer } from "@parcel/plugin";
+import sourceMapModule from "@parcel/source-map";
+import utilsModule from "@parcel/utils";
 
-module.exports = new Optimizer({
+const SourceMap = sourceMapModule.default;
+const blobToBuffer = utilsModule.blobToBuffer;
+
+export default new Optimizer({
   async optimize({ contents, map, options }) {
     let correctMap;
     if (map != null) {
