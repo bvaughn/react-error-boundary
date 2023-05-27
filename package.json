@@ -1,6 +1,6 @@
 {
   "name": "react-error-boundary",
-  "version": "4.0.5",
+  "version": "4.0.6",
   "description": "Simple reusable React error boundary component",
   "author": "Brian Vaughn <brian.david.vaughn@gmail.com>",
   "license": "MIT",
