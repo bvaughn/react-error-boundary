@@ -6,15 +6,27 @@ dependencies:
     version: 7.21.0
 
 devDependencies:
+  '@parcel/config-default':
+    specifier: ^2.9.0
+    version: 2.9.0(@parcel/core@2.9.0)
   '@parcel/core':
     specifier: ^2.9.0
     version: 2.9.0
   '@parcel/packager-ts':
     specifier: ^2.9.0
     version: 2.9.0(@parcel/core@2.9.0)
+  '@parcel/plugin':
+    specifier: ^2.9.0
+    version: 2.9.0(@parcel/core@2.9.0)
+  '@parcel/source-map':
+    specifier: ^2.1.1
+    version: 2.1.1
   '@parcel/transformer-typescript-types':
     specifier: ^2.9.0
     version: 2.9.0(@parcel/core@2.9.0)(typescript@4.9.5)
+  '@parcel/utils':
+    specifier: ^2.9.0
+    version: 2.9.0
   '@types/jest':
     specifier: ^26.0.15
     version: 26.0.24
