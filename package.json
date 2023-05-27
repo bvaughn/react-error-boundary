@@ -18,10 +18,10 @@
   "sideEffects": false,
   "scripts": {
     "clear": "npm run clear:parcel-cache & npm run clear:builds & npm run clear:node_modules",
-    "clear:builds": "rm -rf ./packages/*/dist",
+    "clear:builds": "rm -rf ./dist",
     "clear:parcel-cache": "rm -rf ./.parcel-cache",
     "clear:node_modules": "rm -rf ./node_modules",
-    "prerelease": "rm -rf ./.parcel-cache && parcel build",
+    "prerelease": "rm -rf ./.parcel-cache && parcel build && ./postprocess.js",
     "prettier": "prettier --write \"**/*.{css,html,js,json,jsx,ts,tsx}\"",
     "prettier:ci": "prettier --check \"**/*.{css,html,js,json,jsx,ts,tsx}\"",
     "test": "jest",
