@@ -180,32 +180,4 @@ const ComponentWithErrorBoundary = withErrorBoundary(ExampleComponent, {
 
 ---
 
-# FAQ
-## `ErrorBoundary` cannot be used as a JSX component
-This error can be caused by a version mismatch between [react](https://npmjs.com/package/react) and [@types/react](https://npmjs.com/package/@types/react). To fix this, ensure that both match exactly, e.g.:
-
-If using NPM:
-```json
-{
-  ...
-  "overrides": {
-    "@types/react": "17.0.60"
-  },
-  ...
-}
-```
-
-If using Yarn:
-```json
-{
-  ...
-  "resolutions": {
-    "@types/react": "17.0.60"
-  },
-  ...
-}
-```
-
----
-
 [This blog post](https://kentcdodds.com/blog/use-react-error-boundary-to-handle-errors-in-react) shows more examples of how this package can be used, although it was written for the [version 3 API](https://github.com/bvaughn/react-error-boundary/releases/tag/v3.1.4).
