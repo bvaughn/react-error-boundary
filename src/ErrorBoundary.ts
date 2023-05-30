@@ -112,7 +112,7 @@ export class ErrorBoundary extends Component<
         },
       },
       childToRender
-    ) as ReactElement;
+    );
   }
 }
 
