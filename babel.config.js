@@ -1,3 +1,3 @@
 module.exports = {
-  presets: [require.resolve("@babel/preset-typescript")],
+  presets: ["@babel/preset-typescript", "@babel/preset-env"],
 };
