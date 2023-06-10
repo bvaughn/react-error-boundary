@@ -43,6 +43,7 @@
     "@babel/runtime": "^7.12.5"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.22.5",
     "@babel/preset-typescript": "^7.21.5",
     "@preconstruct/cli": "^2.7.0",
     "@types/jest": "^26.0.15",
