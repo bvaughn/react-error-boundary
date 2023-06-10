@@ -1,3 +1,7 @@
 module.exports = {
-  presets: ["@babel/preset-typescript", "@babel/preset-env"],
+  plugins: [
+    "@babel/plugin-transform-nullish-coalescing-operator",
+    "@babel/plugin-transform-optional-chaining",
+  ],
+  presets: ["@babel/preset-typescript"],
 };
