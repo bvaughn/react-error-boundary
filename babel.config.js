@@ -1,7 +1,13 @@
 module.exports = {
-  plugins: [
-    "@babel/plugin-transform-nullish-coalescing-operator",
-    "@babel/plugin-transform-optional-chaining",
+  presets: [
+    "@babel/preset-typescript",
+    [
+      "@babel/preset-env",
+      {
+        targets: {
+          safari: "12",
+        },
+      },
+    ],
   ],
-  presets: ["@babel/preset-typescript"],
 };
