@@ -16,7 +16,7 @@ const initialState: ErrorBoundaryState = {
 };
 
 export class ErrorBoundary extends Component<
-  ErrorBoundaryProps,
+  PropsWithRef<ErrorBoundaryProps>,
   ErrorBoundaryState
 > {
   constructor(props: ErrorBoundaryProps) {
