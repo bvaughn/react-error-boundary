@@ -10,6 +10,9 @@ Reusable React [error boundary](https://react.dev/reference/react/Component#catc
 # npm
 npm install react-error-boundary
 
+# pnpm
+pnpm add react-error-boundary
+
 # yarn
 yarn add react-error-boundary
 ```
