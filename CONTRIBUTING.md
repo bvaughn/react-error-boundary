@@ -8,7 +8,7 @@ series [How to Contribute to an Open Source Project on GitHub][egghead]
 ## Project setup
 
 1. Fork and clone the repo
-2. Run `npm run setup -s` to install dependencies and run validation
+2. Run `pnpm install` to install dependencies and run validation (We use pnpm so you need to follow [pnpm installation guide](https://pnpm.io/installation) first)
 3. Create a branch for your PR with `git checkout -b pr/your-branch-name`
 
 > Tip: Keep your `master` branch pointing at the original repository and make
@@ -28,8 +28,7 @@ series [How to Contribute to an Open Source Project on GitHub][egghead]
 
 ## Committing and Pushing changes
 
-Please make sure to run the tests before you commit your changes. You can run
-`npm run test:update` which will update any snapshots that need updating. Make
+Please make sure to run the tests before you commit your changes. You can run `pnpm test`. Make
 sure to include those changes (if they exist) in your commit.
 
 ## Help needed
