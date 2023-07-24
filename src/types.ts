@@ -2,6 +2,7 @@ import {
   Component,
   ComponentType,
   FunctionComponent,
+  PropsWithChildren,
   ReactElement,
   ReactNode,
 } from "react";
@@ -13,7 +14,7 @@ export type FallbackProps = {
   resetErrorBoundary: (...args: any[]) => void;
 };
 
-type ErrorBoundarySharedProps = {
+type ErrorBoundarySharedProps = PropsWithChildren<{
   onError?: (error: Error, info: { componentStack: string }) => void;
   onReset?: (
     details:
@@ -21,7 +22,7 @@ type ErrorBoundarySharedProps = {
       | { reason: "keys"; prev: any[] | undefined; next: any[] | undefined }
   ) => void;
   resetKeys?: any[];
-};
+}>;
 
 export type ErrorBoundaryPropsWithComponent = ErrorBoundarySharedProps & {
   fallback?: never;
