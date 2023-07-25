@@ -5,12 +5,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version-file: ".nvmrc"
       - uses: pnpm/action-setup@v2
         with:
           version: 8.6.10
+      - uses: actions/setup-node@v3
+        with:
+          cache: "pnpm"
+          cache-dependency-path: "pnpm-lock.yaml"
+          node-version-file: ".nvmrc"
       - name: Install dependencies
         run: pnpm install
       - name: Build NPM packages
