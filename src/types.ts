@@ -1,6 +1,7 @@
 import {
   Component,
   ComponentType,
+  ErrorInfo,
   FunctionComponent,
   PropsWithChildren,
   ReactElement,
@@ -15,7 +16,7 @@ export type FallbackProps = {
 };
 
 type ErrorBoundarySharedProps = PropsWithChildren<{
-  onError?: (error: Error, info: { componentStack: string }) => void;
+  onError?: (error: Error, info: ErrorInfo) => void;
   onReset?: (
     details:
       | { reason: "imperative-api"; args: any[] }
