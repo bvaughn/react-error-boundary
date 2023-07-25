@@ -1,10 +1,4 @@
-import {
-  Component,
-  createElement,
-  ErrorInfo,
-  isValidElement,
-  PropsWithRef,
-} from "react";
+import { Component, createElement, ErrorInfo, isValidElement } from "react";
 import { ErrorBoundaryContext } from "./ErrorBoundaryContext";
 import { ErrorBoundaryProps, FallbackProps } from "./types";
 
@@ -16,7 +10,7 @@ const initialState: ErrorBoundaryState = {
 };
 
 export class ErrorBoundary extends Component<
-  PropsWithRef<ErrorBoundaryProps>,
+  ErrorBoundaryProps,
   ErrorBoundaryState
 > {
   constructor(props: ErrorBoundaryProps) {
