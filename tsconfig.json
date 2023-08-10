@@ -3,7 +3,7 @@
     "esModuleInterop": true,
     "lib": ["DOM", "ES2015", "ES2021.WeakRef"],
     "module": "es2020",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "noImplicitAny": true,
     "jsx": "react-jsx",
     "resolveJsonModule": true,
