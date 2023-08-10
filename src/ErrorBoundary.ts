@@ -1,3 +1,4 @@
+import { isDevelopment } from "#is-development";
 import { Component, createElement, ErrorInfo, isValidElement } from "react";
 import { ErrorBoundaryContext } from "./ErrorBoundaryContext";
 import { ErrorBoundaryProps, FallbackProps } from "./types";
@@ -88,9 +89,13 @@ export class ErrorBoundary extends Component<
       } else if (FallbackComponent) {
         childToRender = createElement(FallbackComponent, props);
       } else {
-        throw new Error(
-          "react-error-boundary requires either a fallback, fallbackRender, or FallbackComponent prop"
-        );
+        if (isDevelopment) {
+          console.error(
+            "react-error-boundary requires either a fallback, fallbackRender, or FallbackComponent prop"
+          );
+        }
+
+        throw error;
       }
     }
 
