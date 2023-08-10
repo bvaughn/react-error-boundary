@@ -88,9 +88,10 @@ export class ErrorBoundary extends Component<
       } else if (FallbackComponent) {
         childToRender = createElement(FallbackComponent, props);
       } else {
-        throw new Error(
+        console.error(
           "react-error-boundary requires either a fallback, fallbackRender, or FallbackComponent prop"
         );
+        throw error;
       }
     }
 
