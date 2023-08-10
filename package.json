@@ -17,11 +17,22 @@
         "import": "./dist/react-error-boundary.cjs.mjs",
         "default": "./dist/react-error-boundary.cjs.js"
       },
+      "development": {
+        "module": "./dist/react-error-boundary.development.esm.js",
+        "import": "./dist/react-error-boundary.development.cjs.mjs",
+        "default": "./dist/react-error-boundary.development.cjs.js"
+      },
       "module": "./dist/react-error-boundary.esm.js",
       "import": "./dist/react-error-boundary.cjs.mjs",
       "default": "./dist/react-error-boundary.cjs.js"
     },
     "./package.json": "./package.json"
+  },
+  "imports": {
+    "#is-development": {
+      "development": "./src/env-conditions/development.ts",
+      "default": "./src/env-conditions/production.ts"
+    }
   },
   "types": "dist/react-error-boundary.cjs.d.ts",
   "files": [
