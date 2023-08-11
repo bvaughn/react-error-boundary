@@ -24,7 +24,7 @@ export function useErrorBoundary<TError = any>(): UseErrorBoundaryApi<TError> {
   const memoized = useMemo(
     () => ({
       resetBoundary: () => {
-        context?.resetErrorBoundary();
+        context.resetErrorBoundary();
         setState({ error: null, hasError: false });
       },
       showBoundary: (error: TError) =>
@@ -33,7 +33,7 @@ export function useErrorBoundary<TError = any>(): UseErrorBoundaryApi<TError> {
           hasError: true,
         }),
     }),
-    [context?.resetErrorBoundary]
+    [context.resetErrorBoundary]
   );
 
   if (state.hasError) {
