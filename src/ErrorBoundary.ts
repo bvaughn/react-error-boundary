@@ -3,7 +3,15 @@ import { Component, createElement, ErrorInfo, isValidElement } from "react";
 import { ErrorBoundaryContext } from "./ErrorBoundaryContext";
 import { ErrorBoundaryProps, FallbackProps } from "./types";
 
-type ErrorBoundaryState = { didCatch: boolean; error: any };
+type ErrorBoundaryState =
+  | {
+      didCatch: true;
+      error: any;
+    }
+  | {
+      didCatch: false;
+      error: null;
+    };
 
 const initialState: ErrorBoundaryState = {
   didCatch: false,
