@@ -44,8 +44,8 @@
     "clear:builds": "rm -rf ./dist",
     "clear:node_modules": "rm -rf ./node_modules",
     "prerelease": "preconstruct build",
-    "prettier": "prettier --write \"**/*.{css,html,js,json,jsx,ts,tsx}\"",
-    "prettier:ci": "prettier --check \"**/*.{css,html,js,json,jsx,ts,tsx}\"",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "test": "jest",
     "test:watch": "jest --watch",
     "typescript": "tsc --noEmit",
@@ -61,9 +61,15 @@
     "@types/jest": "^26.0.15",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@typescript-eslint/eslint-plugin": "^5.52.0",
+    "eslint": "^8.0.1",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-prettier": "^5.0.0",
+    "eslint-plugin-react": "^7.33.1",
     "jest": "^29.4.3",
     "jest-environment-jsdom": "^29.4.3",
-    "prettier": "^2.8.6",
+    "prettier": "^3.0.1",
     "react": "^18",
     "react-dom": "^18",
     "ts-jest": "^29.0.5",
@@ -71,14 +77,6 @@
   },
   "peerDependencies": {
     "react": ">=16.13.1"
-  },
-  "eslintConfig": {
-    "extends": "./node_modules/kcd-scripts/eslint.js",
-    "rules": {
-      "react/prop-types": "off",
-      "react/no-did-update-set-state": "off",
-      "babel/no-unused-expressions": "off"
-    }
   },
   "preconstruct": {
     "exports": {

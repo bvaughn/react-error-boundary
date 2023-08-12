@@ -156,7 +156,9 @@ describe("ErrorBoundary", () => {
   describe('"FallbackComponent"', () => {
     let fallbackComponent: jest.Mock<ReactElement, [FallbackProps]>;
     let lastRenderedError: any = null;
-    let lastRenderedResetErrorBoundary: Function | null = null;
+    let lastRenderedResetErrorBoundary:
+      | FallbackProps["resetErrorBoundary"]
+      | null = null;
 
     function render(
       props: Omit<ErrorBoundaryPropsWithComponent, "FallbackComponent"> = {}
@@ -219,7 +221,9 @@ describe("ErrorBoundary", () => {
 
   describe('"fallbackRender" render prop', () => {
     let lastRenderedError: any = null;
-    let lastRenderedResetErrorBoundary: Function | null = null;
+    let lastRenderedResetErrorBoundary:
+      | FallbackProps["resetErrorBoundary"]
+      | null = null;
     let fallbackRender: jest.Mock<ReactElement, [FallbackProps]>;
 
     function render(
