@@ -129,7 +129,7 @@ function Example() {
     fetchGreeting(name).then(
       response => {
         // Set data in state and re-render
-      },
+      }).catch(
       error => {
         // Show error boundary
         showBoundary(error);
