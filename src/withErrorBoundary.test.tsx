@@ -14,11 +14,13 @@ describe("withErrorBoundary", () => {
   let valueToThrow: any;
 
   beforeEach(() => {
-    // @ts-ignore
+    // @ts-expect-error This is a React internal
     global.IS_REACT_ACT_ENVIRONMENT = true;
 
     // Don't clutter the console with expected error text
-    jest.spyOn(console, "error").mockImplementation(() => {});
+    jest.spyOn(console, "error").mockImplementation(() => {
+      // No-op
+    });
 
     container = document.createElement("div");
     root = createRoot(container);
@@ -58,7 +60,9 @@ describe("withErrorBoundary", () => {
     type Props = { foo: string };
 
     class Inner extends Component<Props> {
-      test() {}
+      test() {
+        // No-op
+      }
       render() {
         return this.props.foo;
       }

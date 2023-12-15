@@ -1,8 +1,15 @@
-name: "Jest unit tests"
-on: [pull_request]
+name: CI
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
 jobs:
-  tests-e2e:
+  ci:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        command: ['pnpm lint', 'pnpm typescript', 'pnpm test']
     steps:
       - uses: actions/checkout@v3
       - uses: pnpm/action-setup@v2
@@ -13,9 +20,7 @@ jobs:
           cache: "pnpm"
           cache-dependency-path: "pnpm-lock.yaml"
           node-version-file: ".nvmrc"
-      - name: Install dependencies
-        run: pnpm install
-      - name: Build NPM packages
-        run: pnpm run prerelease
-      - name: Run tests
-        run: pnpm run test
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm prerelease
+      - name: Run cis
+        run: ${{ matrix.command }}

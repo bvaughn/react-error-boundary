@@ -10,7 +10,7 @@ import {
 import { ErrorBoundary } from "./ErrorBoundary";
 import { ErrorBoundaryProps } from "./types";
 
-export function withErrorBoundary<Props extends Object>(
+export function withErrorBoundary<Props extends object>(
   component: ComponentType<Props>,
   errorBoundaryProps: ErrorBoundaryProps
 ): ForwardRefExoticComponent<PropsWithoutRef<Props> & RefAttributes<any>> {
