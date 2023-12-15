@@ -2,6 +2,7 @@
  * @jest-environment jsdom
  */
 
+import assert from "assert";
 import { createRef, PropsWithChildren, ReactElement, RefObject } from "react";
 import { createRoot } from "react-dom/client";
 import { act } from "react-dom/test-utils";
@@ -20,11 +21,13 @@ describe("ErrorBoundary", () => {
   let valueToThrow: any;
 
   beforeEach(() => {
-    // @ts-ignore
+    // @ts-expect-error This is a React internal
     global.IS_REACT_ACT_ENVIRONMENT = true;
 
     // Don't clutter the console with expected error text
-    jest.spyOn(console, "error").mockImplementation(() => {});
+    jest.spyOn(console, "error").mockImplementation(() => {
+      // No-op
+    });
 
     container = document.createElement("div");
     root = createRoot(container);
@@ -202,7 +205,8 @@ describe("ErrorBoundary", () => {
       expect(lastRenderedResetErrorBoundary).not.toBeNull();
       act(() => {
         shouldThrow = false;
-        lastRenderedResetErrorBoundary!();
+        assert(lastRenderedResetErrorBoundary !== null);
+        lastRenderedResetErrorBoundary();
       });
 
       expect(container.textContent).toBe("Content");
@@ -270,7 +274,8 @@ describe("ErrorBoundary", () => {
 
       act(() => {
         shouldThrow = false;
-        lastRenderedResetErrorBoundary!();
+        assert(lastRenderedResetErrorBoundary !== null);
+        lastRenderedResetErrorBoundary();
       });
 
       expect(container.textContent).toBe("Content");

@@ -27,10 +27,9 @@ module.exports = {
   },
   plugins: ["react"],
   rules: {
+    "react/no-did-update-set-state": "off",
     "react/react-in-jsx-scope": "off",
     "react/prop-types": "off",
-    "react/no-did-update-set-state": "off",
-    "@typescript-eslint/ban-ts-comment": "warn",
-    "@typescript-eslint/no-empty-function": "warn",
+    "@typescript-eslint/no-explicit-any": "off",
   },
 };
