@@ -151,6 +151,18 @@ describe("ErrorBoundary", () => {
       render({ resetKeys: [2] });
       expect(container.textContent).toBe("Content");
     });
+
+    it("should render a null fallback if specified", () => {
+      shouldThrow = true;
+      act(() => {
+        root.render(
+          <ErrorBoundary fallback={null}>
+            <MaybeThrows>Content</MaybeThrows>
+          </ErrorBoundary>
+        );
+      });
+      expect(container.textContent).toBe("");
+    });
   });
 
   describe('"FallbackComponent"', () => {

@@ -90,12 +90,12 @@ export class ErrorBoundary extends Component<
         resetErrorBoundary: this.resetErrorBoundary,
       };
 
-      if (isValidElement(fallback)) {
-        childToRender = fallback;
-      } else if (typeof fallbackRender === "function") {
+      if (typeof fallbackRender === "function") {
         childToRender = fallbackRender(props);
       } else if (FallbackComponent) {
         childToRender = createElement(FallbackComponent, props);
+      } else if (fallback === null || isValidElement(fallback)) {
+        childToRender = fallback;
       } else {
         if (isDevelopment) {
           console.error(
