@@ -10,8 +10,8 @@ import {
 
 declare function FallbackRender(props: FallbackProps): ReactNode;
 
-export type FallbackProps = {
-  error: any;
+export type FallbackProps<T = any> = {
+  error: T;
   resetErrorBoundary: (...args: any[]) => void;
 };
 
