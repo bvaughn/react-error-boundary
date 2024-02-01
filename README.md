@@ -20,7 +20,7 @@ yarn add react-error-boundary
 ## API
 
 ### `ErrorBoundary` component
-Wrap an `ErrorBoundary` component around other React components to "catch" errors and render a fallback UI. The component supports several ways to render a fallback as (shown below).
+Wrap an `ErrorBoundary` component around other React components to "catch" errors and render a fallback UI. The component supports several ways to render a fallback (as shown below).
 
 > **Note** `ErrorBoundary` is a _client_ component. You can only pass props to it that are serializeable or use it in files that have a `"use client";` directive.
 
