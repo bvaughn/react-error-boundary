@@ -20,12 +20,12 @@ yarn add react-error-boundary
 ## API
 
 ### `ErrorBoundary` component
-Wrap an `ErrorBoundary` around other React components to "catch" errors and render a fallback UI. The component supports several ways to render a fallback (shown below).
+Wrap an `ErrorBoundary` component around other React components to "catch" errors and render a fallback UI. The component supports several ways to render a fallback as (shown below).
 
-> **Note** `ErrorBoundary` is a _client_ component. You can only pass props to it that are serializeable or use it in files that have a `"use client";` directive.
+> **Note** `ErrorBoundary` is a _client_ component. You can only pass props that are serializeable or use it in files that have a `"use client";` directive.
 
 #### `ErrorBoundary` with `fallback` prop
-The simplest way to render a default "something went wrong" type error message.
+The simplest way to render a default "something went wrong" type of error message.
 ```js
 "use client";
 
@@ -36,7 +36,7 @@ import { ErrorBoundary } from "react-error-boundary";
 </ErrorBoundary>
 ```
 #### `ErrorBoundary` with `fallbackRender` prop
-["Render prop"](https://react.dev/reference/react/Children#calling-a-render-prop-to-customize-rendering) function responsible for returning a fallback UI based on a thrown value.
+["Render prop"](https://react.dev/reference/react/Children#calling-a-render-prop-to-customize-rendering) function is responsible for returning a fallback UI based on a thrown value.
 ```js
 "use client";
 
@@ -63,7 +63,7 @@ function fallbackRender({ error, resetErrorBoundary }) {
 </ErrorBoundary>;
 ```
 #### `ErrorBoundary` with `FallbackComponent` prop
-React component responsible for returning a fallback UI based on a thrown value.
+A react component which is responsible for returning a fallback UI based on a thrown value.
 ```js
 "use client";
 
@@ -142,7 +142,7 @@ function Example() {
 ```
 
 #### Dismiss the nearest error boundary
-A fallback component can use this hook to request the nearest error boundary retry the render that original failed.
+A fallback component that can use this hook to request the nearest error boundary to retry the render that originally failed.
 
 ```js
 "use client";
