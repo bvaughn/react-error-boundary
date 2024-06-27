@@ -40,7 +40,7 @@
   ],
   "sideEffects": false,
   "scripts": {
-    "clear": "npm run clear:builds & npm run clear:node_modules",
+    "clear": "pnpm clear:builds & pnpm clear:node_modules",
     "clear:builds": "rm -rf ./dist",
     "clear:node_modules": "rm -rf ./node_modules",
     "prerelease": "preconstruct build",
