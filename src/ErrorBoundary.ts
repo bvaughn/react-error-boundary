@@ -18,6 +18,15 @@ const initialState: ErrorBoundaryState = {
   error: null,
 };
 
+const originalConsoleError = console.error;
+
+window.addEventListener("error", (event) => {
+  if (event.error.isShowBoundary) {
+    event.preventDefault();
+    console.error = () => {};
+  }
+});
+
 export class ErrorBoundary extends Component<
   ErrorBoundaryProps,
   ErrorBoundaryState
@@ -48,6 +57,7 @@ export class ErrorBoundary extends Component<
 
   componentDidCatch(error: Error, info: ErrorInfo) {
     this.props.onError?.(error, info);
+    console.error = originalConsoleError;
   }
 
   componentDidUpdate(
