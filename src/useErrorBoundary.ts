@@ -3,8 +3,8 @@ import { assertErrorBoundaryContext } from "./assertErrorBoundaryContext";
 import { ErrorBoundaryContext } from "./ErrorBoundaryContext";
 
 type StateError<TError> =
-  | (TError & { isShowBoundary: true })
-  | (Error & { isShowBoundary: true });
+  | (TError & { _suppressLogging: true })
+  | (Error & { _suppressLogging: true });
 
 type UseErrorBoundaryState<TError> =
   | { error: StateError<TError>; hasError: true }
@@ -15,10 +15,30 @@ export type UseErrorBoundaryApi<TError> = {
   showBoundary: (error: TError) => void;
 };
 
-function normalize<TError>(error: TError): StateError<TError> {
-  return typeof error === "object"
-    ? Object.assign(Object.create(error as object), { isShowBoundary: true })
-    : Object.assign(Error(error as string), { isShowBoundary: true });
+function suppressLoggingForError<TError>(error: TError): StateError<TError> {
+  if (error != null) {
+    switch (typeof error) {
+      case "object": {
+        if (Object.isExtensible(error)) {
+          (error as StateError<TError>)._suppressLogging = true;
+          return error as StateError<TError>;
+        } else {
+          return Object.assign(Object.create(error as object), {
+            _suppressLogging: true as true,
+          });
+        }
+      }
+      default: {
+        return Object.assign(Error(error as string), {
+          _suppressLogging: true as true,
+        });
+      }
+    }
+  } else {
+    return Object.assign(Error(undefined), {
+      _suppressLogging: true as true,
+    });
+  }
 }
 
 export function useErrorBoundary<TError = any>(): UseErrorBoundaryApi<TError> {
@@ -39,7 +59,7 @@ export function useErrorBoundary<TError = any>(): UseErrorBoundaryApi<TError> {
       },
       showBoundary: (error: TError) => {
         setState({
-          error: normalize(error),
+          error: suppressLoggingForError(error),
           hasError: true,
         });
       },
