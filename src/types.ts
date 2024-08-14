@@ -23,6 +23,7 @@ type ErrorBoundarySharedProps = PropsWithChildren<{
       | { reason: "keys"; prev: any[] | undefined; next: any[] | undefined }
   ) => void;
   resetKeys?: any[];
+  suppressLogging?: boolean;
 }>;
 
 export type ErrorBoundaryPropsWithComponent = ErrorBoundarySharedProps & {
