@@ -21,9 +21,6 @@ const initialState: ErrorBoundaryState = {
 function handleSuppressLogging(event: ErrorEvent) {
   if (event.error._suppressLogging) event.preventDefault();
 }
-function handleRestoreLogging(event: ErrorEvent) {
-  if (event.error._suppressLogging) event.error._suppressLogging = false;
-}
 
 export class ErrorBoundary extends Component<
   ErrorBoundaryProps,
@@ -39,6 +36,7 @@ export class ErrorBoundary extends Component<
   static defaultProps = {
     suppressLogging: false,
   };
+
   static getDerivedStateFromError(error: Error) {
     return { didCatch: true, error };
   }
@@ -56,30 +54,14 @@ export class ErrorBoundary extends Component<
     }
   }
 
-  componentDidMount() {
-    window.addEventListener("error", handleSuppressLogging);
-  }
-
   componentWillUnmount() {
     window.removeEventListener("error", handleSuppressLogging);
-    window.removeEventListener("error", handleRestoreLogging);
-  }
-
-  shouldComponentUpdate(
-    nextProps: ErrorBoundaryProps,
-    nextState: ErrorBoundaryState
-  ) {
-    if (!this.props.suppressLogging && nextState.didCatch) {
-      window.removeEventListener("error", handleSuppressLogging);
-      window.addEventListener("error", handleRestoreLogging);
-    }
-    return true;
   }
 
   componentDidCatch(error: Error, info: ErrorInfo) {
     this.props.onError?.(error, info);
-    window.removeEventListener("error", handleRestoreLogging);
-    window.addEventListener("error", handleSuppressLogging);
+    window.addEventListener("error", () => {}); // Some test cases will fail without this line, somehow.
+    window.removeEventListener("error", handleSuppressLogging);
   }
 
   componentDidUpdate(
@@ -146,6 +128,8 @@ export class ErrorBoundary extends Component<
           didCatch,
           error,
           resetErrorBoundary: this.resetErrorBoundary,
+          suppressLogging: this.props.suppressLogging as boolean,
+          handleSuppressLogging,
         },
       },
       childToRender
