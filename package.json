@@ -4,10 +4,13 @@
   "description": "Simple reusable React error boundary component",
   "author": "Brian Vaughn <brian.david.vaughn@gmail.com>",
   "license": "MIT",
-  "packageManager": "pnpm@8.6.10",
   "repository": {
     "type": "git",
     "url": "https://github.com/bvaughn/react-error-boundary"
+  },
+  "engines": {
+    "node": ">=20",
+    "pnpm": "=9"
   },
   "main": "dist/react-error-boundary.cjs.js",
   "module": "dist/react-error-boundary.esm.js",
