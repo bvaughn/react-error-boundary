@@ -38,10 +38,9 @@ export type ErrorBoundaryPropsWithRender = ErrorBoundarySharedProps & {
 };
 
 export type ErrorBoundaryPropsWithFallback = ErrorBoundarySharedProps & {
-  fallback: ReactElement<
-    unknown,
-    string | FunctionComponent | typeof Component
-  > | null;
+  fallback:
+    | Exclude<ReactNode, ReactElement>
+    | ReactElement<unknown, string | FunctionComponent | typeof Component>;
   FallbackComponent?: never;
   fallbackRender?: never;
 };
