@@ -56,7 +56,7 @@ describe("ErrorBoundary", () => {
     expect(container.textContent).toBe("Content");
   });
 
-  describe("callback props", () => {
+  describe("fallback props", () => {
     let errorBoundaryRef: RefObject<ErrorBoundary>;
 
     beforeEach(() => {
@@ -66,11 +66,7 @@ describe("ErrorBoundary", () => {
     function render(props: Omit<ErrorBoundaryPropsWithFallback, "fallback">) {
       act(() => {
         root.render(
-          <ErrorBoundary
-            {...props}
-            fallback={<div>Error</div>}
-            ref={errorBoundaryRef}
-          >
+          <ErrorBoundary {...props} fallback="Error" ref={errorBoundaryRef}>
             <MaybeThrows>Content</MaybeThrows>
           </ErrorBoundary>
         );

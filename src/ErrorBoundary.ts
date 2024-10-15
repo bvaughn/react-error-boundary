@@ -1,5 +1,5 @@
 import { isDevelopment } from "#is-development";
-import { Component, createElement, ErrorInfo, isValidElement } from "react";
+import { Component, createElement, ErrorInfo } from "react";
 import { ErrorBoundaryContext } from "./ErrorBoundaryContext";
 import { ErrorBoundaryProps, FallbackProps } from "./types";
 
@@ -94,7 +94,7 @@ export class ErrorBoundary extends Component<
         childToRender = fallbackRender(props);
       } else if (FallbackComponent) {
         childToRender = createElement(FallbackComponent, props);
-      } else if (fallback === null || isValidElement(fallback)) {
+      } else if (fallback !== undefined) {
         childToRender = fallback;
       } else {
         if (isDevelopment) {
