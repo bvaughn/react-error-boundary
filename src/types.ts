@@ -1,12 +1,4 @@
-import {
-  Component,
-  ComponentType,
-  ErrorInfo,
-  FunctionComponent,
-  PropsWithChildren,
-  ReactElement,
-  ReactNode,
-} from "react";
+import { ComponentType, ErrorInfo, PropsWithChildren, ReactNode } from "react";
 
 declare function FallbackRender(props: FallbackProps): ReactNode;
 
