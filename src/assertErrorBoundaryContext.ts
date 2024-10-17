@@ -6,7 +6,9 @@ export function assertErrorBoundaryContext(
   if (
     value == null ||
     typeof value.didCatch !== "boolean" ||
-    typeof value.resetErrorBoundary !== "function"
+    typeof value.resetErrorBoundary !== "function" ||
+    typeof value.suppressLogging !== "boolean" ||
+    typeof value.handleSuppressLogging !== "function"
   ) {
     throw new Error("ErrorBoundaryContext not found");
   }
