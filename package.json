@@ -9,7 +9,6 @@
     "url": "https://github.com/bvaughn/react-error-boundary"
   },
   "engines": {
-    "node": ">=20",
     "pnpm": "=9"
   },
   "main": "dist/react-error-boundary.cjs.js",
