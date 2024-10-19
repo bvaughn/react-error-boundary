@@ -8,9 +8,7 @@
     "type": "git",
     "url": "https://github.com/bvaughn/react-error-boundary"
   },
-  "engines": {
-    "pnpm": "=9"
-  },
+  "packageManager": "pnpm@9.6.0",
   "main": "dist/react-error-boundary.cjs.js",
   "module": "dist/react-error-boundary.esm.js",
   "exports": {
