@@ -1,7 +1,5 @@
 import { ComponentType, ErrorInfo, PropsWithChildren, ReactNode } from "react";
 
-declare function FallbackRender(props: FallbackProps): ReactNode;
-
 export type FallbackProps = {
   error: any;
   resetErrorBoundary: (...args: any[]) => void;
@@ -26,7 +24,7 @@ export type ErrorBoundaryPropsWithComponent = ErrorBoundarySharedProps & {
 export type ErrorBoundaryPropsWithRender = ErrorBoundarySharedProps & {
   fallback?: never;
   FallbackComponent?: never;
-  fallbackRender: typeof FallbackRender;
+  fallbackRender: (props: FallbackProps) => ReactNode;
 };
 
 export type ErrorBoundaryPropsWithFallback = ErrorBoundarySharedProps & {
