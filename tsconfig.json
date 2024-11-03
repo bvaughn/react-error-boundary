@@ -13,5 +13,5 @@
     "types": ["jest"]
   },
   "exclude": ["node_modules"],
-  "include": ["src", ".eslintrc.js"]
+  "include": ["src", "eslint.config.mjs"]
 }
