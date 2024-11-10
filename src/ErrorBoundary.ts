@@ -46,8 +46,8 @@ export class ErrorBoundary extends Component<
     }
   }
 
-  componentDidCatch(error: Error, info: ErrorInfo) {
-    this.props.onError?.(error, info);
+  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+    this.props.onError?.(error, errorInfo);
   }
 
   componentDidUpdate(
