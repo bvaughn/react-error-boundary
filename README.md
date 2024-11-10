@@ -20,12 +20,15 @@ yarn add react-error-boundary
 ## API
 
 ### `ErrorBoundary` component
+
 Wrap an `ErrorBoundary` component around other React components to "catch" errors and render a fallback UI. The component supports several ways to render a fallback (as shown below).
 
 > **Note** `ErrorBoundary` is a _client_ component. You can only pass props to it that are serializeable or use it in files that have a `"use client";` directive.
 
 #### `ErrorBoundary` with `fallback` prop
+
 The simplest way to render a default "something went wrong" type of error message.
+
 ```js
 "use client";
 
@@ -33,10 +36,13 @@ import { ErrorBoundary } from "react-error-boundary";
 
 <ErrorBoundary fallback={<div>Something went wrong</div>}>
   <ExampleApplication />
-</ErrorBoundary>
+</ErrorBoundary>;
 ```
+
 #### `ErrorBoundary` with `fallbackRender` prop
+
 ["Render prop"](https://react.dev/reference/react/Children#calling-a-render-prop-to-customize-rendering) function responsible for returning a fallback UI based on a thrown value.
+
 ```js
 "use client";
 
@@ -62,8 +68,11 @@ function fallbackRender({ error, resetErrorBoundary }) {
   <ExampleApplication />
 </ErrorBoundary>;
 ```
+
 #### `ErrorBoundary` with `FallbackComponent` prop
+
 React component responsible for returning a fallback UI based on a thrown value.
+
 ```js
 "use client";
 
@@ -97,7 +106,7 @@ function Fallback({ error, resetErrorBoundary }) {
 
 import { ErrorBoundary } from "react-error-boundary";
 
-const logError = (error: Error, info: { componentStack: string }) => {
+const logError = (error: Error, errorInfo: { componentStack: string }) => {
   // Do something with the error, e.g. log to an external API
 };
 
@@ -109,6 +118,7 @@ const ui = (
 ```
 
 ### `useErrorBoundary` hook
+
 Convenience hook for imperatively showing or dismissing error boundaries.
 
 #### Show the nearest error boundary from an event handler
@@ -127,10 +137,10 @@ function Example() {
 
   useEffect(() => {
     fetchGreeting(name).then(
-      response => {
+      (response) => {
         // Set data in state and re-render
       },
-      error => {
+      (error) => {
         // Show error boundary
         showBoundary(error);
       }
@@ -142,6 +152,7 @@ function Example() {
 ```
 
 #### Dismiss the nearest error boundary
+
 A fallback component can use this hook to request the nearest error boundary retry the render that originally failed.
 
 ```js
@@ -163,20 +174,21 @@ function ErrorFallback({ error }) {
 ```
 
 ### `withErrorBoundary` HOC
+
 This package can also be used as a [higher-order component](https://legacy.reactjs.org/docs/higher-order-components.html) that accepts all of the same props as above:
 
 ```js
 "use client";
 
-import {withErrorBoundary} from 'react-error-boundary'
+import { withErrorBoundary } from "react-error-boundary";
 
 const ComponentWithErrorBoundary = withErrorBoundary(ExampleComponent, {
   fallback: <div>Something went wrong</div>,
-  onError(error, info) {
+  onError(error, errorInfo) {
     // Do something with the error
     // E.g. log to an error logging client here
   },
-})
+});
 
 // Can be rendered as <ComponentWithErrorBoundary {...props} />
 ```
@@ -184,10 +196,13 @@ const ComponentWithErrorBoundary = withErrorBoundary(ExampleComponent, {
 ---
 
 # FAQ
+
 ## `ErrorBoundary` cannot be used as a JSX component
+
 This error can be caused by a version mismatch between [react](https://npmjs.com/package/react) and [@types/react](https://npmjs.com/package/@types/react). To fix this, ensure that both match exactly, e.g.:
 
 If using NPM:
+
 ```json
 {
   ...
@@ -199,6 +214,7 @@ If using NPM:
 ```
 
 If using Yarn:
+
 ```json
 {
   ...
