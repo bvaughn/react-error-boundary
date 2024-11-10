@@ -6,7 +6,7 @@ export type FallbackProps = {
 };
 
 type ErrorBoundarySharedProps = PropsWithChildren<{
-  onError?: (error: Error, info: ErrorInfo) => void;
+  onError?: (error: Error, errorInfo: ErrorInfo) => void;
   onReset?: (
     details:
       | { reason: "imperative-api"; args: any[] }
