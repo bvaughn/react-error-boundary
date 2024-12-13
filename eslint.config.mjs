@@ -8,7 +8,7 @@ export default tseslint.config(
     ignores: ["dist"],
   },
   reactPlugin.configs.flat.recommended,
-  ...tseslint.configs.recommended,
+  tseslint.configs.recommended,
   {
     languageOptions: {
       globals: {
