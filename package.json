@@ -60,7 +60,7 @@
     "@preconstruct/cli": "^2.8.1",
     "@types/assert": "^1.5.10",
     "@types/jest": "^26.0.15",
-    "@types/react": "^18",
+    "@types/react": "^18.3.17",
     "@types/react-dom": "^18",
     "assert": "^2.0.0",
     "eslint": "^9.13.0",

@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 
-import { Component, createRef, PropsWithChildren } from "react";
+import { Component, createRef, forwardRef, PropsWithChildren } from "react";
 import { createRoot } from "react-dom/client";
 import { act } from "react-dom/test-utils";
 import { withErrorBoundary } from "./withErrorBoundary";
@@ -80,5 +80,27 @@ describe("withErrorBoundary", () => {
 
     expect(ref.current).not.toBeNull();
     expect(typeof ref.current?.test).toBe("function");
+  });
+
+  it("should forward dom refs", () => {
+    type Props = { foo: string };
+
+    const Div = forwardRef<HTMLDivElement, Props>((props, ref) => {
+      return <div ref={ref}>{props.foo}</div>;
+    });
+    Div.displayName = "Div";
+
+    const Wrapped = withErrorBoundary(Div, {
+      fallback: <div>Error</div>,
+    });
+
+    const ref = createRef<HTMLDivElement>();
+
+    act(() => {
+      root.render(<Wrapped foo="abc" ref={ref} />);
+    });
+
+    expect(ref.current).not.toBeNull();
+    expect(ref.current).toBeInstanceOf(HTMLDivElement);
   });
 });
