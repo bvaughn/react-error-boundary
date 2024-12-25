@@ -1,13 +1,13 @@
 import globals from "globals";
 import tseslint from "typescript-eslint";
-import reactPlugin from "eslint-plugin-react";
-import eslintPluginPrettierRecommended from "eslint-plugin-prettier/recommended";
+import react from "eslint-plugin-react";
+import prettierRecommended from "eslint-plugin-prettier/recommended";
 
 export default tseslint.config(
   {
     ignores: ["dist"],
   },
-  reactPlugin.configs.flat.recommended,
+  react.configs.flat.recommended,
   tseslint.configs.recommended,
   {
     languageOptions: {
@@ -15,15 +15,14 @@ export default tseslint.config(
         ...globals.browser,
         ...globals.es2021,
       },
-      parser: tseslint.parser,
       parserOptions: {
         ecmaVersion: "latest",
-        sourceType: "module",
       },
     },
-    plugins: {
-      react: reactPlugin,
-      "@typescript-eslint": tseslint.plugin,
+    settings: {
+      react: {
+        version: "detect",
+      },
     },
     rules: {
       "react/no-did-update-set-state": "off",
@@ -32,5 +31,5 @@ export default tseslint.config(
       "@typescript-eslint/no-explicit-any": "off",
     },
   },
-  eslintPluginPrettierRecommended
+  prettierRecommended
 );
