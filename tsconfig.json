@@ -1,16 +1,16 @@
 {
   "compilerOptions": {
     "esModuleInterop": true,
-    "lib": ["DOM", "ES2015", "ES2021.WeakRef"],
+    "lib": ["DOM", "ESNext"],
     "module": "es2020",
     "moduleResolution": "bundler",
     "noImplicitAny": true,
     "jsx": "react-jsx",
     "resolveJsonModule": true,
+    "skipLibCheck": true,
     "strict": true,
     "target": "es2018",
-    "typeRoots": ["node_modules/@types", "definitions"],
-    "types": ["jest"]
+    "typeRoots": ["node_modules/@types", "definitions"]
   },
   "exclude": ["node_modules"],
   "include": ["src", "eslint.config.mjs"]

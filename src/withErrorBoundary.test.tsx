@@ -1,7 +1,4 @@
-/**
- * @jest-environment jsdom
- */
-
+import { describe, beforeEach, vi, it, expect } from "vitest";
 import { Component, createRef, forwardRef, PropsWithChildren } from "react";
 import { createRoot } from "react-dom/client";
 import { act } from "react-dom/test-utils";
@@ -18,7 +15,7 @@ describe("withErrorBoundary", () => {
     global.IS_REACT_ACT_ENVIRONMENT = true;
 
     // Don't clutter the console with expected error text
-    jest.spyOn(console, "error").mockImplementation(() => {
+    vi.spyOn(console, "error").mockImplementation(() => {
       // No-op
     });
 
