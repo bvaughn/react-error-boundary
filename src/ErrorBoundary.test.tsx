@@ -1,7 +1,4 @@
-/**
- * @jest-environment jsdom
- */
-
+import { describe, beforeEach, vi, it, expect, Mock } from "vitest";
 import assert from "assert";
 import { createRef, PropsWithChildren, ReactElement, RefObject } from "react";
 import { createRoot } from "react-dom/client";
@@ -25,7 +22,7 @@ describe("ErrorBoundary", () => {
     global.IS_REACT_ACT_ENVIRONMENT = true;
 
     // Don't clutter the console with expected error text
-    jest.spyOn(console, "error").mockImplementation(() => {
+    vi.spyOn(console, "error").mockImplementation(() => {
       // No-op
     });
 
@@ -76,7 +73,7 @@ describe("ErrorBoundary", () => {
     it('should call "onError" prop if one is provided', () => {
       shouldThrow = true;
 
-      const onError: jest.Mock<any, any> = jest.fn();
+      const onError: Mock<(...args: any[]) => any> = vi.fn();
 
       render({ onError });
 
@@ -87,7 +84,7 @@ describe("ErrorBoundary", () => {
     it('should call "onReset" when boundary reset via imperative API', () => {
       shouldThrow = true;
 
-      const onReset: jest.Mock<any, any> = jest.fn();
+      const onReset: Mock<(...args: any[]) => any> = vi.fn();
 
       render({ onReset });
       expect(onReset).not.toHaveBeenCalled();
@@ -100,7 +97,7 @@ describe("ErrorBoundary", () => {
     it('should call "onReset" when boundary reset via "resetKeys"', () => {
       shouldThrow = false;
 
-      const onReset: jest.Mock<any, any> = jest.fn();
+      const onReset: Mock<(...args: any[]) => any> = vi.fn();
 
       render({ onReset, resetKeys: [1] });
       expect(onReset).not.toHaveBeenCalled();
@@ -165,7 +162,7 @@ describe("ErrorBoundary", () => {
   });
 
   describe('"FallbackComponent"', () => {
-    let fallbackComponent: jest.Mock<ReactElement, [FallbackProps]>;
+    let fallbackComponent: Mock<(props: FallbackProps) => ReactElement>;
     let lastRenderedError: any = null;
     let lastRenderedResetErrorBoundary:
       | FallbackProps["resetErrorBoundary"]
@@ -187,7 +184,7 @@ describe("ErrorBoundary", () => {
       lastRenderedError = null;
       lastRenderedResetErrorBoundary = null;
 
-      fallbackComponent = jest.fn();
+      fallbackComponent = vi.fn();
       fallbackComponent.mockImplementation(
         ({ error, resetErrorBoundary }: FallbackProps) => {
           lastRenderedError = error;
@@ -236,7 +233,7 @@ describe("ErrorBoundary", () => {
     let lastRenderedResetErrorBoundary:
       | FallbackProps["resetErrorBoundary"]
       | null = null;
-    let fallbackRender: jest.Mock<ReactElement, [FallbackProps]>;
+    let fallbackRender: Mock<(props: FallbackProps) => ReactElement>;
 
     function render(
       props: Omit<ErrorBoundaryPropsWithRender, "fallbackRender"> = {}
@@ -254,7 +251,7 @@ describe("ErrorBoundary", () => {
       lastRenderedError = null;
       lastRenderedResetErrorBoundary = null;
 
-      fallbackRender = jest.fn();
+      fallbackRender = vi.fn();
       fallbackRender.mockImplementation(
         ({ error, resetErrorBoundary }: FallbackProps) => {
           lastRenderedError = error;
@@ -305,12 +302,12 @@ describe("ErrorBoundary", () => {
   describe("thrown values", () => {
     let lastRenderedError: any = null;
     let fallbackRender: (props: FallbackProps) => ReactElement;
-    let onError: jest.Mock<any, any>;
+    let onError: Mock<(...args: any[]) => any>;
 
     beforeEach(() => {
       lastRenderedError = null;
 
-      onError = jest.fn();
+      onError = vi.fn();
 
       fallbackRender = ({ error }: FallbackProps) => {
         lastRenderedError = error;
