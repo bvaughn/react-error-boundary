@@ -1,5 +1,10 @@
 import { describe, beforeEach, vi, it, expect } from "vitest";
-import { Component, createRef, forwardRef, PropsWithChildren } from "react";
+import {
+  Component,
+  createRef,
+  forwardRef,
+  type PropsWithChildren,
+} from "react";
 import { createRoot } from "react-dom/client";
 import { act } from "react-dom/test-utils";
 import { withErrorBoundary } from "./withErrorBoundary";
@@ -8,7 +13,7 @@ describe("withErrorBoundary", () => {
   let container: HTMLDivElement;
   let root: ReturnType<typeof createRoot>;
   let shouldThrow = true;
-  let valueToThrow: any;
+  let valueToThrow: unknown;
 
   beforeEach(() => {
     // @ts-expect-error This is a React internal
@@ -29,7 +34,7 @@ describe("withErrorBoundary", () => {
     if (shouldThrow) {
       throw valueToThrow;
     }
-    return children as any;
+    return children;
   }
 
   function render() {

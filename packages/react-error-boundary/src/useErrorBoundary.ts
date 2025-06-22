@@ -11,10 +11,12 @@ export type UseErrorBoundaryApi<TError> = {
   showBoundary: (error: TError) => void;
 };
 
-export function useErrorBoundary<TError = any>(): UseErrorBoundaryApi<TError> {
+export function useErrorBoundary<TError extends Error>(): UseErrorBoundaryApi<TError> {
   const context = useContext(ErrorBoundaryContext);
 
   assertErrorBoundaryContext(context);
+
+  const { resetErrorBoundary } = context;
 
   const [state, setState] = useState<UseErrorBoundaryState<TError>>({
     error: null,
@@ -24,7 +26,7 @@ export function useErrorBoundary<TError = any>(): UseErrorBoundaryApi<TError> {
   const memoized = useMemo(
     () => ({
       resetBoundary: () => {
-        context.resetErrorBoundary();
+        resetErrorBoundary();
         setState({ error: null, hasError: false });
       },
       showBoundary: (error: TError) =>
@@ -33,7 +35,7 @@ export function useErrorBoundary<TError = any>(): UseErrorBoundaryApi<TError> {
           hasError: true,
         }),
     }),
-    [context.resetErrorBoundary]
+    [resetErrorBoundary]
   );
 
   if (state.hasError) {

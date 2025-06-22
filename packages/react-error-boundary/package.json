@@ -1,0 +1,51 @@
+{
+  "name": "react-error-boundary",
+  "version": "6.0.0",
+  "type": "module",
+  "description": "Simple reusable React error boundary component",
+  "author": "Brian Vaughn <brian.david.vaughn@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bvaughn/react-error-boundary"
+  },
+  "packageManager": "pnpm@9.6.0",
+  "exports": {
+    ".": {
+      "types": "./dist/react-error-boundary.js",
+      "development": "./dist/react-error-boundary.development.js",
+      "default": "./dist/react-error-boundary.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "imports": {
+    "#is-development": {
+      "development": "./src/env-conditions/development.ts",
+      "default": "./src/env-conditions/production.ts"
+    }
+  },
+  "types": "dist/react-error-boundary.d.ts",
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
+  "scripts": {
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+  },
+  "peerDependencies": {
+    "react": ">=16.13.1"
+  },
+  "preconstruct": {
+    "exports": {
+      "importConditionDefaultExport": "default"
+    },
+    "___experimentalFlags_WILL_CHANGE_IN_PATCH": {
+      "distInRoot": true,
+      "importsConditions": true,
+      "typeModule": true
+    }
+  }
+}

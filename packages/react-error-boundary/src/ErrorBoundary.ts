@@ -1,12 +1,12 @@
 import { isDevelopment } from "#is-development";
-import { Component, createElement, ErrorInfo } from "react";
+import { Component, createElement, type ErrorInfo } from "react";
 import { ErrorBoundaryContext } from "./ErrorBoundaryContext";
-import { ErrorBoundaryProps, FallbackProps } from "./types";
+import type { ErrorBoundaryProps, FallbackProps } from "./types";
 
 type ErrorBoundaryState =
   | {
       didCatch: true;
-      error: any;
+      error: Error;
     }
   | {
       didCatch: false;
@@ -33,7 +33,7 @@ export class ErrorBoundary extends Component<
     return { didCatch: true, error };
   }
 
-  resetErrorBoundary(...args: any[]) {
+  resetErrorBoundary(...args: unknown[]) {
     const { error } = this.state;
 
     if (error !== null) {
@@ -121,7 +121,7 @@ export class ErrorBoundary extends Component<
   }
 }
 
-function hasArrayChanged(a: any[] = [], b: any[] = []) {
+function hasArrayChanged(a: unknown[] = [], b: unknown[] = []) {
   return (
     a.length !== b.length || a.some((item, index) => !Object.is(item, b[index]))
   );

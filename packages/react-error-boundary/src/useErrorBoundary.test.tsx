@@ -3,7 +3,7 @@ import assert from "assert";
 import { createRoot } from "react-dom/client";
 import { act } from "react-dom/test-utils";
 import { ErrorBoundary } from "./ErrorBoundary";
-import { UseErrorBoundaryApi, useErrorBoundary } from "./useErrorBoundary";
+import { type UseErrorBoundaryApi, useErrorBoundary } from "./useErrorBoundary";
 
 describe("useErrorBoundary", () => {
   let container: HTMLDivElement;

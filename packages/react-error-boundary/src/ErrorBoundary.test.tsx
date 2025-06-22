@@ -1,21 +1,27 @@
-import { describe, beforeEach, vi, it, expect, Mock } from "vitest";
+import { describe, beforeEach, vi, it, expect, type Mock } from "vitest";
 import assert from "assert";
-import { createRef, PropsWithChildren, ReactElement, RefObject } from "react";
+import {
+  createRef,
+  type PropsWithChildren,
+  type ReactElement,
+  type RefObject,
+} from "react";
 import { createRoot } from "react-dom/client";
 import { act } from "react-dom/test-utils";
 import { ErrorBoundary } from "./ErrorBoundary";
-import {
+import type {
   ErrorBoundaryPropsWithComponent,
   ErrorBoundaryPropsWithFallback,
   ErrorBoundaryPropsWithRender,
   FallbackProps,
+  OnErrorCallback,
 } from "./types";
 
 describe("ErrorBoundary", () => {
   let container: HTMLDivElement;
   let root: ReturnType<typeof createRoot>;
   let shouldThrow = true;
-  let valueToThrow: any;
+  let valueToThrow: unknown;
 
   beforeEach(() => {
     // @ts-expect-error This is a React internal
@@ -36,7 +42,7 @@ describe("ErrorBoundary", () => {
     if (shouldThrow) {
       throw valueToThrow;
     }
-    return children as any;
+    return children;
   }
 
   it("should render children", () => {
@@ -54,10 +60,10 @@ describe("ErrorBoundary", () => {
   });
 
   describe("fallback props", () => {
-    let errorBoundaryRef: RefObject<ErrorBoundary>;
+    let errorBoundaryRef: RefObject<ErrorBoundary | null>;
 
     beforeEach(() => {
-      errorBoundaryRef = createRef<ErrorBoundary>();
+      errorBoundaryRef = createRef<ErrorBoundary | null>();
     });
 
     function render(props: Omit<ErrorBoundaryPropsWithFallback, "fallback">) {
@@ -73,7 +79,7 @@ describe("ErrorBoundary", () => {
     it('should call "onError" prop if one is provided', () => {
       shouldThrow = true;
 
-      const onError: Mock<(...args: any[]) => any> = vi.fn();
+      const onError: Mock<OnErrorCallback> = vi.fn();
 
       render({ onError });
 
@@ -84,7 +90,7 @@ describe("ErrorBoundary", () => {
     it('should call "onReset" when boundary reset via imperative API', () => {
       shouldThrow = true;
 
-      const onReset: Mock<(...args: any[]) => any> = vi.fn();
+      const onReset: Mock<(...args: unknown[]) => unknown> = vi.fn();
 
       render({ onReset });
       expect(onReset).not.toHaveBeenCalled();
@@ -97,7 +103,7 @@ describe("ErrorBoundary", () => {
     it('should call "onReset" when boundary reset via "resetKeys"', () => {
       shouldThrow = false;
 
-      const onReset: Mock<(...args: any[]) => any> = vi.fn();
+      const onReset: Mock<(...args: unknown[]) => unknown> = vi.fn();
 
       render({ onReset, resetKeys: [1] });
       expect(onReset).not.toHaveBeenCalled();
@@ -163,7 +169,7 @@ describe("ErrorBoundary", () => {
 
   describe('"FallbackComponent"', () => {
     let fallbackComponent: Mock<(props: FallbackProps) => ReactElement>;
-    let lastRenderedError: any = null;
+    let lastRenderedError: Error | null = null;
     let lastRenderedResetErrorBoundary:
       | FallbackProps["resetErrorBoundary"]
       | null = null;
@@ -198,7 +204,7 @@ describe("ErrorBoundary", () => {
     it("should render fallback in the event of an error", () => {
       shouldThrow = true;
       render();
-      expect(lastRenderedError.message).toBe("💥💥💥");
+      expect(lastRenderedError?.message).toBe("💥💥💥");
       expect(container.textContent).toBe("FallbackComponent");
     });
 
@@ -229,7 +235,7 @@ describe("ErrorBoundary", () => {
   });
 
   describe('"fallbackRender" render prop', () => {
-    let lastRenderedError: any = null;
+    let lastRenderedError: Error | null = null;
     let lastRenderedResetErrorBoundary:
       | FallbackProps["resetErrorBoundary"]
       | null = null;
@@ -265,7 +271,7 @@ describe("ErrorBoundary", () => {
     it("should render fallback in the event of an error", () => {
       shouldThrow = true;
       render();
-      expect(lastRenderedError.message).toBe("💥💥💥");
+      expect(lastRenderedError?.message).toBe("💥💥💥");
       expect(fallbackRender).toHaveBeenCalled();
       expect(container.textContent).toBe("fallbackRender");
     });
@@ -273,7 +279,7 @@ describe("ErrorBoundary", () => {
     it("should re-render children if boundary is reset via prop", () => {
       shouldThrow = true;
       render();
-      expect(lastRenderedError.message).toBe("💥💥💥");
+      expect(lastRenderedError?.message).toBe("💥💥💥");
       expect(fallbackRender).toHaveBeenCalled();
       expect(container.textContent).toBe("fallbackRender");
 
@@ -289,7 +295,7 @@ describe("ErrorBoundary", () => {
     it("should re-render children if boundary is reset reset keys", () => {
       shouldThrow = true;
       render({ resetKeys: [1] });
-      expect(lastRenderedError.message).toBe("💥💥💥");
+      expect(lastRenderedError?.message).toBe("💥💥💥");
       expect(fallbackRender).toHaveBeenCalled();
       expect(container.textContent).toBe("fallbackRender");
 
@@ -300,9 +306,9 @@ describe("ErrorBoundary", () => {
   });
 
   describe("thrown values", () => {
-    let lastRenderedError: any = null;
+    let lastRenderedError: Error | null = null;
     let fallbackRender: (props: FallbackProps) => ReactElement;
-    let onError: Mock<(...args: any[]) => any>;
+    let onError: Mock<(...args: unknown[]) => unknown>;
 
     beforeEach(() => {
       lastRenderedError = null;

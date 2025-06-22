@@ -1,18 +1,29 @@
-import { ComponentType, ErrorInfo, PropsWithChildren, ReactNode } from "react";
+import type {
+  ComponentType,
+  ErrorInfo,
+  PropsWithChildren,
+  ReactNode,
+} from "react";
 
 export type FallbackProps = {
-  error: any;
-  resetErrorBoundary: (...args: any[]) => void;
+  error: Error;
+  resetErrorBoundary: (...args: unknown[]) => void;
 };
 
+export type OnErrorCallback = (error: Error, info: ErrorInfo) => void;
+
 type ErrorBoundarySharedProps = PropsWithChildren<{
-  onError?: (error: Error, info: ErrorInfo) => void;
+  onError?: OnErrorCallback;
   onReset?: (
     details:
-      | { reason: "imperative-api"; args: any[] }
-      | { reason: "keys"; prev: any[] | undefined; next: any[] | undefined }
+      | { reason: "imperative-api"; args: unknown[] }
+      | {
+          reason: "keys";
+          prev: unknown[] | undefined;
+          next: unknown[] | undefined;
+        }
   ) => void;
-  resetKeys?: any[];
+  resetKeys?: unknown[];
 }>;
 
 export type ErrorBoundaryPropsWithComponent = ErrorBoundarySharedProps & {
