@@ -60,7 +60,9 @@ describe("ErrorBoundary", () => {
       errorBoundaryRef = createRef<ErrorBoundary>();
     });
 
-    function render(props: Omit<ErrorBoundaryPropsWithFallback, "fallback">) {
+    function render(
+      props: Omit<ErrorBoundaryPropsWithFallback, "fallback" | "children">
+    ) {
       act(() => {
         root.render(
           <ErrorBoundary {...props} fallback="Error" ref={errorBoundaryRef}>
@@ -120,7 +122,7 @@ describe("ErrorBoundary", () => {
 
   describe('"fallback" element', () => {
     function render(
-      props: Omit<ErrorBoundaryPropsWithFallback, "fallback"> = {}
+      props: Omit<ErrorBoundaryPropsWithFallback, "fallback" | "children"> = {}
     ) {
       act(() => {
         root.render(
@@ -169,7 +171,10 @@ describe("ErrorBoundary", () => {
       | null = null;
 
     function render(
-      props: Omit<ErrorBoundaryPropsWithComponent, "FallbackComponent"> = {}
+      props: Omit<
+        ErrorBoundaryPropsWithComponent,
+        "FallbackComponent" | "children"
+      > = {}
     ) {
       act(() => {
         root.render(
@@ -236,7 +241,10 @@ describe("ErrorBoundary", () => {
     let fallbackRender: Mock<(props: FallbackProps) => ReactElement>;
 
     function render(
-      props: Omit<ErrorBoundaryPropsWithRender, "fallbackRender"> = {}
+      props: Omit<
+        ErrorBoundaryPropsWithRender,
+        "fallbackRender" | "children"
+      > = {}
     ) {
       act(() => {
         root.render(

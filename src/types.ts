@@ -1,11 +1,12 @@
-import { ComponentType, ErrorInfo, PropsWithChildren, ReactNode } from "react";
+import { ComponentType, ErrorInfo, ReactNode } from "react";
 
 export type FallbackProps = {
   error: any;
   resetErrorBoundary: (...args: any[]) => void;
 };
 
-type ErrorBoundarySharedProps = PropsWithChildren<{
+type ErrorBoundarySharedProps = {
+  children: ReactNode;
   onError?: (error: Error, info: ErrorInfo) => void;
   onReset?: (
     details:
@@ -13,7 +14,7 @@ type ErrorBoundarySharedProps = PropsWithChildren<{
       | { reason: "keys"; prev: any[] | undefined; next: any[] | undefined }
   ) => void;
   resetKeys?: any[];
-}>;
+};
 
 export type ErrorBoundaryPropsWithComponent = ErrorBoundarySharedProps & {
   fallback?: never;
