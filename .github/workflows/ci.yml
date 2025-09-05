@@ -11,9 +11,9 @@ jobs:
       matrix:
         command: ["pnpm lint", "pnpm typescript", "pnpm test"]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           cache: "pnpm"
           cache-dependency-path: "pnpm-lock.yaml"
