@@ -52,7 +52,7 @@
     "@types/react": "^18.3.17",
     "@types/react-dom": "^18",
     "assert": "^2.0.0",
-    "eslint": "^9.13.0",
+    "eslint": "^9.35.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-import": "^2.25.2",
     "eslint-plugin-prettier": "^5.2.1",
@@ -62,9 +62,9 @@
     "react": "^18",
     "react-dom": "^18",
     "rimraf": "^6.0.1",
-    "vitest": "^3.1.2",
     "typescript": "^5.8.3",
-    "typescript-eslint": "^8.18.0"
+    "typescript-eslint": "^8.43.0",
+    "vitest": "^3.1.2"
   },
   "peerDependencies": {
     "react": ">=16.13.1"
