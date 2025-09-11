@@ -1,9 +1,10 @@
 import globals from "globals";
+import { defineConfig } from "eslint/config";
 import tseslint from "typescript-eslint";
 import reactPlugin from "eslint-plugin-react";
 import eslintPluginPrettierRecommended from "eslint-plugin-prettier/recommended";
 
-export default tseslint.config(
+export default defineConfig(
   {
     ignores: ["dist"],
   },
