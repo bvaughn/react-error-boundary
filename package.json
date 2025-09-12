@@ -51,6 +51,7 @@
     "@types/assert": "^1.5.10",
     "@types/react": "^18.3.17",
     "@types/react-dom": "^18",
+    "@vitest/coverage-v8": "^3.2.4",
     "assert": "^2.0.0",
     "eslint": "^9.35.0",
     "eslint-config-prettier": "^9.1.0",
@@ -64,7 +65,7 @@
     "rimraf": "^6.0.1",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.43.0",
-    "vitest": "^3.1.2"
+    "vitest": "^3.2.4"
   },
   "peerDependencies": {
     "react": ">=16.13.1"

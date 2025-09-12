@@ -6,7 +6,7 @@ import eslintPluginPrettierRecommended from "eslint-plugin-prettier/recommended"
 
 export default defineConfig(
   {
-    ignores: ["dist"],
+    ignores: ["dist", "coverage"],
   },
   reactPlugin.configs.flat.recommended,
   tseslint.configs.recommended,
