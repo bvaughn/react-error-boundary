@@ -22,4 +22,4 @@ function useUserProfileInfo({ username }: { username: string }) {
 
 export { useUserProfileInfo };
 
-async function fetchGreeting(a: string) {}
+async function fetchGreeting(_: string) {}
