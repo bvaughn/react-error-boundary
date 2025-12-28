@@ -9,7 +9,7 @@ export default tseslint.config([
   globalIgnores(["dist", "docs", "public/generated"]),
   {
     files: ["**/*.{ts,tsx}"],
-    ignores: ["**/*.example.tsx"],
+    ignores: ["**/examples/*.{ts,tsx}"],
     extends: [
       js.configs.recommended,
       tseslint.configs.recommended,
