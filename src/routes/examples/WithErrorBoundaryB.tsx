@@ -1,4 +1,4 @@
-import { UserProfile } from "./WithErrorBoundaryA.example";
+import { UserProfile } from "./WithErrorBoundaryA";
 
 // <begin>
 
