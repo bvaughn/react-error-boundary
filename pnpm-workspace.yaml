@@ -1,6 +1,4 @@
 packages:
-  # e2e testing
-  - integrations/*
   # react-error-boundary library
   - lib/*
   # documentation website

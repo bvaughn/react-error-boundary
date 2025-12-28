@@ -34,7 +34,6 @@
   "include": [
     "vitest.d.ts",
     "lib",
-    "integrations",
     "scripts",
     "src",
     "index.tsx"
