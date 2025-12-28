@@ -1,0 +1,88 @@
+{
+  "description": [
+    {
+      "content": "<p>A reusable React <a href=\"https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary\">error boundary</a> component.\nWrap this component around other React components to &quot;catch&quot; errors and render a fallback UI.</p>\n"
+    },
+    {
+      "content": "<p>The component provides several ways to render a fallback: <code>fallback</code>, <code>fallbackRender</code>, and <code>FallbackComponent</code>.\nRefer to the documentation to determine which is best for your application.</p>\n",
+      "intent": "primary"
+    },
+    {
+      "content": "<p>This is a <strong>client component</strong>. You can only pass props to it that are serializeable or use it in files that have a <code>&quot;use client&quot;;</code> directive.</p>\n",
+      "intent": "primary"
+    }
+  ],
+  "filePath": "lib/components/ErrorBoundary.tsx",
+  "name": "ErrorBoundary",
+  "props": {
+    "onError": {
+      "description": [
+        {
+          "content": "<p>Optional callback to enable e.g. logging error information to a server.\n@param info React &quot;component stack&quot; identifying where the error was thrown</p>\n"
+        }
+      ],
+      "html": "<div><span class=\"tok-variableName\"><span class=\"tok-propertyName\">onError</span></span><span class=\"tok-operator\">?</span><span class=\"tok-punctuation\">:</span><span class=\"\"> </span><span class=\"tok-punctuation\">(</span><span class=\"tok-variableName tok-definition\">error</span><span class=\"tok-punctuation\">:</span><span class=\"\"> </span><span class=\"tok-typeName\">Error</span><span class=\"tok-punctuation\">,</span><span class=\"\"> </span><span class=\"tok-variableName tok-definition\">info</span><span class=\"tok-punctuation\">:</span><span class=\"\"> </span><span class=\"tok-typeName\">ErrorInfo</span><span class=\"tok-punctuation\">)</span><span class=\"\"> </span><span class=\"tok-punctuation\">=&#62;</span><span class=\"\"> </span><span class=\"tok-keyword\">void</span></div>",
+      "name": "onError",
+      "required": false
+    },
+    "onReset": {
+      "description": [
+        {
+          "content": "<p>Optional callback to to be notified when an error boundary is &quot;reset&quot; so React can retry the failed render.</p>\n"
+        }
+      ],
+      "html": "<div><span class=\"tok-variableName\"><span class=\"tok-propertyName\">onReset</span></span><span class=\"tok-operator\">?</span><span class=\"tok-punctuation\">:</span><span class=\"\"> </span><span class=\"tok-punctuation\">(</span><span class=\"tok-variableName tok-definition\">details</span><span class=\"tok-punctuation\">:</span><span class=\"\"> </span><span class=\"tok-punctuation\">{</span><span class=\"\"> </span><span class=\"tok-propertyName tok-definition\">reason</span><span class=\"tok-punctuation\">:</span><span class=\"\"> </span><span class=\"tok-string\">\"imperative-api\"</span><span class=\"tok-punctuation\">;</span><span class=\"\"> </span><span class=\"tok-propertyName tok-definition\">args</span><span class=\"tok-punctuation\">:</span><span class=\"\"> </span><span class=\"tok-typeName\">unknown</span><span class=\"tok-punctuation\">[</span><span class=\"tok-punctuation\">]</span><span class=\"tok-punctuation\">;</span><span class=\"\"> </span><span class=\"tok-punctuation\">}</span><span class=\"\"> </span><span class=\"tok-operator\">|</span><span class=\"\"> </span><span class=\"tok-punctuation\">{</span><span class=\"\"> </span><span class=\"tok-propertyName tok-definition\">reason</span><span class=\"tok-punctuation\">:</span><span class=\"\"> </span><span class=\"tok-string\">\"keys\"</span><span class=\"tok-punctuation\">;</span><span class=\"\"> </span><span class=\"tok-propertyName tok-definition\">prev</span><span class=\"tok-punctuation\">:</span><span class=\"\"> </span><span class=\"tok-typeName\">unknown</span><span class=\"tok-punctuation\">[</span><span class=\"tok-punctuation\">]</span><span class=\"tok-punctuation\">;</span><span class=\"\"> </span><span class=\"tok-propertyName tok-definition\">next</span><span class=\"tok-punctuation\">:</span><span class=\"\"> </span><span class=\"tok-typeName\">unknown</span><span class=\"tok-punctuation\">[</span><span class=\"tok-punctuation\">]</span><span class=\"tok-punctuation\">;</span><span class=\"\"> </span><span class=\"tok-punctuation\">}</span><span class=\"tok-punctuation\">)</span><span class=\"\"> </span><span class=\"tok-punctuation\">=&#62;</span><span class=\"\"> </span><span class=\"tok-keyword\">void</span></div>",
+      "name": "onReset",
+      "required": false
+    },
+    "resetKeys": {
+      "description": [
+        {
+          "content": "<p>When changed, these keys will reset a triggered error boundary.\nThis can be useful when an error condition may be tied to some specific state (that can be uniquely identified by key).\nSee the the documentation for examples of how to use this prop.</p>\n"
+        }
+      ],
+      "html": "<div><span class=\"tok-variableName\"><span class=\"tok-propertyName\">resetKeys</span></span><span class=\"tok-operator\">?</span><span class=\"tok-punctuation\">:</span><span class=\"\"> </span><span class=\"tok-variableName\">unknown</span><span class=\"tok-punctuation\">[</span><span class=\"tok-punctuation\">]</span></div>",
+      "name": "resetKeys",
+      "required": false
+    },
+    "fallback": {
+      "description": [
+        {
+          "content": "<p>Static content to render in place of an error if one is thrown.</p>\n"
+        },
+        {
+          "content": "<div><span class=\"tok-punctuation\">&#60;</span><span class=\"tok-typeName\">ErrorBoundary</span><span class=\"\"> </span><span class=\"tok-propertyName\">fallback</span><span class=\"tok-operator\">=</span><span class=\"tok-punctuation\">{</span><span class=\"tok-punctuation\">&#60;</span><span class=\"tok-typeName\">div</span><span class=\"\"> </span><span class=\"tok-propertyName\">class</span><span class=\"tok-operator\">=</span><span class=\"tok-string\">\"text-red\"</span><span class=\"tok-punctuation\">&#62;</span><span class=\"\">Something went wrong</span><span class=\"tok-punctuation\">&#60;/</span><span class=\"tok-typeName\">div</span><span class=\"tok-punctuation\">&#62;</span><span class=\"tok-punctuation\">}</span><span class=\"\"> </span><span class=\"tok-punctuation\">/&#62;</span></div>"
+        }
+      ],
+      "html": "<div><span class=\"tok-variableName\"><span class=\"tok-propertyName\">fallback</span></span><span class=\"tok-operator\">?</span><span class=\"tok-punctuation\">:</span><span class=\"\"> </span><span class=\"tok-variableName\">ReactNode</span></div>",
+      "name": "fallback",
+      "required": false
+    },
+    "FallbackComponent": {
+      "description": [
+        {
+          "content": "<p>React component responsible for returning a fallback UI based on a thrown value.</p>\n"
+        },
+        {
+          "content": "<div><span class=\"tok-punctuation\">&#60;</span><span class=\"tok-typeName\">ErrorBoundary</span><span class=\"\"> </span><span class=\"tok-propertyName\">FallbackComponent</span><span class=\"tok-operator\">=</span><span class=\"tok-punctuation\">{</span><span class=\"tok-variableName\">Fallback</span><span class=\"tok-punctuation\">}</span><span class=\"\"> </span><span class=\"tok-punctuation\">/&#62;</span></div>"
+        }
+      ],
+      "html": "<div><span class=\"tok-variableName\"><span class=\"tok-propertyName\">FallbackComponent</span></span><span class=\"tok-operator\">?</span><span class=\"tok-punctuation\">:</span><span class=\"\"> </span><span class=\"tok-variableName\">ComponentType</span><span class=\"\">&#60;</span><span class=\"tok-typeName\">FallbackProps</span><span class=\"\">&#62;</span></div>",
+      "name": "FallbackComponent",
+      "required": false
+    },
+    "fallbackRender": {
+      "description": [
+        {
+          "content": "<p><a href=\"https://react.dev/reference/react/Children#calling-a-render-prop-to-customize-rendering\">Render prop</a> function responsible for returning a fallback UI based on a thrown value.</p>\n"
+        },
+        {
+          "content": "<div><span class=\"tok-punctuation\">&#60;</span><span class=\"tok-typeName\">ErrorBoundary</span><span class=\"\"> </span><span class=\"tok-propertyName\">fallbackRender</span><span class=\"tok-operator\">=</span><span class=\"tok-punctuation\">{</span><span class=\"tok-punctuation\">(</span><span class=\"tok-punctuation\">{</span><span class=\"\"> </span><span class=\"tok-propertyName\">error</span><span class=\"tok-punctuation\">,</span><span class=\"\"> </span><span class=\"tok-propertyName\">resetErrorBoundary</span><span class=\"\"> </span><span class=\"tok-punctuation\">}</span><span class=\"tok-punctuation\">)</span><span class=\"\"> </span><span class=\"tok-punctuation\">=&#62;</span><span class=\"\"> </span><span class=\"tok-punctuation\">&#60;</span><span class=\"tok-typeName\">div</span><span class=\"tok-punctuation\">&#62;</span><span class=\"\">...</span><span class=\"tok-punctuation\">&#60;/</span><span class=\"tok-typeName\">div</span><span class=\"tok-punctuation\">&#62;</span><span class=\"tok-punctuation\">}</span><span class=\"\"> </span><span class=\"tok-punctuation\">/&#62;</span></div>"
+        }
+      ],
+      "html": "<div><span class=\"tok-variableName\"><span class=\"tok-propertyName\">fallbackRender</span></span><span class=\"tok-operator\">?</span><span class=\"tok-punctuation\">:</span><span class=\"\"> </span><span class=\"tok-punctuation\">(</span><span class=\"tok-variableName tok-definition\">props</span><span class=\"tok-punctuation\">:</span><span class=\"\"> </span><span class=\"tok-typeName\">FallbackProps</span><span class=\"tok-punctuation\">)</span><span class=\"\"> </span><span class=\"tok-punctuation\">=&#62;</span><span class=\"\"> </span><span class=\"tok-variableName\">ReactNode</span></div>",
+      "name": "fallbackRender",
+      "required": false
+    }
+  }
+}

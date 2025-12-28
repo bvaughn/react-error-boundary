@@ -1,37 +1,66 @@
+import js from "@eslint/js";
+import reactHooks from "eslint-plugin-react-hooks";
+import reactRefresh from "eslint-plugin-react-refresh";
+import { globalIgnores } from "eslint/config";
 import globals from "globals";
-import { defineConfig } from "eslint/config";
 import tseslint from "typescript-eslint";
-import reactPlugin from "eslint-plugin-react";
-import eslintPluginPrettierRecommended from "eslint-plugin-prettier/recommended";
 
-export default defineConfig(
+export default tseslint.config([
+  globalIgnores(["dist", "docs", "public/generated"]),
   {
-    ignores: ["dist"],
-  },
-  reactPlugin.configs.flat.recommended,
-  tseslint.configs.recommended,
-  {
+    files: ["**/*.{ts,tsx}"],
+    ignores: ["**/examples/*.{ts,tsx}"],
+    extends: [
+      js.configs.recommended,
+      tseslint.configs.recommended,
+      reactHooks.configs["recommended-latest"],
+      reactRefresh.configs.vite,
+    ],
     languageOptions: {
-      globals: {
-        ...globals.browser,
-        ...globals.es2021,
-      },
-      parser: tseslint.parser,
+      ecmaVersion: 2020,
+      globals: globals.browser,
       parserOptions: {
-        ecmaVersion: "latest",
-        sourceType: "module",
+        tsconfigRootDir: import.meta.dirname,
       },
-    },
-    plugins: {
-      react: reactPlugin,
-      "@typescript-eslint": tseslint.plugin,
     },
     rules: {
-      "react/no-did-update-set-state": "off",
-      "react/react-in-jsx-scope": "off",
-      "react/prop-types": "off",
-      "@typescript-eslint/no-explicit-any": "off",
+      "no-restricted-imports": [
+        "error",
+        {
+          patterns: ["*/../lib/*", "node:test"],
+        },
+      ],
+      "no-restricted-properties": [
+        "error",
+        {
+          property: "clientHeight",
+          message:
+            "Using clientHeight is restricted; prefer offsetHeight or getBoundingClientRect()",
+        },
+        {
+          property: "clientWidth",
+          message:
+            "Using clientWidth is restricted; prefer offsetWidth or getBoundingClientRect()",
+        },
+      ],
+      "react-hooks/exhaustive-deps": [
+        "error",
+        {
+          additionalHooks: "useIsomorphicLayoutEffect",
+        },
+      ],
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        {
+          args: "all",
+          argsIgnorePattern: "^_",
+          caughtErrors: "all",
+          caughtErrorsIgnorePattern: "^_",
+          destructuredArrayIgnorePattern: "^_",
+          varsIgnorePattern: "^_",
+          ignoreRestSiblings: true,
+        },
+      ],
     },
   },
-  eslintPluginPrettierRecommended
-);
+]);

@@ -1,14 +1,21 @@
-import { defineConfig, defaultExclude } from "vitest/config";
+import { defineConfig, mergeConfig } from "vitest/config";
+import viteConfig from "./vite.config";
 
-export default defineConfig({
-  test: {
-    exclude: [...defaultExclude, "**/*.trunk"],
-    environment: "jsdom", // Use for browser-like tests
-    coverage: {
-      reporter: ["text", "json", "html"], // Optional: Add coverage reports
+export default mergeConfig(
+  viteConfig,
+  defineConfig({
+    test: {
+      // onConsoleLog(log, type) {
+      //   console.log("[config] onConsoleLog:", type, log);
+      //   switch (type) {
+      //     case "stderr": {
+      //       throw Error("Unexpected console error: " + log);
+      //     }
+      //   }
+      // },
+      environment: "jsdom",
+      setupFiles: "./vitest.setup.js",
+      exclude: ["node_modules"],
     },
-  },
-  resolve: {
-    conditions: ["development", "browser"],
-  },
-});
+  }),
+);
