@@ -1,0 +1,16 @@
+import { Box, Callout, ExternalLink, Header } from "react-lib-tools";
+
+export default function PageNotFound() {
+  return (
+    <Box direction="column" gap={4}>
+      <Header title="Page not found" />
+      <Callout intent="danger">
+        The URL you requested can't be found. If you think this is an error,{" "}
+        <ExternalLink href="https://github.com/bvaughn/react-error-boundary/issues/new">
+          please file a GitHub issue
+        </ExternalLink>
+        .
+      </Callout>
+    </Box>
+  );
+}
