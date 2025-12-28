@@ -7,11 +7,11 @@ const PROTOTYPE_PROPS = [
   "clientHeight",
   "clientWidth",
   "offsetHeight",
-  "offsetWidth"
+  "offsetWidth",
 ];
 
 failOnConsole({
-  shouldFailOnError: true
+  shouldFailOnError: true,
 });
 
 expect.addSnapshotSerializer({
@@ -28,7 +28,7 @@ expect.addSnapshotSerializer({
       "width" in value &&
       "height" in value
     );
-  }
+  },
 });
 
 expect.extend({
@@ -43,16 +43,16 @@ expect.extend({
 
     return {
       pass: true,
-      message: () => ""
+      message: () => "",
     };
-  }
+  },
 });
 
 beforeAll(() => {
   PROTOTYPE_PROPS.forEach((propertyKey) => {
     Object.defineProperty(HTMLElement.prototype, propertyKey, {
       configurable: true,
-      value: 0
+      value: 0,
     });
   });
 

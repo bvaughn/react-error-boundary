@@ -4,7 +4,7 @@ import json from "../../public/generated/docs/ErrorBoundary.json";
 export default function ErrorBoundaryPropsRoute() {
   return (
     <Box direction="column" gap={4}>
-      <ComponentProps json={json as ComponentMetadata} section="Props" />
+      <ComponentProps json={json as ComponentMetadata} section="API" />
     </Box>
   );
 }

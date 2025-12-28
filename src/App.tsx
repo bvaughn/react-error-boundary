@@ -13,14 +13,21 @@ export default function App() {
             <NavLink path="/examples/fallback-component">
               Fallback component
             </NavLink>
+            <NavLink path="/examples/error-logging">Error logging</NavLink>
+            <NavLink path="/examples/async-user-code-errors">
+              Async user code errors
+            </NavLink>
+            <NavLink path="/examples/retry-nearest-boundary">
+              Retry nearest boundary
+            </NavLink>
           </NavSection>
           <NavSection label="API">
             <NavLink path="/api/error-boundary-props">ErrorBoundary</NavLink>
             <NavLink path="/api/use-error-boundary-hook">
-              useErrorBoundary
+              useErrorBoundary hook
             </NavLink>
             <NavLink path="/api/with-error-boundary-hoc">
-              withErrorBoundary
+              withErrorBoundary HOC
             </NavLink>
           </NavSection>
           <NavLink path="/support">Support</NavLink>

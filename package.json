@@ -1,5 +1,5 @@
 {
-   "name": "react-error-boundary",
+  "name": "react-error-boundary",
   "version": "6.0.0",
   "type": "module",
   "description": "Simple reusable React error boundary component",
