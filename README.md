@@ -162,6 +162,21 @@ function ErrorFallback({ error }) {
 }
 ```
 
+#### Accessing the current error
+A fallback component's descendants can use this hook to retrieve information about the error currently being displayed.
+
+```js
+"use client";
+
+import { useErrorBoundary } from "react-error-boundary";
+
+function ComponentNestedWithinAnErrorFallback() {
+  const { error } = useErrorBoundary();
+
+  // ...
+}
+```
+
 ### `withErrorBoundary` HOC
 This package can also be used as a [higher-order component](https://legacy.reactjs.org/docs/higher-order-components.html) that accepts all of the same props as above:
 

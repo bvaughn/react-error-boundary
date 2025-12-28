@@ -1,0 +1,23 @@
+@import "tailwindcss";
+
+:root {
+  font-size: 14px;
+}
+
+* {
+  outline: none;
+}
+
+a:hover {
+  color: var(--color-blue-500);
+  text-decoration: underline;
+}
+a:focus {
+  color: var(--color-blue-500);
+}
+
+@media (pointer: coarse) {
+  a {
+    text-decoration: underline;
+  }
+}

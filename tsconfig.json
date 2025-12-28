@@ -1,17 +1,37 @@
 {
   "compilerOptions": {
-    "esModuleInterop": true,
-    "lib": ["DOM", "ESNext"],
-    "module": "es2020",
-    "moduleResolution": "bundler",
-    "noImplicitAny": true,
-    "jsx": "react-jsx",
-    "resolveJsonModule": true,
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
     "skipLibCheck": true,
+
+    /* Bundler mode */
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "verbatimModuleSyntax": true,
+    "moduleDetection": "force",
+    "noEmit": true,
+    "jsx": "react-jsx",
+
+    /* Linting */
     "strict": true,
-    "target": "es2018",
-    "typeRoots": ["node_modules/@types", "definitions"]
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "erasableSyntaxOnly": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedSideEffectImports": true,
+
+    "types": ["vite/client", "vitest/jsdom"],
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@assets/*": ["src/assets/*"],
+      "@components/*": ["src/components/*"],
+      "@routes/*": ["src/routes/*"],
+      "react-error-boundary": ["lib/index"],
+    }
   },
-  "exclude": ["node_modules"],
-  "include": ["src", "eslint.config.mjs"]
+  "include": ["lib", "src"]
 }

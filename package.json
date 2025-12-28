@@ -1,82 +1,41 @@
 {
   "name": "react-error-boundary",
-  "version": "6.0.0",
+  "private": true,
+  "version": "0.0.0",
   "type": "module",
-  "description": "Simple reusable React error boundary component",
-  "author": "Brian Vaughn <brian.david.vaughn@gmail.com>",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/bvaughn/react-error-boundary"
-  },
-  "packageManager": "pnpm@9.6.0",
-  "exports": {
-    ".": {
-      "types": "./dist/react-error-boundary.js",
-      "development": "./dist/react-error-boundary.development.js",
-      "default": "./dist/react-error-boundary.js"
-    },
-    "./package.json": "./package.json"
-  },
-  "imports": {
-    "#is-development": {
-      "development": "./src/env-conditions/development.ts",
-      "default": "./src/env-conditions/production.ts"
-    }
-  },
-  "types": "dist/react-error-boundary.d.ts",
-  "files": [
-    "dist"
-  ],
-  "sideEffects": false,
   "scripts": {
-    "clear": "pnpm clear:builds & pnpm clear:node_modules",
-    "clear:builds": "rimraf ./dist",
-    "clear:node_modules": "rimraf ./node_modules",
-    "prerelease": "preconstruct build",
+    "dev": "vite",
+    "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
-    "test": "vitest --environment=jsdom --watch=false",
-    "test:watch": "vitest --environment=jsdom --watch",
-    "typescript": "tsc --noEmit",
-    "typescript:watch": "tsc --noEmit --watch"
-  },
-  "dependencies": {
-    "@babel/runtime": "^7.12.5"
+    "preview": "vite preview",
+    "test": "vitest",
+    "typescript": "tsc -b --watch"
   },
   "devDependencies": {
-    "@babel/preset-env": "^7.22.5",
-    "@babel/preset-typescript": "^7.21.5",
-    "@preconstruct/cli": "^2.8.12",
-    "@types/assert": "^1.5.10",
-    "@types/react": "^18.3.17",
-    "@types/react-dom": "^18",
-    "assert": "^2.0.0",
-    "eslint": "^9.13.0",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-import": "^2.25.2",
-    "eslint-plugin-prettier": "^5.2.1",
-    "eslint-plugin-react": "^7.37.2",
-    "globals": "^15.11.0",
-    "prettier": "^3.0.1",
-    "react": "^18",
-    "react-dom": "^18",
-    "rimraf": "^6.0.1",
-    "vitest": "^3.1.2",
-    "typescript": "^5.8.3",
-    "typescript-eslint": "^8.18.0"
-  },
-  "peerDependencies": {
-    "react": ">=16.13.1"
-  },
-  "preconstruct": {
-    "exports": {
-      "importConditionDefaultExport": "default"
-    },
-    "___experimentalFlags_WILL_CHANGE_IN_PATCH": {
-      "distInRoot": true,
-      "importsConditions": true,
-      "typeModule": true
-    }
+    "@eslint/js": "^9.29.0",
+    "@fortawesome/fontawesome-svg-core": "^6.5.1",
+    "@fortawesome/free-brands-svg-icons": "^6.7.2",
+    "@fortawesome/free-regular-svg-icons": "^6.7.2",
+    "@fortawesome/free-solid-svg-icons": "^6.7.2",
+    "@fortawesome/react-fontawesome": "^0.2.2",
+    "@tailwindcss/vite": "^4.1.10",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
+    "@vitejs/plugin-react-swc": "^3.9.0",
+    "eslint": "^9.29.0",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.20",
+    "globals": "^16.2.0",
+    "jsdom": "^26.1.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-router": "^6.21.3",
+    "react-router-dom": "^6.21.3",
+    "shiki": "^1.6.0",
+    "tailwindcss": "^4.1.10",
+    "typescript": "~5.8.3",
+    "typescript-eslint": "^8.34.1",
+    "vite": "^6.3.5",
+    "vitest": "^3.2.4"
   }
 }
