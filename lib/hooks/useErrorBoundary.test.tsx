@@ -44,7 +44,7 @@ describe("useErrorBoundary", () => {
         fallbackRender={({ error }) => <div>Fallback: {error.message}</div>}
       >
         <Child />
-      </ErrorBoundary>
+      </ErrorBoundary>,
     );
     expect(container.textContent).toBe("Child");
 
@@ -83,7 +83,7 @@ describe("useErrorBoundary", () => {
     render(
       <ErrorBoundary FallbackComponent={Fallback}>
         <Child />
-      </ErrorBoundary>
+      </ErrorBoundary>,
     );
 
     expect(container.textContent).toBe("Fallback");

@@ -1,2 +1,5 @@
-dist
-node_modules
+/dist
+/docs
+/generated
+/public
+/src/routes/examples

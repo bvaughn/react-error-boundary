@@ -52,7 +52,7 @@ describe("ErrorBoundary", () => {
       root.render(
         <ErrorBoundary fallback={<div>Error</div>}>
           <MaybeThrows>Content</MaybeThrows>
-        </ErrorBoundary>
+        </ErrorBoundary>,
       );
     });
 
@@ -71,7 +71,7 @@ describe("ErrorBoundary", () => {
         root.render(
           <ErrorBoundary {...props} fallback="Error" ref={errorBoundaryRef}>
             <MaybeThrows>Content</MaybeThrows>
-          </ErrorBoundary>
+          </ErrorBoundary>,
         );
       });
     }
@@ -126,13 +126,13 @@ describe("ErrorBoundary", () => {
 
   describe('"fallback" element', () => {
     function render(
-      props: Omit<ErrorBoundaryPropsWithFallback, "fallback"> = {}
+      props: Omit<ErrorBoundaryPropsWithFallback, "fallback"> = {},
     ) {
       act(() => {
         root.render(
           <ErrorBoundary {...props} fallback={<div>Error</div>}>
             <MaybeThrows>Content</MaybeThrows>
-          </ErrorBoundary>
+          </ErrorBoundary>,
         );
       });
     }
@@ -160,7 +160,7 @@ describe("ErrorBoundary", () => {
         root.render(
           <ErrorBoundary fallback={null}>
             <MaybeThrows>Content</MaybeThrows>
-          </ErrorBoundary>
+          </ErrorBoundary>,
         );
       });
       expect(container.textContent).toBe("");
@@ -175,13 +175,13 @@ describe("ErrorBoundary", () => {
       | null = null;
 
     function render(
-      props: Omit<ErrorBoundaryPropsWithComponent, "FallbackComponent"> = {}
+      props: Omit<ErrorBoundaryPropsWithComponent, "FallbackComponent"> = {},
     ) {
       act(() => {
         root.render(
           <ErrorBoundary {...props} FallbackComponent={fallbackComponent}>
             <MaybeThrows>Content</MaybeThrows>
-          </ErrorBoundary>
+          </ErrorBoundary>,
         );
       });
     }
@@ -197,7 +197,7 @@ describe("ErrorBoundary", () => {
           lastRenderedResetErrorBoundary = resetErrorBoundary;
 
           return <div>FallbackComponent</div>;
-        }
+        },
       );
     });
 
@@ -242,13 +242,13 @@ describe("ErrorBoundary", () => {
     let fallbackRender: Mock<(props: FallbackProps) => ReactElement>;
 
     function render(
-      props: Omit<ErrorBoundaryPropsWithRender, "fallbackRender"> = {}
+      props: Omit<ErrorBoundaryPropsWithRender, "fallbackRender"> = {},
     ) {
       act(() => {
         root.render(
           <ErrorBoundary {...props} fallbackRender={fallbackRender}>
             <MaybeThrows>Content</MaybeThrows>
-          </ErrorBoundary>
+          </ErrorBoundary>,
         );
       });
     }
@@ -264,7 +264,7 @@ describe("ErrorBoundary", () => {
           lastRenderedResetErrorBoundary = resetErrorBoundary;
 
           return <div>fallbackRender</div>;
-        }
+        },
       );
     });
 
@@ -327,7 +327,7 @@ describe("ErrorBoundary", () => {
         root.render(
           <ErrorBoundary fallbackRender={fallbackRender} onError={onError}>
             <MaybeThrows>Content</MaybeThrows>
-          </ErrorBoundary>
+          </ErrorBoundary>,
         );
       });
     }

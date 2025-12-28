@@ -31,7 +31,7 @@ type ErrorBoundarySharedProps = PropsWithChildren<{
           reason: "keys";
           prev: unknown[] | undefined;
           next: unknown[] | undefined;
-        }
+        },
   ) => void;
 
   /**

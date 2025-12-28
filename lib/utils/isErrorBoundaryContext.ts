@@ -1,7 +1,7 @@
 import type { ErrorBoundaryContextType } from "../context/ErrorBoundaryContext";
 
 export function isErrorBoundaryContext(
-  value: unknown
+  value: unknown,
 ): value is ErrorBoundaryContextType {
   return (
     value !== null &&

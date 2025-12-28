@@ -8,23 +8,23 @@ export const routes = {
   "/examples/fallback": lazy(() => import("./routes/FallbackContentRoute")),
   "/examples/render-prop": lazy(() => import("./routes/RenderPropRoute")),
   "/examples/fallback-component": lazy(
-    () => import("./routes/FallbackComponentRoute")
+    () => import("./routes/FallbackComponentRoute"),
   ),
   "/examples/error-logging": lazy(() => import("./routes/ErrorLoggingRoute")),
   "/examples/async-user-code-errors": lazy(
-    () => import("./routes/AsyncUserCodeErrorsRoute")
+    () => import("./routes/AsyncUserCodeErrorsRoute"),
   ),
   "/examples/retry-nearest-boundary": lazy(
-    () => import("./routes/ResetNearestBoundaryRoute")
+    () => import("./routes/ResetNearestBoundaryRoute"),
   ),
   "/api/error-boundary-props": lazy(
-    () => import("./routes/ErrorBoundaryPropsRoute")
+    () => import("./routes/ErrorBoundaryPropsRoute"),
   ),
   "/api/use-error-boundary-hook": lazy(
-    () => import("./routes/UseErrorBoundaryRoute")
+    () => import("./routes/UseErrorBoundaryRoute"),
   ),
   "/api/with-error-boundary-hoc": lazy(
-    () => import("./routes/WithErrorBoundaryRoute")
+    () => import("./routes/WithErrorBoundaryRoute"),
   ),
   "/support": lazy(() => import("./routes/SupportRoute")),
 } satisfies Record<string, Route>;

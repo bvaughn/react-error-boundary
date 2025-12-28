@@ -63,7 +63,7 @@ export class ErrorBoundary extends Component<
 
   componentDidUpdate(
     prevProps: ErrorBoundaryProps,
-    prevState: ErrorBoundaryState
+    prevState: ErrorBoundaryState,
   ) {
     const { didCatch } = this.state;
     const { resetKeys } = this.props;
@@ -110,7 +110,7 @@ export class ErrorBoundary extends Component<
       } else {
         if (isDevelopment) {
           console.error(
-            "react-error-boundary requires either a fallback, fallbackRender, or FallbackComponent prop"
+            "react-error-boundary requires either a fallback, fallbackRender, or FallbackComponent prop",
           );
         }
 
@@ -127,7 +127,7 @@ export class ErrorBoundary extends Component<
           resetErrorBoundary: this.resetErrorBoundary,
         },
       },
-      childToRender
+      childToRender,
     );
   }
 }

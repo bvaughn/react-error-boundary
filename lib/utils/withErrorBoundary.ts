@@ -15,8 +15,8 @@ export function withErrorBoundary<
     createElement(
       ErrorBoundary,
       errorBoundaryProps,
-      createElement(Component, { ...props, ref } as Props)
-    )
+      createElement(Component, { ...props, ref } as Props),
+    ),
   );
 
   // Format for display in DevTools
