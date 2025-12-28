@@ -1,7 +1,7 @@
 packages:
   # e2e testing
   - integrations/*
-  # react-resizable-panels library
+  # react-error-boundary library
   - lib/*
   # documentation website
   - src/*
