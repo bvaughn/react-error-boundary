@@ -1,44 +1,41 @@
 # Contributing
 
-Thanks for being willing to contribute!
+Thanks for your interest in contributing to this project!
 
-**Working on your first Pull Request?** You can learn how from this _free_
-series [How to Contribute to an Open Source Project on GitHub][egghead]
+Here are a couple of guidelines to keep in mind before opening a Pull Request:
 
-## Project setup
+- Please open a GitHub issue for discussion _before_ submitting any significant changes to this API (including new features or functionality).
+- Please don't submit code that has been written by code-generation tools such as Copilot or Claude. (There's nothing wrong with these tools, but I'd prefer them not be a part of this project.)
 
-1. Fork and clone the repo
-2. Run `pnpm install` to install dependencies and run validation (We use pnpm so you need to follow [pnpm installation guide](https://pnpm.io/installation) first)
-3. Create a branch for your PR with `git checkout -b pr/your-branch-name`
+## Local development
 
-> Tip: Keep your `master` branch pointing at the original repository and make
-> pull requests from branches on your fork. To do this, run:
->
-> ```
-> git remote add upstream https://github.com/bvaughn/react-error-boundary
-> git fetch upstream
-> git branch --set-upstream-to=upstream/master master
-> ```
->
-> This will add the original repository as a "remote" called "upstream," Then
-> fetch the git information from that remote, then set your local `master`
-> branch to use the upstream master branch whenever you run `git pull`. Then you
-> can make all of your pull request branches based on this `master` branch.
-> Whenever you want to update your version of `master`, do a regular `git pull`.
+To get started:
+```sh
+pnpm install
+```
 
-## Committing and Pushing changes
+### Running the documentation site locally
 
-Please make sure to run the tests before you commit your changes. You can run `pnpm test`. Make
-sure to include those changes (if they exist) in your commit.
+The documentation site is a great place to test pending changes. It runs on localhost port 3000 and can be started by running:
+```sh
+pnpm dev 
+```
 
-## Help needed
+### Running tests locally
 
-Please checkout the [open issues][issues]
+To run unit tests locally:
+```sh
+pnpm test
+```
 
-Also, please watch the repo and respond to questions/bug reports/feature
-requests! Thanks!
+### Updating assets
 
-<!-- prettier-ignore-start -->
-[egghead]: https://egghead.io/series/how-to-contribute-to-an-open-source-project-on-github
-[issues]: https://github.com/bvaughn/react-error-boundary/issues
-<!-- prettier-ignore-end -->
+Before submitting, also make sure to update generated docs/examples:
+```
+pnpm compile
+pnpm prettier
+pnpm lint
+```
+
+> [!NOTE]
+> If you forget this step, CI will remind you!
