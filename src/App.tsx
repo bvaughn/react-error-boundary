@@ -4,6 +4,7 @@ import { routes } from "./routes";
 export default function App() {
   return (
     <AppRoot
+      hideVersions
       navLinks={
         <div>
           <NavLink path="/">Getting started</NavLink>
