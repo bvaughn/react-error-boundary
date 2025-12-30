@@ -1,10 +1,10 @@
-import { AppRoot, NavLink, NavSection } from "react-lib-tools";
+import { AppRoot, Callout, ExternalLink, NavSection } from "react-lib-tools";
+import { NavLink } from "./components/NavLink";
 import { routes } from "./routes";
 
 export default function App() {
   return (
     <AppRoot
-      hideVersions
       navLinks={
         <div>
           <NavLink path="/">Getting started</NavLink>
@@ -33,6 +33,21 @@ export default function App() {
           </NavSection>
           <NavLink path="/support">Support</NavLink>
         </div>
+      }
+      overview={
+        <>
+          <div>
+            React components and utils for managing runtime errors. Supports all
+            React renderers (including React DOM and React Native).
+          </div>
+          <Callout intent="primary">
+            This package is built on top of React{" "}
+            <ExternalLink href="https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary">
+              error boundaries
+            </ExternalLink>
+            , so it has all of the advantages and limitations of that API.
+          </Callout>
+        </>
       }
       packageDescription="runtime error handling"
       packageName="react-error-boundary"
