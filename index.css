@@ -4,9 +4,9 @@
 @import "react-lib-tools/styles.css";
 
 @theme {
-  --color-background-gradient-1: var(--color-rose-600);
-  --color-background-gradient-2: var(--color-fuchsia-800);
-  --color-background-gradient-3: var(--color-rose-700);
+  --color-background-gradient-1: var(--color-fuchsia-400);
+  --color-background-gradient-2: var(--color-purple-700);
+  --color-background-gradient-3: var(--color-pink-500);
 
   --color-focus-1: var(--color-sky-300);
   --color-focus-2: var(--color-sky-400);
