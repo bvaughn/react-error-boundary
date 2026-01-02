@@ -18,7 +18,7 @@
     "onError": {
       "description": [
         {
-          "content": "<p>Optional callback to enable e.g. logging error information to a server.\n@param info React &quot;component stack&quot; identifying where the error was thrown</p>\n"
+          "content": "<p>Optional callback to enable e.g. logging error information to a server.</p>\n<ul>\n<li><code>error</code> Error that was thrown</li>\n<li><code>info</code> React &quot;component stack&quot; identifying where the error was thrown</li>\n</ul>\n"
         }
       ],
       "html": "<div><span class=\"tok-variableName\"><span class=\"tok-propertyName\">onError</span></span><span class=\"tok-operator\">?</span><span class=\"tok-punctuation\">:</span><span class=\"\"> </span><span class=\"tok-punctuation\">(</span><span class=\"tok-variableName tok-definition\">error</span><span class=\"tok-punctuation\">:</span><span class=\"\"> </span><span class=\"tok-typeName\">Error</span><span class=\"tok-punctuation\">,</span><span class=\"\"> </span><span class=\"tok-variableName tok-definition\">info</span><span class=\"tok-punctuation\">:</span><span class=\"\"> </span><span class=\"tok-typeName\">ErrorInfo</span><span class=\"tok-punctuation\">)</span><span class=\"\"> </span><span class=\"tok-punctuation\">=&#62;</span><span class=\"\"> </span><span class=\"tok-keyword\">void</span></div>",
