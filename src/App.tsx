@@ -95,8 +95,7 @@ const commonQuestions: CommonQuestion[] = [
     id: "react-types-mismatch",
     question: (
       <>
-        What does this error mean: <code>ErrorBoundary</code> cannot be used as
-        a JSX component
+        <code>ErrorBoundary</code> cannot be used as a JSX component
       </>
     ),
     answer: (
