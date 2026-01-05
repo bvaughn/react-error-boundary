@@ -35,6 +35,7 @@
   ],
   "scripts": {
     "dev": "vite",
+    "dev:integrations": "pnpm -C integrations/vite/ run dev",
     "build": "pnpm run build:lib && pnpm run build:docs",
     "build:docs": "TARGET=docs vite build",
     "build:lib": "TARGET=lib vite build",

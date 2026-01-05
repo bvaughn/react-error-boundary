@@ -1,0 +1,3 @@
+{
+  "html": "<div><span class=\"tok-punctuation\">{</span><span class=\"\"></span></div>\n<div><span class=\"\">  </span><span class=\"tok-propertyName\">\"resolutions\"</span><span class=\"tok-punctuation\">:</span><span class=\"\"> </span><span class=\"tok-punctuation\">{</span><span class=\"\"></span></div>\n<div><span class=\"\">    </span><span class=\"tok-propertyName\">\"@types/react\"</span><span class=\"tok-punctuation\">:</span><span class=\"\"> </span><span class=\"tok-string\">\"17.0.60\"</span><span class=\"\"></span></div>\n<div><span class=\"\">  </span><span class=\"tok-punctuation\">}</span><span class=\"\"></span></div>\n<div><span class=\"\"></span><span class=\"tok-punctuation\">}</span></div>"
+}

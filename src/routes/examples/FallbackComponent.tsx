@@ -1,5 +1,3 @@
-"use client";
-
 import { ErrorBoundary, type FallbackProps } from "react-error-boundary";
 
 function Fallback({ error, resetErrorBoundary }: FallbackProps) {

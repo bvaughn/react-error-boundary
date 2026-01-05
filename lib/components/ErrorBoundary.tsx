@@ -23,6 +23,12 @@ const initialState: ErrorBoundaryState = {
  * A reusable React [error boundary](https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary) component.
  * Wrap this component around other React components to "catch" errors and render a fallback UI.
  *
+ * This package is built on top of React [error boundaries](https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary),
+ * so it has all of the advantages and constraints of that API.
+ * This means that it can't catch errors during:
+ * - Server side rendering</li>
+ * - Event handlers
+ * - Asynchronous code (including effects)
  *
  * ℹ️ The component provides several ways to render a fallback: `fallback`, `fallbackRender`, and `FallbackComponent`.
  * Refer to the documentation to determine which is best for your application.

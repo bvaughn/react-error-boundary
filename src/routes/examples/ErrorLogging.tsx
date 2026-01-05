@@ -1,5 +1,3 @@
-"use client";
-
 import type { ErrorInfo } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 

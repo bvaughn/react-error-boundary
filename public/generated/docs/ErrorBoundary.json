@@ -4,6 +4,9 @@
       "content": "<p>A reusable React <a href=\"https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary\">error boundary</a> component.\nWrap this component around other React components to &quot;catch&quot; errors and render a fallback UI.</p>\n"
     },
     {
+      "content": "<p>This package is built on top of React <a href=\"https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary\">error boundaries</a>,\nso it has all of the advantages and constraints of that API.\nThis means that it can't catch errors during:</p>\n<ul>\n<li>Server side rendering&lt;/li&gt;</li>\n<li>Event handlers</li>\n<li>Asynchronous code (including effects)</li>\n</ul>\n"
+    },
+    {
       "content": "<p>The component provides several ways to render a fallback: <code>fallback</code>, <code>fallbackRender</code>, and <code>FallbackComponent</code>.\nRefer to the documentation to determine which is best for your application.</p>\n",
       "intent": "primary"
     },

@@ -1,5 +1,4 @@
 packages:
-  # react-error-boundary library
+  - integrations/*
   - lib/*
-  # documentation website
   - src/*
