@@ -6,6 +6,7 @@ function Fallback({ error }: FallbackProps) {
   const message = getErrorMessage(error) ?? "Unknown error";
 
   // Render fallback UI...
+  return message; // hidden
 }
 
 // <end>
