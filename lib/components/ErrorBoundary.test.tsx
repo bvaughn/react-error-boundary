@@ -16,6 +16,7 @@ import type {
   FallbackProps,
   OnErrorCallback,
 } from "../types";
+import { getErrorMessage } from "../utils/getErrorMessage";
 
 describe("ErrorBoundary", () => {
   let container: HTMLDivElement;
@@ -84,7 +85,7 @@ describe("ErrorBoundary", () => {
       render({ onError });
 
       expect(onError).toHaveBeenCalledTimes(1);
-      expect(onError.mock.calls[0][0].message).toEqual("💥💥💥");
+      expect(getErrorMessage(onError.mock.calls[0][0])).toEqual("💥💥💥");
     });
 
     it('should call "onReset" when boundary reset via imperative API', () => {
@@ -169,7 +170,7 @@ describe("ErrorBoundary", () => {
 
   describe('"FallbackComponent"', () => {
     let fallbackComponent: Mock<(props: FallbackProps) => ReactElement>;
-    let lastRenderedError: Error | null = null;
+    let lastRenderedError: unknown | null = null;
     let lastRenderedResetErrorBoundary:
       | FallbackProps["resetErrorBoundary"]
       | null = null;
@@ -204,7 +205,7 @@ describe("ErrorBoundary", () => {
     it("should render fallback in the event of an error", () => {
       shouldThrow = true;
       render();
-      expect(lastRenderedError?.message).toBe("💥💥💥");
+      expect(getErrorMessage(lastRenderedError)).toBe("💥💥💥");
       expect(container.textContent).toBe("FallbackComponent");
     });
 
@@ -235,7 +236,7 @@ describe("ErrorBoundary", () => {
   });
 
   describe('"fallbackRender" render prop', () => {
-    let lastRenderedError: Error | null = null;
+    let lastRenderedError: unknown | null = null;
     let lastRenderedResetErrorBoundary:
       | FallbackProps["resetErrorBoundary"]
       | null = null;
@@ -271,7 +272,7 @@ describe("ErrorBoundary", () => {
     it("should render fallback in the event of an error", () => {
       shouldThrow = true;
       render();
-      expect(lastRenderedError?.message).toBe("💥💥💥");
+      expect(getErrorMessage(lastRenderedError)).toBe("💥💥💥");
       expect(fallbackRender).toHaveBeenCalled();
       expect(container.textContent).toBe("fallbackRender");
     });
@@ -279,7 +280,7 @@ describe("ErrorBoundary", () => {
     it("should re-render children if boundary is reset via prop", () => {
       shouldThrow = true;
       render();
-      expect(lastRenderedError?.message).toBe("💥💥💥");
+      expect(getErrorMessage(lastRenderedError)).toBe("💥💥💥");
       expect(fallbackRender).toHaveBeenCalled();
       expect(container.textContent).toBe("fallbackRender");
 
@@ -295,7 +296,7 @@ describe("ErrorBoundary", () => {
     it("should re-render children if boundary is reset reset keys", () => {
       shouldThrow = true;
       render({ resetKeys: [1] });
-      expect(lastRenderedError?.message).toBe("💥💥💥");
+      expect(getErrorMessage(lastRenderedError)).toBe("💥💥💥");
       expect(fallbackRender).toHaveBeenCalled();
       expect(container.textContent).toBe("fallbackRender");
 
@@ -306,7 +307,7 @@ describe("ErrorBoundary", () => {
   });
 
   describe("thrown values", () => {
-    let lastRenderedError: Error | null = null;
+    let lastRenderedError: unknown | null = null;
     let fallbackRender: (props: FallbackProps) => ReactElement;
     let onError: Mock<(...args: unknown[]) => unknown>;
 

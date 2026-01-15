@@ -2,7 +2,7 @@ import { createContext } from "react";
 
 export type ErrorBoundaryContextType = {
   didCatch: boolean;
-  error: Error | null;
+  error: unknown | null;
   resetErrorBoundary: (...args: unknown[]) => void;
 };
 

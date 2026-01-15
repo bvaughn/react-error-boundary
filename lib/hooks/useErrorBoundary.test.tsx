@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { ErrorBoundary } from "../components/ErrorBoundary";
 import { assert } from "../utils/assert";
+import { getErrorMessage } from "../utils/getErrorMessage";
 import { useErrorBoundary, type UseErrorBoundaryApi } from "./useErrorBoundary";
 
 describe("useErrorBoundary", () => {
@@ -41,7 +42,9 @@ describe("useErrorBoundary", () => {
 
     render(
       <ErrorBoundary
-        fallbackRender={({ error }) => <div>Fallback: {error.message}</div>}
+        fallbackRender={({ error }) => (
+          <div>Fallback: {getErrorMessage(error)}</div>
+        )}
       >
         <Child />
       </ErrorBoundary>,

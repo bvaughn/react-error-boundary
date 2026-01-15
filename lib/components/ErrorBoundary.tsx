@@ -7,7 +7,7 @@ const isDevelopment = import.meta.env.DEV;
 type ErrorBoundaryState =
   | {
       didCatch: true;
-      error: Error;
+      error: unknown;
     }
   | {
       didCatch: false;
@@ -63,7 +63,7 @@ export class ErrorBoundary extends Component<
     }
   }
 
-  componentDidCatch(error: Error, info: ErrorInfo) {
+  componentDidCatch(error: unknown, info: ErrorInfo) {
     this.props.onError?.(error, info);
   }
 

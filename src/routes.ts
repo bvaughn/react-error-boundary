@@ -24,6 +24,7 @@ export const routes = {
   "/api/with-error-boundary-hoc": lazy(
     () => import("./routes/WithErrorBoundaryRoute"),
   ),
+  "/api/get-error-message": lazy(() => import("./routes/GetErrorMessageRoute")),
 } satisfies Record<string, Route>;
 
 export type Routes = Record<keyof typeof routes, Route>;
