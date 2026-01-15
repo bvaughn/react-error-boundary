@@ -41,6 +41,9 @@ export default function App() {
             <NavLink path="/api/with-error-boundary-hoc">
               withErrorBoundary HOC
             </NavLink>
+            <NavLink path="/api/get-error-message">
+              getErrorMessage helper
+            </NavLink>
           </NavSection>
           <NavLink path="/common-questions">Common questions</NavLink>
           <NavLink path="/support">Support</NavLink>
