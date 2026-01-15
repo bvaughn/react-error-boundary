@@ -1,7 +1,7 @@
 import type { ErrorInfo } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 
-function logError(error: Error, info: ErrorInfo) {
+function logError(error: unknown, info: ErrorInfo) {
   // Do something with the error, e.g. log to an external API
   error; // hidden
   info; // hidden

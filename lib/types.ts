@@ -6,20 +6,20 @@ import type {
 } from "react";
 
 export type FallbackProps = {
-  error: Error;
+  error: unknown;
   resetErrorBoundary: (...args: unknown[]) => void;
 };
 
-export type OnErrorCallback = (error: Error, info: ErrorInfo) => void;
+export type OnErrorCallback = (error: unknown, info: ErrorInfo) => void;
 
 type ErrorBoundarySharedProps = PropsWithChildren<{
   /**
    * Optional callback to enable e.g. logging error information to a server.
    *
-   * @param error Error that was thrown
+   * @param error Value that was thrown; typically an instance of `Error`
    * @param info React "component stack" identifying where the error was thrown
    */
-  onError?: (error: Error, info: ErrorInfo) => void;
+  onError?: (error: unknown, info: ErrorInfo) => void;
 
   /**
    * Optional callback to to be notified when an error boundary is "reset" so React can retry the failed render.

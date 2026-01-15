@@ -63,7 +63,7 @@ None
     <tr>
       <td>onError</td>
       <td><p>Optional callback to enable e.g. logging error information to a server.
-@param error Error that was thrown
+@param error Value that was thrown; typically an instance of <code>Error</code>
 @param info React &quot;component stack&quot; identifying where the error was thrown</p>
 </td>
     </tr>

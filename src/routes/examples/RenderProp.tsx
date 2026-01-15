@@ -1,10 +1,10 @@
-import { ErrorBoundary } from "react-error-boundary";
+import { ErrorBoundary, getErrorMessage } from "react-error-boundary";
 
 <ErrorBoundary
   fallbackRender={({ error, resetErrorBoundary }) => (
     <div role="alert">
       <p>Something went wrong:</p>
-      <pre style={{ color: "red" }}>{error.message}</pre>
+      <pre style={{ color: "red" }}>{getErrorMessage(error)}</pre>
       <button onClick={resetErrorBoundary}>Retry</button>
     </div>
   )}

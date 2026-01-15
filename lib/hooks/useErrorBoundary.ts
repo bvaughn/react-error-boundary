@@ -3,13 +3,13 @@ import { ErrorBoundaryContext } from "../context/ErrorBoundaryContext";
 import { assertErrorBoundaryContext } from "../utils/assertErrorBoundaryContext";
 
 type UseErrorBoundaryState =
-  | { error: Error; hasError: true }
+  | { error: unknown; hasError: true }
   | { error: null; hasError: false };
 
 export type UseErrorBoundaryApi = {
-  error: Error | null;
+  error: unknown | null;
   resetBoundary: () => void;
-  showBoundary: (error: Error) => void;
+  showBoundary: (error: unknown) => void;
 };
 
 /**
@@ -21,7 +21,7 @@ export function useErrorBoundary(): {
   /**
    * The currently visible `Error` (if one has been thrown).
    */
-  error: Error | null;
+  error: unknown | null;
 
   /**
    * Method to reset and retry the nearest active error boundary (if one is active).
@@ -35,7 +35,7 @@ export function useErrorBoundary(): {
    * Errors thrown in event handlers, or after async code has run, will not be caught.
    * This method is a way to imperatively trigger an error boundary during these phases.
    */
-  showBoundary: (error: Error) => void;
+  showBoundary: (error: unknown) => void;
 } {
   const context = useContext(ErrorBoundaryContext);
 
@@ -55,7 +55,7 @@ export function useErrorBoundary(): {
         resetErrorBoundary();
         setState({ error: null, hasError: false });
       },
-      showBoundary: (error: Error) =>
+      showBoundary: (error: unknown) =>
         setState({
           error,
           hasError: true,
