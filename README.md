@@ -1,4 +1,4 @@
-<img src="https://react-error-boundary-lib.vercel.app/og.svg" alt="react-error-boundary logo" width="400" height="210" />
+<img src="https://react-error-boundary-lib.vercel.app/og.png" alt="react-error-boundary logo" width="400" height="210" />
 
 `react-error-boundary`: Reusable React [error boundary](https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary) component. Supports all React renderers (including React DOM and React Native).
 
