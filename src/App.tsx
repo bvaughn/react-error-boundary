@@ -6,6 +6,7 @@ import {
   NavSection,
   type CommonQuestion,
 } from "react-lib-tools";
+import { repository } from "../package.json";
 import { html as htmlNpmResolution } from "../public/generated/examples/NpmResolution.json";
 import { html as htmlYarnResolution } from "../public/generated/examples/YarnResolution.json";
 import { Link } from "./components/Link";
@@ -60,6 +61,7 @@ export default function App() {
       }
       packageDescription="runtime error handling"
       packageName="react-error-boundary"
+      repositoryUrl={repository.url}
       routes={routes}
     />
   );
