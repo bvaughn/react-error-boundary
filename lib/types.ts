@@ -73,7 +73,7 @@ export type ErrorBoundaryPropsWithFallback = ErrorBoundarySharedProps & {
    * Static content to render in place of an error if one is thrown.
    *
    * ```tsx
-   * <ErrorBoundary fallback={<div class="text-red">Something went wrong</div>} />
+   * <ErrorBoundary fallback={<div className="text-red">Something went wrong</div>} />
    * ```
    */
   fallback: ReactNode;
