@@ -82,7 +82,7 @@ See the the documentation for examples of how to use this prop.</p>
     <tr>
       <td>fallback</td>
       <td><p>Static content to render in place of an error if one is thrown.</p>
-<pre><code class="language-tsx">&lt;ErrorBoundary fallback={&lt;div class=&quot;text-red&quot;&gt;Something went wrong&lt;/div&gt;} /&gt;
+<pre><code class="language-tsx">&lt;ErrorBoundary fallback={&lt;div className=&quot;text-red&quot;&gt;Something went wrong&lt;/div&gt;} /&gt;
 </code></pre>
 </td>
     </tr>
