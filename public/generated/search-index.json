@@ -1,0 +1,242 @@
+{
+  "keys": [
+    {
+      "path": [
+        "title"
+      ],
+      "id": "title",
+      "weight": 1,
+      "src": "title",
+      "getFn": null
+    },
+    {
+      "path": [
+        "section"
+      ],
+      "id": "section",
+      "weight": 1,
+      "src": "section",
+      "getFn": null
+    },
+    {
+      "path": [
+        "text"
+      ],
+      "id": "text",
+      "weight": 1,
+      "src": "text",
+      "getFn": null
+    }
+  ],
+  "records": [
+    {
+      "i": 0,
+      "$": {
+        "0": {
+          "v": "Getting started with react-error-boundary",
+          "n": 0.5
+        },
+        "2": {
+          "v": "React components and utils for managing runtime errors. Supports all React renderers (including React DOM and React Native). This package is built on top of React error boundaries, so it has all of the advantages and constraints of that API.This means that it can't catch errors during:Server side renderingEvent handlersAsynchronous code (including effects)You can show an error boundary for asynchronous code, but you have to catch the error yourself. Learn more. Installation Begin by installing the library from NPM: npm install react-error-boundary TypeScript definitions are included within the published dist folder. Support Here are some ways to support this project: Become a GitHub sponsorBuy me a coffee",
+          "n": 0.097
+        }
+      }
+    },
+    {
+      "i": 1,
+      "$": {
+        "0": {
+          "v": "Fallback content",
+          "n": 0.707
+        },
+        "1": {
+          "v": "Examples",
+          "n": 1
+        },
+        "2": {
+          "v": "The simplest way to render a default error message. import { ErrorBoundary } from \"react-error-boundary\";\n \n<ErrorBoundary fallback={<div>Something went wrong</div>}>\n  <YourApplication />\n</ErrorBoundary>;",
+          "n": 0.224
+        }
+      }
+    },
+    {
+      "i": 2,
+      "$": {
+        "0": {
+          "v": "Render props",
+          "n": 0.707
+        },
+        "1": {
+          "v": "Examples",
+          "n": 1
+        },
+        "2": {
+          "v": "Render prop function responsible for returning a fallback UI based on a thrown value. import { ErrorBoundary, getErrorMessage } from \"react-error-boundary\";\n \n<ErrorBoundary\n  fallbackRender={({ error, resetErrorBoundary }) => (\n    <div role=\"alert\">\n      <p>Something went wrong:</p>\n      <pre style={{ color: \"red\" }}>{getErrorMessage(error)}</pre>\n      <button onClick={resetErrorBoundary}>Retry</button>\n    </div>\n  )}\n  onReset={(details) => {\n    // Reset the state of your app so the error doesn't happen again\n  }}\n>\n  <YourApplication />\n</ErrorBoundary>;",
+          "n": 0.129
+        }
+      }
+    },
+    {
+      "i": 3,
+      "$": {
+        "0": {
+          "v": "Fallback component",
+          "n": 0.707
+        },
+        "1": {
+          "v": "Examples",
+          "n": 1
+        },
+        "2": {
+          "v": "React component responsible for returning a fallback UI based on a thrown value. import { ErrorBoundary, getErrorMessage, type FallbackProps } from \"react-error-boundary\";\n \nfunction Fallback({ error, resetErrorBoundary }: FallbackProps) {\n  return (\n    <div role=\"alert\">\n      <p>Something went wrong:</p>\n      <pre style={{ color: \"red\" }}>{getErrorMessage(error)}</pre>\n      <button onClick={resetErrorBoundary}>Retry</button>\n    </div>\n  );\n}\n \n<ErrorBoundary\n  FallbackComponent={Fallback}\n  onReset={(details) => {\n    // Reset the state of your app so the error doesn't happen again\n  }}\n>\n  <YourApplication />\n</ErrorBoundary>;",
+          "n": 0.125
+        }
+      }
+    },
+    {
+      "i": 4,
+      "$": {
+        "0": {
+          "v": "Error logging",
+          "n": 0.707
+        },
+        "1": {
+          "v": "Examples",
+          "n": 1
+        },
+        "2": {
+          "v": "Use the onError callback to log errors to a service like Sentry. import type { ErrorInfo } from \"react\";\nimport { ErrorBoundary } from \"react-error-boundary\";\n \nfunction logError(error: unknown, info: ErrorInfo) {\n  // Do something with the error, e.g. log to an external API\n}\n \n<ErrorBoundary FallbackComponent={ErrorFallback} onError={logError}>\n  <YourApplication />\n</ErrorBoundary>;",
+          "n": 0.149
+        }
+      }
+    },
+    {
+      "i": 5,
+      "$": {
+        "0": {
+          "v": "Async user code errors",
+          "n": 0.5
+        },
+        "1": {
+          "v": "Examples",
+          "n": 1
+        },
+        "2": {
+          "v": "React only handles errors thrown during render or during component lifecycle methods (e.g. effects and did-mount/did-update). Errors thrown in event handlers, or after async code has run, will not be caught. The useErrorBoundary hook can be used to pass those errors to the nearest error boundary: import { useErrorBoundary } from \"react-error-boundary\";\n \nfunction useUserProfileInfo({ username }: { username: string }) {\n  const { showBoundary } = useErrorBoundary();\n \n  useEffect(() => {\n    fetchGreeting(username).then(\n      (response) => {\n        // Set data in state and re-render ...\n      },\n      (error) => {\n        // Show error boundary\n        showBoundary(error);\n      }\n    );\n  });\n}",
+          "n": 0.104
+        }
+      }
+    },
+    {
+      "i": 6,
+      "$": {
+        "0": {
+          "v": "Reset nearest boundary",
+          "n": 0.577
+        },
+        "1": {
+          "v": "Examples",
+          "n": 1
+        },
+        "2": {
+          "v": "The useErrorBoundary hook can be used to reset the nearest error boundary and retry a failed render attempt. import { useErrorBoundary } from \"react-error-boundary\";\n \nfunction Example() {\n  const { resetBoundary } = useErrorBoundary();\n \n  // Call resetBoundary() to reset the nearest ErrorBoundary and retry a failed render\n}",
+          "n": 0.149
+        }
+      }
+    },
+    {
+      "i": 7,
+      "$": {
+        "0": {
+          "v": "ErrorBoundary component",
+          "n": 0.707
+        },
+        "1": {
+          "v": "API",
+          "n": 1
+        },
+        "2": {
+          "v": "A reusable React error boundary component.\nWrap this component around other React components to \"catch\" errors and render a fallback UI.\nThis package is built on top of React error boundaries,\nso it has all of the advantages and constraints of that API.\nThis means that it can't catch errors during:\n\nServer side rendering</li>\nEvent handlers\nAsynchronous code (including effects)\n\nThe component provides several ways to render a fallback: fallback, fallbackRender, and FallbackComponent.\nRefer to the documentation to determine which is best for your application.\nThis is a client component. You can only pass props to it that are serializeable or use it in files that have a \"use client\"; directive.\n Optional propsfallback?: ReactNodeStatic content to render in place of an error if one is thrown.\n<ErrorBoundary fallback={<div className=\"text-red\">Something went wrong</div>} />FallbackComponent?: ComponentType<FallbackProps>React component responsible for returning a fallback UI based on a thrown value.\n<ErrorBoundary FallbackComponent={Fallback} />fallbackRender?: (props: FallbackProps) => ReactNodeRender prop function responsible for returning a fallback UI based on a thrown value.\n<ErrorBoundary fallbackRender={({ error, resetErrorBoundary }) => <div>...</div>} />onError?: (error: unknown, info: ErrorInfo) => voidOptional callback to enable e.g. logging error information to a server.\n\nerror Value that was thrown; typically an instance of Error\ninfo React \"component stack\" identifying where the error was thrown\n\nonReset?: (details: { reason: \"imperative-api\"; args: unknown[]; } | { reason: \"keys\"; prev: unknown[]; next: unknown[]; }) => voidOptional callback to to be notified when an error boundary is \"reset\" so React can retry the failed render.\nresetKeys?: unknown[]When changed, these keys will reset a triggered error boundary.\nThis can be useful when an error condition may be tied to some specific state (that can be uniquely identified by key).\nSee the the documentation for examples of how to use this prop.\n",
+          "n": 0.061
+        }
+      }
+    },
+    {
+      "i": 8,
+      "$": {
+        "0": {
+          "v": "useErrorBoundary hook",
+          "n": 0.707
+        },
+        "1": {
+          "v": "API",
+          "n": 1
+        },
+        "2": {
+          "v": "Convenience hook for imperatively showing or dismissing error boundaries. import { useErrorBoundary } from \"react-error-boundary\";\n \nfunction Example() {\n  const {\n    // The currently visible Error (if one has been thrown).\n    error,\n \n    // Method to reset and retry the nearest active error boundary (if one is active).\n    resetBoundary,\n \n    // Trigger the nearest error boundary to display the error provided.\n    showBoundary,\n   } = useErrorBoundary();\n \n  // ...\n} This hook must only be used within an ErrorBoundary subtree.",
+          "n": 0.117
+        }
+      }
+    },
+    {
+      "i": 9,
+      "$": {
+        "0": {
+          "v": "withErrorBoundary HOC",
+          "n": 0.707
+        },
+        "1": {
+          "v": "API",
+          "n": 1
+        },
+        "2": {
+          "v": "This package can also be used as a higher-order component. For example, given a component like this: function UserProfile({ username }: { username: string }) {\n  // Render...\n} You could use the withErrorBoundary HOC to create a wrapper component: import { withErrorBoundary } from \"react-error-boundary\";\n \nconst UserProfileWithErrorBoundary = withErrorBoundary(UserProfile, {\n  fallback: <div>Something went wrong</div>,\n  onError(error, info) {\n    // Do something with the error\n    // E.g. log to an error logging client here\n  },\n}); And then render it like this <UserProfileWithErrorBoundary username=\"Brian\" />; This might be useful for certain types of reusable/library components.",
+          "n": 0.105
+        }
+      }
+    },
+    {
+      "i": 10,
+      "$": {
+        "0": {
+          "v": "getErrorMessage helper",
+          "n": 0.707
+        },
+        "1": {
+          "v": "API",
+          "n": 1
+        },
+        "2": {
+          "v": "Typically thrown errors in JavaScript are instances of type Error, but this is not always the case. Any value can be thrown- strings, numbers, even null or undefined. To simplify working with thrown values, this library exports a utility method called getErrorMessage. import { getErrorMessage, type FallbackProps } from \"react-error-boundary\";\n \nfunction Fallback({ error }: FallbackProps) {\n  // Because 'error' can be anything, it's safest not to assume it's an Error\n  // Use the getErrorMessage helper method to extract the message instead.\n  const message = getErrorMessage(error) ?? \"Unknown error\";\n \n  // Render fallback UI...\n}",
+          "n": 0.105
+        }
+      }
+    },
+    {
+      "i": 11,
+      "$": {
+        "0": {
+          "v": "Common questions",
+          "n": 0.707
+        },
+        "2": {
+          "v": "Why didn't the boundary catch my error?This package is built on top of React error boundaries, so it has all of the advantages and constraints of that API.This means that it can't catch errors during:Server side renderingEvent handlersAsynchronous code (including effects)You can show an error boundary for asynchronous code, but you have to catch the error yourself. Learn more.ErrorBoundary cannot be used as a JSX componentThis error can be caused by a version mismatch between react and @types/react. To fix this, ensure that both match exactly.For NPM, you may need to use an override:{\n  \"overrides\": {\n    \"@types/react\": \"17.0.60\"\n  }\n}Yarn has a similar mechanism called a resolution:{\n  \"resolutions\": {\n    \"@types/react\": \"17.0.60\"\n  }\n}",
+          "n": 0.095
+        }
+      }
+    },
+    {
+      "i": 12,
+      "$": {
+        "0": {
+          "v": "Support",
+          "n": 1
+        },
+        "2": {
+          "v": "GitHub is the easiest place to look for help, but it's probably not the fastest. This project is maintained by a single developer so there is limited bandwidth for answering questions. I recommend asking questions on Stack Overflow or Reddit to start with. Both sites have active communities who often respond quickly. If you don't find an answer there you can try opening a GitHub issue- but please take a moment first to see if your question has has already been answered before opening a new one.",
+          "n": 0.107
+        }
+      }
+    }
+  ]
+}

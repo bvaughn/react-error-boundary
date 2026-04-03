@@ -4,6 +4,9 @@
 
 ### If you like this project, 🎉 [become a sponsor](https://github.com/sponsors/bvaughn/) or ☕ [buy me a coffee](http://givebrian.coffee/)
 
+> [!NOTE]
+> Projects using framework or runtimes that don't support ES Modules should use version 5 of this library.
+
 ## Getting started
 
 ```sh

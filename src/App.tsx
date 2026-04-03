@@ -17,6 +17,7 @@ export default function App() {
   return (
     <AppRoot
       commonQuestions={commonQuestions}
+      enableSiteSearch
       navLinks={
         <div>
           <NavLink path="/">Getting started</NavLink>
@@ -126,6 +127,35 @@ const commonQuestions: CommonQuestion[] = [
           :
         </p>
         <Code html={htmlYarnResolution} />
+      </>
+    ),
+  },
+  {
+    id: "module-resolution-error",
+    question: "Unable to resolve path to module 'react-error-boundary'",
+    answer: (
+      <>
+        <div>
+          The{" "}
+          <ExternalLink href="https://github.com/bvaughn/react-error-boundary/releases/tag/6.0.0">
+            version 6.0
+          </ExternalLink>{" "}
+          release of this library switched to ESM-only to better work with
+          modern JavaScript tooling.
+        </div>
+        <div>
+          If your project uses a framework or runtime that does not yet support
+          ES Modules (like{" "}
+          <ExternalLink href="https://github.com/expo/expo/issues/30323">
+            Expo
+          </ExternalLink>{" "}
+          or{" "}
+          <ExternalLink href="https://github.com/facebook/hermes/discussions/1391">
+            Hermes
+          </ExternalLink>
+          ) then you should use version 5 of this library. There are no major
+          API differences between these two versions other than ESM support.
+        </div>
       </>
     ),
   },
