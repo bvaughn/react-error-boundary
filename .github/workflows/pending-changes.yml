@@ -9,8 +9,20 @@ jobs:
       - uses: pnpm/action-setup@v2
         with:
           version: 10
+
       - name: Install dependencies
         run: pnpm install --frozen-lockfile --recursive
+        env:
+          PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: 'true'
+
+      - name: Setup Google Chrome
+        uses: browser-actions/setup-chrome@v2
+        id: setup-chrome
+        with:
+          install-dependencies: true
+
       - uses: nickcharlton/diff-check@main
         with:
-          command: pnpm run compile
+          command: pnpm dev & pnpm run compile
+        env:
+          CHROME_PATH: ${{ steps.setup-chrome.outputs.chrome-path }}
