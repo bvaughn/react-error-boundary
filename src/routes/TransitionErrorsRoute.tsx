@@ -15,9 +15,9 @@ export default function TransitionErrorsRoute() {
         function returned by <code>useTransition</code>.
       </div>
       <div>
-        This is useful for user-initiated async work where an unexpected error
-        should replace a section of the UI. For async work outside of Actions,
-        catch the error yourself and pass it to the nearest boundary with{" "}
+        This is useful when an unexpected Action error should replace a section
+        of the UI. It is an alternative to manually passing an error to the
+        nearest boundary with{" "}
         <Link to="/examples/async-user-code-errors">useErrorBoundary</Link>.
       </div>
       <Code html={html} />

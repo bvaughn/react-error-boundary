@@ -4,16 +4,16 @@
       "content": "<p>A reusable React <a href=\"https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary\">error boundary</a> component.\nWrap this component around other React components to &quot;catch&quot; errors and render a fallback UI.</p>\n"
     },
     {
-      "content": "<p>This package is built on top of React <a href=\"https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary\">error boundaries</a>,\nso it has all of the advantages and constraints of that API. Error boundaries catch errors thrown while rendering\nthe tree below them.</p>\n"
+      "content": "<p>Catches errors thrown while rendering the tree below it.</p>\n"
     },
     {
-      "content": "<p>Error boundaries do not catch errors thrown during:</p>\n<ul>\n<li>Server side rendering</li>\n<li>Event handlers</li>\n<li>Errors thrown in the error boundary itself</li>\n<li>Async code that runs after rendering, like <code>setTimeout</code> callbacks or unresolved promises</li>\n</ul>\n"
+      "content": "<p>Does not catch errors thrown during:</p>\n<ul>\n<li>Server side rendering</li>\n<li>Event handlers</li>\n<li>Errors thrown in the error boundary itself</li>\n<li>Async code that runs after rendering, like <code>setTimeout</code> callbacks or unresolved promises</li>\n</ul>\n"
     },
     {
-      "content": "<p>React 19 includes one important async exception: errors thrown inside Actions, including functions passed to the\n<code>startTransition</code> function returned by <code>useTransition</code>, can be caught by the nearest error boundary.</p>\n"
+      "content": "<p>Async errors:</p>\n"
     },
     {
-      "content": "<p>For user-initiated async work, wrap the work in a Transition so React can catch errors from the Action. The\n<code>useErrorBoundary</code> hook can also be used to pass errors from async code outside of Actions to the nearest error\nboundary.</p>\n"
+      "content": "<ul>\n<li>Use <code>useErrorBoundary</code> to pass caught errors to the nearest boundary</li>\n<li>In React 19, errors thrown from a function passed to the <code>startTransition</code> function returned by <code>useTransition</code>\nare caught by the nearest boundary</li>\n</ul>\n"
     },
     {
       "content": "<p>The component provides several ways to render a fallback: <code>fallback</code>, <code>fallbackRender</code>, and <code>FallbackComponent</code>.\nRefer to the documentation to determine which is best for your application.</p>\n",

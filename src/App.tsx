@@ -78,7 +78,7 @@ const clientSideWarning = (
       <ExternalLink href="https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary">
         error boundaries
       </ExternalLink>
-      , so it has all of the advantages and constraints of that API.
+      , so it follows React's rules for what errors are caught.
     </div>
     <div>
       Error boundaries catch errors thrown while rendering the tree below them.
@@ -93,18 +93,19 @@ const clientSideWarning = (
         unresolved promises
       </li>
     </ul>
-    <div>
-      React 19 includes one important async exception: errors thrown inside
-      Actions, including functions passed to the startTransition function
-      returned by useTransition, can be caught by the nearest error boundary.{" "}
-      <Link to="/examples/transition-errors">Learn more</Link>.
-    </div>
-    <div>
-      For user-initiated async work, wrap the work in a Transition so React can
-      catch errors from the Action. For async work outside of Actions, catch the
-      error yourself and pass it to the nearest boundary.{" "}
-      <Link to="/examples/async-user-code-errors">Learn more</Link>.
-    </div>
+    <div>For async errors:</div>
+    <ul className="pl-8">
+      <li className="list-disc">
+        Use <code>useErrorBoundary</code> to pass caught errors to the nearest
+        boundary. <Link to="/examples/async-user-code-errors">Learn more</Link>.
+      </li>
+      <li className="list-disc">
+        In React 19, errors thrown from a function passed to the{" "}
+        <code>startTransition</code> function returned by{" "}
+        <code>useTransition</code> are caught by the nearest boundary.{" "}
+        <Link to="/examples/transition-errors">Learn more</Link>.
+      </li>
+    </ul>
   </div>
 );
 
