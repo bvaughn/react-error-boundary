@@ -22,7 +22,7 @@ type ErrorBoundarySharedProps = PropsWithChildren<{
   onError?: (error: unknown, info: ErrorInfo) => void;
 
   /**
-   * Optional callback to to be notified when an error boundary is "reset" so React can retry the failed render.
+   * Optional callback to be notified when an error boundary is reset so React can retry the failed render.
    */
   onReset?: (
     details:
@@ -37,7 +37,7 @@ type ErrorBoundarySharedProps = PropsWithChildren<{
   /**
    * When changed, these keys will reset a triggered error boundary.
    * This can be useful when an error condition may be tied to some specific state (that can be uniquely identified by key).
-   * See the the documentation for examples of how to use this prop.
+   * See the documentation for examples of how to use this prop.
    */
   resetKeys?: unknown[];
 }>;

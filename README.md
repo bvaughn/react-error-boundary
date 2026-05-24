@@ -24,31 +24,131 @@ yarn add react-error-boundary
 
 Frequently asked questions can be found [here](https://react-error-boundary-lib.vercel.app/common-questions).
 
+## Quick start
+
+Wrap an `ErrorBoundary` around the part of the tree where you want to show a fallback UI if rendering fails:
+
+```tsx
+"use client";
+
+import { ErrorBoundary, getErrorMessage } from "react-error-boundary";
+
+function ErrorFallback({
+  error,
+  resetErrorBoundary,
+}: {
+  error: unknown;
+  resetErrorBoundary: () => void;
+}) {
+  return (
+    <div role="alert">
+      <p>Something went wrong:</p>
+      <pre>{getErrorMessage(error)}</pre>
+      <button onClick={resetErrorBoundary}>Try again</button>
+    </div>
+  );
+}
+
+<ErrorBoundary
+  fallbackRender={({ error, resetErrorBoundary }) => (
+    <ErrorFallback error={error} resetErrorBoundary={resetErrorBoundary} />
+  )}
+  onError={(error, info) => {
+    // Log the error to your error reporting service
+  }}
+>
+  <YourApplication />
+</ErrorBoundary>;
+```
+
+## What errors are caught?
+
+This package is built on top of React [error boundaries](https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary), so it has all of the advantages and constraints of that API.
+
+Error boundaries catch errors thrown during render, lifecycle methods, and constructors of the whole tree below them.
+
+Error boundaries do not catch errors thrown during:
+
+- Server side rendering
+- Event handlers
+- Async code that runs after rendering, like `setTimeout` callbacks or unresolved promises
+
+React 19 includes one important async exception: errors thrown inside Actions, including functions passed to `startTransition`, can be caught by the nearest error boundary.
+
+For user-initiated async work, wrap the work in a Transition so React can catch errors from the Action and show the nearest error boundary:
+
+```tsx
+"use client";
+
+import { useTransition } from "react";
+import { ErrorBoundary } from "react-error-boundary";
+
+function UserProfileContainer({ username }: { username: string }) {
+  return (
+    <ErrorBoundary fallback={<p>Could not load profile</p>}>
+      <UserProfile username={username} />
+    </ErrorBoundary>
+  );
+}
+
+function UserProfile({ username }: { username: string }) {
+  const [isPending, startTransition] = useTransition();
+
+  function loadProfile() {
+    startTransition(async () => {
+      await fetchUserProfile(username);
+    });
+  }
+
+  return (
+    <button disabled={isPending} onClick={loadProfile}>
+      {isPending ? "Loading..." : "Load profile"}
+    </button>
+  );
+}
+```
+
+For async work outside of Actions, catch the error yourself and pass it to the nearest boundary with `useErrorBoundary`.
+
 ## API
 
 ### ErrorBoundary
 
 <!-- ErrorBoundary:description:begin -->
+
 A reusable React [error boundary](https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary) component.
 Wrap this component around other React components to "catch" errors and render a fallback UI.
 
 This package is built on top of React [error boundaries](https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary),
-so it has all of the advantages and constraints of that API.
-This means that it can't catch errors during:
-- Server side rendering</li>
+so it has all of the advantages and constraints of that API. Error boundaries catch errors thrown during render,
+lifecycle methods, and constructors of the whole tree below them.
+
+Error boundaries do not catch errors thrown during:
+
+- Server side rendering
 - Event handlers
-- Asynchronous code (including effects)
+- Async code that runs after rendering, like `setTimeout` callbacks or unresolved promises
+
+React 19 includes one important async exception: errors thrown inside Actions, including functions passed to
+`startTransition`, can be caught by the nearest error boundary.
+
+For user-initiated async work, wrap the work in a Transition so React can catch errors from the Action. The
+`useErrorBoundary` hook can also be used to pass errors from async code outside of Actions to the nearest error
+boundary.
 
 ℹ️ The component provides several ways to render a fallback: `fallback`, `fallbackRender`, and `FallbackComponent`.
 Refer to the documentation to determine which is best for your application.
 
-ℹ️ This is a **client component**. You can only pass props to it that are serializeable or use it in files that have a `"use client";` directive.
+ℹ️ This is a **client component**. You can only pass props to it that are serializable or use it in files that have a `"use client";` directive.
+
 <!-- ErrorBoundary:description:end -->
 
 #### Required props
 
 <!-- ErrorBoundary:required-props:begin -->
+
 None
+
 <!-- ErrorBoundary:required-props:end -->
 
 #### Optional props
@@ -72,14 +172,14 @@ None
     </tr>
     <tr>
       <td>onReset</td>
-      <td><p>Optional callback to to be notified when an error boundary is &quot;reset&quot; so React can retry the failed render.</p>
+      <td><p>Optional callback to be notified when an error boundary is reset so React can retry the failed render.</p>
 </td>
     </tr>
     <tr>
       <td>resetKeys</td>
       <td><p>When changed, these keys will reset a triggered error boundary.
 This can be useful when an error condition may be tied to some specific state (that can be uniquely identified by key).
-See the the documentation for examples of how to use this prop.</p>
+See the documentation for examples of how to use this prop.</p>
 </td>
     </tr>
     <tr>
@@ -109,10 +209,13 @@ See the the documentation for examples of how to use this prop.</p>
 <!-- ErrorBoundary:optional-props:end -->
 
 # FAQ
+
 ## `ErrorBoundary` cannot be used as a JSX component
+
 This error can be caused by a version mismatch between [react](https://npmjs.com/package/react) and [@types/react](https://npmjs.com/package/@types/react). To fix this, ensure that both match exactly, e.g.:
 
 If using NPM:
+
 ```json
 {
   ...
@@ -124,6 +227,7 @@ If using NPM:
 ```
 
 If using Yarn:
+
 ```json
 {
   ...

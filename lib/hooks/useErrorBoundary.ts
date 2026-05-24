@@ -31,9 +31,9 @@ export function useErrorBoundary(): {
   /**
    * Trigger the nearest error boundary to display the error provided.
    *
-   * ℹ️ React only handles errors thrown during render or during component lifecycle methods (e.g. effects and did-mount/did-update).
-   * Errors thrown in event handlers, or after async code has run, will not be caught.
-   * This method is a way to imperatively trigger an error boundary during these phases.
+   * ℹ️ React handles errors thrown during render, lifecycle methods, and constructors.
+   * Errors thrown in event handlers, or after async code has run, will not be caught automatically.
+   * This method is a way to imperatively show the nearest error boundary for those errors.
    */
   showBoundary: (error: unknown) => void;
 } {

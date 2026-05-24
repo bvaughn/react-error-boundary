@@ -12,6 +12,9 @@ export const routes = {
   "/examples/async-user-code-errors": lazy(
     () => import("./routes/AsyncUserCodeErrorsRoute"),
   ),
+  "/examples/transition-errors": lazy(
+    () => import("./routes/TransitionErrorsRoute"),
+  ),
   "/examples/retry-nearest-boundary": lazy(
     () => import("./routes/ResetNearestBoundaryRoute"),
   ),

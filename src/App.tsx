@@ -31,6 +31,9 @@ export default function App() {
             <NavLink path="/examples/async-user-code-errors">
               Async user code errors
             </NavLink>
+            <NavLink path="/examples/transition-errors">
+              Transition errors
+            </NavLink>
             <NavLink path="/examples/retry-nearest-boundary">
               Retry nearest boundary
             </NavLink>
@@ -77,15 +80,29 @@ const clientSideWarning = (
       </ExternalLink>
       , so it has all of the advantages and constraints of that API.
     </div>
+    <div>
+      Error boundaries catch errors thrown during render, lifecycle methods, and
+      constructors of the whole tree below them.
+    </div>
     <div>This means that it can't catch errors during:</div>
     <ul className="pl-8">
       <li className="list-disc">Server side rendering</li>
       <li className="list-disc">Event handlers</li>
-      <li className="list-disc">Asynchronous code (including effects)</li>
+      <li className="list-disc">
+        Async code that runs after rendering, like setTimeout callbacks or
+        unresolved promises
+      </li>
     </ul>
     <div>
-      You <em>can</em> show an error boundary for asynchronous code, but you
-      have to catch the error yourself.{" "}
+      React 19 includes one important async exception: errors thrown inside
+      Actions, including functions passed to startTransition, can be caught by
+      the nearest error boundary.{" "}
+      <Link to="/examples/transition-errors">Learn more</Link>.
+    </div>
+    <div>
+      For user-initiated async work, wrap the work in a Transition so React can
+      catch errors from the Action. For async work outside of Actions, catch the
+      error yourself and pass it to the nearest boundary.{" "}
       <Link to="/examples/async-user-code-errors">Learn more</Link>.
     </div>
   </div>

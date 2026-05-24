@@ -24,16 +24,25 @@ const initialState: ErrorBoundaryState = {
  * Wrap this component around other React components to "catch" errors and render a fallback UI.
  *
  * This package is built on top of React [error boundaries](https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary),
- * so it has all of the advantages and constraints of that API.
- * This means that it can't catch errors during:
- * - Server side rendering</li>
+ * so it has all of the advantages and constraints of that API. Error boundaries catch errors thrown during render,
+ * lifecycle methods, and constructors of the whole tree below them.
+ *
+ * Error boundaries do not catch errors thrown during:
+ * - Server side rendering
  * - Event handlers
- * - Asynchronous code (including effects)
+ * - Async code that runs after rendering, like `setTimeout` callbacks or unresolved promises
+ *
+ * React 19 includes one important async exception: errors thrown inside Actions, including functions passed to
+ * `startTransition`, can be caught by the nearest error boundary.
+ *
+ * For user-initiated async work, wrap the work in a Transition so React can catch errors from the Action. The
+ * `useErrorBoundary` hook can also be used to pass errors from async code outside of Actions to the nearest error
+ * boundary.
  *
  * ℹ️ The component provides several ways to render a fallback: `fallback`, `fallbackRender`, and `FallbackComponent`.
  * Refer to the documentation to determine which is best for your application.
  *
- * ℹ️ This is a **client component**. You can only pass props to it that are serializeable or use it in files that have a `"use client";` directive.
+ * ℹ️ This is a **client component**. You can only pass props to it that are serializable or use it in files that have a `"use client";` directive.
  */
 export class ErrorBoundary extends Component<
   ErrorBoundaryProps,

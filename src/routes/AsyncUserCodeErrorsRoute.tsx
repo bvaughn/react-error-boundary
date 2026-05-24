@@ -6,13 +6,19 @@ export default function AsyncUserCodeErrorsRoute() {
     <Box direction="column" gap={4}>
       <Header section="Examples" title="Async user code errors" />
       <div>
-        React only handles errors thrown during render or during component
-        lifecycle methods (e.g. effects and did-mount/did-update). Errors thrown
-        in event handlers, or after async code has run, will not be caught.
+        React handles errors thrown during render, lifecycle methods, and
+        constructors. Errors thrown in event handlers, or after async code has
+        run, will not be caught by an error boundary automatically.
       </div>
       <div>
-        The <Link to="/api/use-error-boundary-hook">useErrorBoundary</Link> hook
-        can be used to pass those errors to the nearest error boundary:
+        For user-initiated async work, wrap the work in a Transition so React
+        can catch errors from the Action and show the nearest error boundary.{" "}
+        <Link to="/examples/transition-errors">Learn more</Link>.
+      </div>
+      <div>
+        For async work outside of Actions, catch the error yourself and pass it
+        to the nearest boundary with{" "}
+        <Link to="/api/use-error-boundary-hook">useErrorBoundary</Link>:
       </div>
       <Code html={html} />
     </Box>
