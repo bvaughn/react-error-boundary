@@ -95,8 +95,8 @@ const clientSideWarning = (
     </ul>
     <div>
       React 19 includes one important async exception: errors thrown inside
-      Actions, including functions passed to startTransition, can be caught by
-      the nearest error boundary.{" "}
+      Actions, including functions passed to the startTransition function
+      returned by useTransition, can be caught by the nearest error boundary.{" "}
       <Link to="/examples/transition-errors">Learn more</Link>.
     </div>
     <div>

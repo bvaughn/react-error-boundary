@@ -8,11 +8,11 @@ export default function TransitionErrorsRoute() {
       <Header section="Examples" title="Transition errors" />
       <div>
         React 19 catches errors thrown inside Actions and shows the fallback for
-        the nearest error boundary. Actions include functions passed to{" "}
+        the nearest error boundary. This includes functions passed to the{" "}
         <ExternalLink href="https://react.dev/reference/react/useTransition#displaying-an-error-to-users-with-an-error-boundary">
           startTransition
-        </ExternalLink>
-        .
+        </ExternalLink>{" "}
+        function returned by <code>useTransition</code>.
       </div>
       <div>
         This is useful for user-initiated async work where an unexpected error

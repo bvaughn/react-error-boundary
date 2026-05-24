@@ -78,7 +78,7 @@ Error boundaries do not catch errors thrown during:
 - Errors thrown in the error boundary itself
 - Async code that runs after rendering, like `setTimeout` callbacks or unresolved promises
 
-React 19 includes one important async exception: errors thrown inside Actions, including functions passed to `startTransition`, can be caught by the nearest error boundary.
+React 19 includes one important async exception: errors thrown inside Actions, including functions passed to the `startTransition` function returned by `useTransition`, can be caught by the nearest error boundary.
 
 For user-initiated async work, wrap the work in a Transition so React can catch errors from the Action and show the nearest error boundary:
 
@@ -133,8 +133,8 @@ Error boundaries do not catch errors thrown during:
 - Errors thrown in the error boundary itself
 - Async code that runs after rendering, like `setTimeout` callbacks or unresolved promises
 
-React 19 includes one important async exception: errors thrown inside Actions, including functions passed to
-`startTransition`, can be caught by the nearest error boundary.
+React 19 includes one important async exception: errors thrown inside Actions, including functions passed to the
+`startTransition` function returned by `useTransition`, can be caught by the nearest error boundary.
 
 For user-initiated async work, wrap the work in a Transition so React can catch errors from the Action. The
 `useErrorBoundary` hook can also be used to pass errors from async code outside of Actions to the nearest error
