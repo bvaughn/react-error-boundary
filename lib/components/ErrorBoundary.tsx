@@ -24,12 +24,13 @@ const initialState: ErrorBoundaryState = {
  * Wrap this component around other React components to "catch" errors and render a fallback UI.
  *
  * This package is built on top of React [error boundaries](https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary),
- * so it has all of the advantages and constraints of that API. Error boundaries catch errors thrown during render,
- * lifecycle methods, and constructors of the whole tree below them.
+ * so it has all of the advantages and constraints of that API. Error boundaries catch errors thrown while rendering
+ * the tree below them.
  *
  * Error boundaries do not catch errors thrown during:
  * - Server side rendering
  * - Event handlers
+ * - Errors thrown in the error boundary itself
  * - Async code that runs after rendering, like `setTimeout` callbacks or unresolved promises
  *
  * React 19 includes one important async exception: errors thrown inside Actions, including functions passed to

@@ -81,13 +81,13 @@ const clientSideWarning = (
       , so it has all of the advantages and constraints of that API.
     </div>
     <div>
-      Error boundaries catch errors thrown during render, lifecycle methods, and
-      constructors of the whole tree below them.
+      Error boundaries catch errors thrown while rendering the tree below them.
     </div>
     <div>This means that it can't catch errors during:</div>
     <ul className="pl-8">
       <li className="list-disc">Server side rendering</li>
       <li className="list-disc">Event handlers</li>
+      <li className="list-disc">Errors thrown in the error boundary itself</li>
       <li className="list-disc">
         Async code that runs after rendering, like setTimeout callbacks or
         unresolved promises
