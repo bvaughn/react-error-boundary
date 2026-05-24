@@ -115,7 +115,6 @@ For async work outside of Actions, catch the error yourself and pass it to the n
 ### ErrorBoundary
 
 <!-- ErrorBoundary:description:begin -->
-
 A reusable React [error boundary](https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary) component.
 Wrap this component around other React components to "catch" errors and render a fallback UI.
 
@@ -124,7 +123,6 @@ so it has all of the advantages and constraints of that API. Error boundaries ca
 lifecycle methods, and constructors of the whole tree below them.
 
 Error boundaries do not catch errors thrown during:
-
 - Server side rendering
 - Event handlers
 - Async code that runs after rendering, like `setTimeout` callbacks or unresolved promises
@@ -140,15 +138,12 @@ boundary.
 Refer to the documentation to determine which is best for your application.
 
 ℹ️ This is a **client component**. You can only pass props to it that are serializable or use it in files that have a `"use client";` directive.
-
 <!-- ErrorBoundary:description:end -->
 
 #### Required props
 
 <!-- ErrorBoundary:required-props:begin -->
-
 None
-
 <!-- ErrorBoundary:required-props:end -->
 
 #### Optional props
