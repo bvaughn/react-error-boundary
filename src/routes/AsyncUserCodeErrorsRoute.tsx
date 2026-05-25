@@ -4,7 +4,7 @@ import { html } from "../../public/generated/examples/AsyncUserCodeErrors.json";
 export default function AsyncUserCodeErrorsRoute() {
   return (
     <Box direction="column" gap={4}>
-      <Header section="Examples" title="Event handler and async errors" />
+      <Header section="Examples" title="Events &amp; async methods" />
       <div>
         React handles errors thrown while rendering the tree below an error
         boundary. Errors thrown in event handlers, or after async code has run,
