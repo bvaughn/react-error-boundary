@@ -16,25 +16,16 @@ function UserProfile({ username }: { username: string }) {
   const { showBoundary } = useErrorBoundary();
 
   useEffect(() => {
-    let cancelled = false;
-
-    fetchUserProfile(username).then(
+    fetchGreeting(username).then(
       (response) => {
-        if (!cancelled) {
-          // Set data in state and re-render
-          response; // hidden
-        }
+        // Set data in state and re-render ...
+        response; // hidden
       },
       (error) => {
-        if (!cancelled) {
-          showBoundary(error);
-        }
+        // Show error boundary
+        showBoundary(error);
       },
     );
-
-    return () => {
-      cancelled = true;
-    };
   }, [showBoundary, username]);
 
   return null;
@@ -44,4 +35,4 @@ function UserProfile({ username }: { username: string }) {
 
 export { UserProfileContainer };
 
-async function fetchUserProfile(_: string) {}
+async function fetchGreeting(_: string) {}

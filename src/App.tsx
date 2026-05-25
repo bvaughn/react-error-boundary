@@ -29,7 +29,7 @@ export default function App() {
             </NavLink>
             <NavLink path="/examples/error-logging">Error logging</NavLink>
             <NavLink path="/examples/async-user-code-errors">
-              Events and async functions
+              Events & async
             </NavLink>
             <NavLink path="/examples/transition-errors">
               Transition errors
