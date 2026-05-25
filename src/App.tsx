@@ -31,6 +31,9 @@ export default function App() {
             <NavLink path="/examples/async-user-code-errors">
               Async user code errors
             </NavLink>
+            <NavLink path="/examples/transition-errors">
+              Transition errors
+            </NavLink>
             <NavLink path="/examples/retry-nearest-boundary">
               Retry nearest boundary
             </NavLink>
@@ -75,19 +78,34 @@ const clientSideWarning = (
       <ExternalLink href="https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary">
         error boundaries
       </ExternalLink>
-      , so it has all of the advantages and constraints of that API.
+      , so it follows React's rules for what errors are caught.
+    </div>
+    <div>
+      Error boundaries catch errors thrown while rendering the tree below them.
     </div>
     <div>This means that it can't catch errors during:</div>
     <ul className="pl-8">
       <li className="list-disc">Server side rendering</li>
       <li className="list-disc">Event handlers</li>
-      <li className="list-disc">Asynchronous code (including effects)</li>
+      <li className="list-disc">Errors thrown in the error boundary itself</li>
+      <li className="list-disc">
+        Async code that runs after rendering, like setTimeout callbacks or
+        unresolved promises
+      </li>
     </ul>
-    <div>
-      You <em>can</em> show an error boundary for asynchronous code, but you
-      have to catch the error yourself.{" "}
-      <Link to="/examples/async-user-code-errors">Learn more</Link>.
-    </div>
+    <div>For async errors:</div>
+    <ul className="pl-8">
+      <li className="list-disc">
+        Use <code>useErrorBoundary</code> to pass caught errors to the nearest
+        boundary. <Link to="/examples/async-user-code-errors">Learn more</Link>.
+      </li>
+      <li className="list-disc">
+        In React 19, errors thrown from a function passed to the{" "}
+        <code>startTransition</code> function returned by{" "}
+        <code>useTransition</code> are caught by the nearest boundary.{" "}
+        <Link to="/examples/transition-errors">Learn more</Link>.
+      </li>
+    </ul>
   </div>
 );
 

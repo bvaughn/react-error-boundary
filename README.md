@@ -20,9 +20,92 @@ pnpm add react-error-boundary
 yarn add react-error-boundary
 ```
 
-## FAQs
+## Documentation
 
-Frequently asked questions can be found [here](https://react-error-boundary-lib.vercel.app/common-questions).
+Read the [react-error-boundary docs](https://react-error-boundary-lib.vercel.app/) for examples, API reference, and troubleshooting. The docs also include a [frequently asked questions guide](https://react-error-boundary-lib.vercel.app/common-questions).
+
+## Quick start
+
+Wrap an `ErrorBoundary` around the part of the tree where you want to show a fallback UI if rendering fails. Your fallback can call `resetErrorBoundary` to clear the error and retry rendering:
+
+```tsx
+"use client";
+
+import { ErrorBoundary, getErrorMessage } from "react-error-boundary";
+
+export default function App() {
+  return (
+    <ErrorBoundary
+      fallbackRender={({ error, resetErrorBoundary }) => (
+        <div role="alert">
+          <p>Something went wrong:</p>
+          <pre>{getErrorMessage(error)}</pre>
+          <button onClick={resetErrorBoundary}>Try again</button>
+        </div>
+      )}
+      onError={(error, info) => {
+        // Log the error to your error reporting service
+      }}
+      onReset={() => {
+        // Reset any state that may have caused the error
+      }}
+    >
+      {/* Components protected by this boundary */}
+    </ErrorBoundary>
+  );
+}
+```
+
+## What errors are caught?
+
+This package is built on top of React [error boundaries](https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary), so it follows React's rules for what errors are caught.
+
+Error boundaries catch errors thrown while rendering the tree below them.
+
+Error boundaries do not catch errors thrown during:
+
+- Server side rendering
+- Event handlers
+- Errors thrown in the error boundary itself
+- Async code that runs after rendering, like `setTimeout` callbacks or unresolved promises
+
+## Async errors
+
+For async errors:
+
+- Use `useErrorBoundary` to pass caught errors to the nearest boundary.
+- In React 19, `useTransition` Actions can be an alternative: errors thrown from a function passed to the returned `startTransition` function are caught by the nearest boundary.
+
+```tsx
+"use client";
+
+import { useTransition } from "react";
+import { ErrorBoundary } from "react-error-boundary";
+
+function UserProfileContainer({ username }: { username: string }) {
+  return (
+    <ErrorBoundary fallback={<p>Could not load profile</p>}>
+      <UserProfile username={username} />
+    </ErrorBoundary>
+  );
+}
+
+function UserProfile({ username }: { username: string }) {
+  const [isPending, startTransition] = useTransition();
+
+  function loadProfile() {
+    startTransition(async () => {
+      await fetchUserProfile(username);
+    });
+  }
+
+  return (
+    <button disabled={isPending} onClick={loadProfile}>
+      {isPending ? "Loading..." : "Load profile"}
+    </button>
+  );
+}
+```
 
 ## API
 
@@ -32,17 +115,25 @@ Frequently asked questions can be found [here](https://react-error-boundary-lib.
 A reusable React [error boundary](https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary) component.
 Wrap this component around other React components to "catch" errors and render a fallback UI.
 
-This package is built on top of React [error boundaries](https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary),
-so it has all of the advantages and constraints of that API.
-This means that it can't catch errors during:
-- Server side rendering</li>
+Catches errors thrown while rendering the tree below it.
+
+Does not catch errors thrown during:
+
+- Server side rendering
 - Event handlers
-- Asynchronous code (including effects)
+- Errors thrown in the error boundary itself
+- Async code that runs after rendering, like `setTimeout` callbacks or unresolved promises
+
+Async errors:
+
+- Use `useErrorBoundary` to pass caught errors to the nearest boundary
+- In React 19, errors thrown from a function passed to the `startTransition` function returned by `useTransition`
+  are caught by the nearest boundary
 
 ℹ️ The component provides several ways to render a fallback: `fallback`, `fallbackRender`, and `FallbackComponent`.
 Refer to the documentation to determine which is best for your application.
 
-ℹ️ This is a **client component**. You can only pass props to it that are serializeable or use it in files that have a `"use client";` directive.
+ℹ️ This is a **client component**. You can only pass props to it that are serializable or use it in files that have a `"use client";` directive.
 <!-- ErrorBoundary:description:end -->
 
 #### Required props
@@ -72,14 +163,14 @@ None
     </tr>
     <tr>
       <td>onReset</td>
-      <td><p>Optional callback to to be notified when an error boundary is &quot;reset&quot; so React can retry the failed render.</p>
+      <td><p>Optional callback to be notified when an error boundary is reset so React can retry the failed render.</p>
 </td>
     </tr>
     <tr>
       <td>resetKeys</td>
       <td><p>When changed, these keys will reset a triggered error boundary.
 This can be useful when an error condition may be tied to some specific state (that can be uniquely identified by key).
-See the the documentation for examples of how to use this prop.</p>
+See the documentation for examples of how to use this prop.</p>
 </td>
     </tr>
     <tr>
