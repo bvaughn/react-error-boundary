@@ -10,7 +10,7 @@
       "content": "<p>Does not catch errors thrown during:</p>\n<ul>\n<li>Server side rendering</li>\n<li>Event handlers</li>\n<li>Errors thrown in the error boundary itself</li>\n<li>Async code that runs after rendering, like <code>setTimeout</code> callbacks or unresolved promises</li>\n</ul>\n"
     },
     {
-      "content": "<p>Async errors:</p>\n"
+      "content": "<p>Event handler and async errors:</p>\n"
     },
     {
       "content": "<ul>\n<li>Use <code>useErrorBoundary</code> to pass caught errors to the nearest boundary</li>\n<li>In React 19, errors thrown from a function passed to the <code>startTransition</code> function returned by <code>useTransition</code>\nare caught by the nearest boundary</li>\n</ul>\n"

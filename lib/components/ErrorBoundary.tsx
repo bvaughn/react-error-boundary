@@ -31,7 +31,7 @@ const initialState: ErrorBoundaryState = {
  * - Errors thrown in the error boundary itself
  * - Async code that runs after rendering, like `setTimeout` callbacks or unresolved promises
  *
- * Async errors:
+ * Event handler and async errors:
  *
  * - Use `useErrorBoundary` to pass caught errors to the nearest boundary
  * - In React 19, errors thrown from a function passed to the `startTransition` function returned by `useTransition`

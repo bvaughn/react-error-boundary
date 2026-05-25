@@ -29,7 +29,7 @@ export default function App() {
             </NavLink>
             <NavLink path="/examples/error-logging">Error logging</NavLink>
             <NavLink path="/examples/async-user-code-errors">
-              Async user code errors
+              Events and async functions
             </NavLink>
             <NavLink path="/examples/transition-errors">
               Transition errors
@@ -93,7 +93,7 @@ const clientSideWarning = (
         unresolved promises
       </li>
     </ul>
-    <div>For async errors:</div>
+    <div>For event handler errors and async callback errors:</div>
     <ul className="pl-8">
       <li className="list-disc">
         Use <code>useErrorBoundary</code> to pass caught errors to the nearest
