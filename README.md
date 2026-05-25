@@ -69,9 +69,9 @@ Error boundaries do not catch errors thrown during:
 - Errors thrown in the error boundary itself
 - Async code that runs after rendering, like `setTimeout` callbacks or unresolved promises
 
-## Async errors
+## Event handler and async errors
 
-For async errors:
+For event handler errors and async callback errors:
 
 - Use `useErrorBoundary` to pass caught errors to the nearest boundary.
 - In React 19, `useTransition` Actions can be an alternative: errors thrown from a function passed to the returned `startTransition` function are caught by the nearest boundary.
@@ -82,26 +82,26 @@ For async errors:
 import { useTransition } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 
-function UserProfileContainer({ username }: { username: string }) {
+function AddCommentContainer() {
   return (
-    <ErrorBoundary fallback={<p>Could not load profile</p>}>
-      <UserProfile username={username} />
+    <ErrorBoundary fallback={<p>Could not add comment</p>}>
+      <AddCommentButton />
     </ErrorBoundary>
   );
 }
 
-function UserProfile({ username }: { username: string }) {
+function AddCommentButton() {
   const [isPending, startTransition] = useTransition();
 
-  function loadProfile() {
+  function handleClick() {
     startTransition(async () => {
-      await fetchUserProfile(username);
+      await addComment();
     });
   }
 
   return (
-    <button disabled={isPending} onClick={loadProfile}>
-      {isPending ? "Loading..." : "Load profile"}
+    <button disabled={isPending} onClick={handleClick}>
+      {isPending ? "Adding..." : "Add comment"}
     </button>
   );
 }
@@ -123,7 +123,7 @@ Does not catch errors thrown during:
 - Errors thrown in the error boundary itself
 - Async code that runs after rendering, like `setTimeout` callbacks or unresolved promises
 
-Async errors:
+Event handler and async errors:
 
 - Use `useErrorBoundary` to pass caught errors to the nearest boundary
 - In React 19, errors thrown from a function passed to the `startTransition` function returned by `useTransition`

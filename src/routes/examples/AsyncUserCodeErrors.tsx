@@ -1,21 +1,38 @@
-import { useErrorBoundary } from "react-error-boundary";
+import { useEffect } from "react";
+import { ErrorBoundary, useErrorBoundary } from "react-error-boundary";
+
+function UserProfileContainer({ username }: { username: string }) {
+  return (
+    <ErrorBoundary
+      fallback={<p>Could not load profile</p>}
+      resetKeys={[username]}
+    >
+      <UserProfile username={username} />
+    </ErrorBoundary>
+  );
+}
 
 function UserProfile({ username }: { username: string }) {
   const { showBoundary } = useErrorBoundary();
 
-  async function loadProfile() {
-    try {
-      await fetchUserProfile(username);
-    } catch (error) {
-      showBoundary(error);
-    }
-  }
+  useEffect(() => {
+    fetchGreeting(username).then(
+      (response) => {
+        // Set data in state and re-render ...
+        response; // hidden
+      },
+      (error) => {
+        // Show error boundary
+        showBoundary(error);
+      },
+    );
+  }, [showBoundary, username]);
 
-  return <button onClick={loadProfile}>Load profile</button>;
+  return null;
 }
 
 // <end>
 
-export { UserProfile };
+export { UserProfileContainer };
 
-async function fetchUserProfile(_: string) {}
+async function fetchGreeting(_: string) {}
