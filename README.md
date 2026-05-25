@@ -118,7 +118,6 @@ Wrap this component around other React components to "catch" errors and render a
 Catches errors thrown while rendering the tree below it.
 
 Does not catch errors thrown during:
-
 - Server side rendering
 - Event handlers
 - Errors thrown in the error boundary itself
