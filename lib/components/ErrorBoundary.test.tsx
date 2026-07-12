@@ -155,6 +155,15 @@ describe("ErrorBoundary", () => {
       expect(container.textContent).toBe("Content");
     });
 
+    it("should catch errors thrown again after reset", () => {
+      shouldThrow = true;
+      render({ resetKeys: [1] });
+      expect(container.textContent).toBe("Error");
+
+      render({ resetKeys: [2] });
+      expect(container.textContent).toBe("Error");
+    });
+
     it("should render a null fallback if specified", () => {
       shouldThrow = true;
       act(() => {
@@ -359,6 +368,5 @@ describe("ErrorBoundary", () => {
   });
 
   // TODO Various cases with resetKeys changing (length, order, etc)
-  // TODO Errors thrown again after reset are caught
   // TODO Nested error boundaries if a fallback throws
 });
