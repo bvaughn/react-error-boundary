@@ -317,25 +317,39 @@ describe("ErrorBoundary", () => {
 
   describe("thrown values", () => {
     let lastRenderedError: unknown | null = null;
+    let lastRenderedResetErrorBoundary:
+      | FallbackProps["resetErrorBoundary"]
+      | null = null;
     let fallbackRender: (props: FallbackProps) => ReactElement;
     let onError: Mock<(...args: unknown[]) => unknown>;
 
     beforeEach(() => {
       lastRenderedError = null;
+      lastRenderedResetErrorBoundary = null;
 
       onError = vi.fn();
 
-      fallbackRender = ({ error }: FallbackProps) => {
+      fallbackRender = ({ error, resetErrorBoundary }: FallbackProps) => {
         lastRenderedError = error;
+        lastRenderedResetErrorBoundary = resetErrorBoundary;
 
         return <div>Error</div>;
       };
     });
 
-    function render() {
+    function render(
+      props: Omit<
+        ErrorBoundaryPropsWithRender,
+        "fallbackRender" | "onError"
+      > = {},
+    ) {
       act(() => {
         root.render(
-          <ErrorBoundary fallbackRender={fallbackRender} onError={onError}>
+          <ErrorBoundary
+            {...props}
+            fallbackRender={fallbackRender}
+            onError={onError}
+          >
             <MaybeThrows>Content</MaybeThrows>
           </ErrorBoundary>,
         );
@@ -364,6 +378,34 @@ describe("ErrorBoundary", () => {
       expect(onError).toHaveBeenCalledTimes(1);
       expect(onError.mock.calls[0][0]).toEqual(null);
       expect(container.textContent).toBe("Error");
+    });
+
+    it("should re-render children if a boundary that caught a thrown null is reset via prop", () => {
+      shouldThrow = true;
+      valueToThrow = null;
+
+      render();
+      expect(container.textContent).toBe("Error");
+
+      act(() => {
+        shouldThrow = false;
+        assert(lastRenderedResetErrorBoundary !== null);
+        lastRenderedResetErrorBoundary();
+      });
+
+      expect(container.textContent).toBe("Content");
+    });
+
+    it("should re-render children if a boundary that caught a thrown null is reset reset keys", () => {
+      shouldThrow = true;
+      valueToThrow = null;
+
+      render({ resetKeys: [1] });
+      expect(container.textContent).toBe("Error");
+
+      shouldThrow = false;
+      render({ resetKeys: [2] });
+      expect(container.textContent).toBe("Content");
     });
   });
 
