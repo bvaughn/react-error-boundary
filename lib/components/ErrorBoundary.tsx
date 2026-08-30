@@ -58,9 +58,9 @@ export class ErrorBoundary extends Component<
   }
 
   resetErrorBoundary(...args: unknown[]) {
-    const { error } = this.state;
+    const { didCatch } = this.state;
 
-    if (error !== null) {
+    if (didCatch) {
       this.props.onReset?.({
         args,
         reason: "imperative-api",
@@ -88,7 +88,7 @@ export class ErrorBoundary extends Component<
 
     if (
       didCatch &&
-      prevState.error !== null &&
+      prevState.didCatch &&
       hasArrayChanged(prevProps.resetKeys, resetKeys)
     ) {
       this.props.onReset?.({
