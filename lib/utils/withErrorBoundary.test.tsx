@@ -1,4 +1,10 @@
-import { Component, createRef, type PropsWithChildren } from "react";
+import {
+  Component,
+  createRef,
+  useImperativeHandle,
+  type PropsWithChildren,
+  type Ref,
+} from "react";
 import { createRoot } from "react-dom/client";
 import { act } from "react-dom/test-utils";
 import { beforeEach, describe, expect, it, vi } from "vitest";
@@ -70,6 +76,32 @@ describe("withErrorBoundary", () => {
     });
 
     const ref = createRef<Inner>();
+
+    act(() => {
+      root.render(<Wrapped foo="abc" ref={ref} />);
+    });
+
+    expect(ref.current).not.toBeNull();
+    expect(typeof ref.current?.test).toBe("function");
+  });
+
+  it("should forward refs to a function component that takes a ref prop", () => {
+    type Handle = { test: () => void };
+
+    function Inner({ foo, ref }: { foo: string; ref?: Ref<Handle> }) {
+      useImperativeHandle(ref, () => ({
+        test() {
+          // No-op
+        },
+      }));
+      return foo;
+    }
+
+    const Wrapped = withErrorBoundary(Inner, {
+      fallback: <div>Error</div>,
+    });
+
+    const ref = createRef<Handle>();
 
     act(() => {
       root.render(<Wrapped foo="abc" ref={ref} />);
