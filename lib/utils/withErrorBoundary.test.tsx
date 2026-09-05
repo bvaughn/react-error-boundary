@@ -1,8 +1,16 @@
-import { Component, createRef, type PropsWithChildren } from "react";
+import {
+  Component,
+  createRef,
+  forwardRef,
+  useImperativeHandle,
+  type PropsWithChildren,
+  type Ref,
+} from "react";
 import { createRoot } from "react-dom/client";
 import { act } from "react-dom/test-utils";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { withErrorBoundary } from "./withErrorBoundary";
+import { assert } from "./assert";
 
 describe("withErrorBoundary", () => {
   let container: HTMLDivElement;
@@ -56,26 +64,82 @@ describe("withErrorBoundary", () => {
   it("should forward refs", () => {
     type Props = { foo: string };
 
-    class Inner extends Component<Props> {
-      test() {
-        // No-op
+    class TestClassComponent extends Component<Props> {
+      getFoo() {
+        return this.props.foo;
       }
       render() {
-        return this.props.foo;
+        return null;
       }
     }
 
-    const Wrapped = withErrorBoundary(Inner, {
+    const Wrapped = withErrorBoundary(TestClassComponent, {
       fallback: <div>Error</div>,
     });
 
-    const ref = createRef<Inner>();
+    const ref = createRef<TestClassComponent>();
 
     act(() => {
       root.render(<Wrapped foo="abc" ref={ref} />);
     });
 
-    expect(ref.current).not.toBeNull();
-    expect(typeof ref.current?.test).toBe("function");
+    assert(ref.current !== null);
+    expect(ref.current.getFoo()).toBe("abc");
+  });
+
+  it("should forward refs to a function component that takes a ref prop", () => {
+    type Handle = { getFoo: () => string };
+
+    function TestFunctionComponent({
+      foo,
+      ref,
+    }: {
+      foo: string;
+      ref?: Ref<Handle>;
+    }) {
+      useImperativeHandle(ref, () => ({
+        getFoo: () => foo,
+      }));
+      return foo;
+    }
+
+    const Wrapped = withErrorBoundary(TestFunctionComponent, {
+      fallback: <div>Error</div>,
+    });
+
+    const ref = createRef<Handle>();
+
+    act(() => {
+      root.render(<Wrapped foo="abc" ref={ref} />);
+    });
+
+    assert(ref.current !== null);
+    expect(ref.current.getFoo()).toBe("abc");
+  });
+
+  it("should forward refs to a function using forwardRef", () => {
+    type Handle = { getFoo: () => string };
+
+    const TestForwardRefComponent = forwardRef(
+      ({ foo }: { foo: string }, ref: Ref<Handle>) => {
+        useImperativeHandle(ref, () => ({
+          getFoo: () => foo,
+        }));
+        return null;
+      },
+    );
+
+    const Wrapped = withErrorBoundary(TestForwardRefComponent, {
+      fallback: <div>Error</div>,
+    });
+
+    const ref = createRef<Handle>();
+
+    act(() => {
+      root.render(<Wrapped foo="abc" ref={ref} />);
+    });
+
+    assert(ref.current !== null);
+    expect(ref.current.getFoo()).toBe("abc");
   });
 });
