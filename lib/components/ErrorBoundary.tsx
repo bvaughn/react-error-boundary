@@ -1,6 +1,6 @@
 import { Component, createElement, type ErrorInfo } from "react";
-import { ErrorBoundaryContext } from "../context/ErrorBoundaryContext";
 import type { ErrorBoundaryProps, FallbackProps } from "../types";
+import { ErrorBoundaryContextProvider } from "./ErrorBoundaryContextProvider";
 
 const isDevelopment = import.meta.env.DEV;
 
@@ -118,7 +118,12 @@ export class ErrorBoundary extends Component<
         childToRender = fallbackRender(props);
       } else if (FallbackComponent) {
         childToRender = createElement(FallbackComponent, props);
-      } else if (fallback !== undefined) {
+      } else if ("fallback" in this.props) {
+        if (isDevelopment && fallback === undefined) {
+          console.error(
+            "react-error-boundary received an undefined fallback. Pass null to explicitly render nothing.",
+          );
+        }
         childToRender = fallback;
       } else {
         if (isDevelopment) {
@@ -132,13 +137,11 @@ export class ErrorBoundary extends Component<
     }
 
     return createElement(
-      ErrorBoundaryContext.Provider,
+      ErrorBoundaryContextProvider,
       {
-        value: {
-          didCatch,
-          error,
-          resetErrorBoundary: this.resetErrorBoundary,
-        },
+        didCatch,
+        error,
+        resetErrorBoundary: this.resetErrorBoundary,
       },
       childToRender,
     );

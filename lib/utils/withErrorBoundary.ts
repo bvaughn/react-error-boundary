@@ -4,6 +4,7 @@ import {
   type ComponentProps,
   type ComponentRef,
   type ComponentType,
+  type JSX,
 } from "react";
 import { ErrorBoundary } from "../components/ErrorBoundary";
 import type { ErrorBoundaryProps } from "../types";
@@ -14,7 +15,7 @@ export function withErrorBoundary<
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   Type extends ComponentType<any>,
 >(Component: Type, errorBoundaryProps: ErrorBoundaryProps) {
-  type Props = ComponentProps<Type>;
+  type Props = JSX.LibraryManagedAttributes<Type, ComponentProps<Type>>;
 
   const Wrapped = forwardRef<ComponentRef<Type>, Props>((props, ref) =>
     createElement(

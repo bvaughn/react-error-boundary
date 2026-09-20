@@ -1,4 +1,4 @@
-import { act, useLayoutEffect, type ReactNode } from "react";
+import { act, memo, useLayoutEffect, type ReactNode } from "react";
 import { createRoot } from "react-dom/client";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { ErrorBoundary } from "../components/ErrorBoundary";
@@ -10,6 +10,9 @@ describe("useErrorBoundary", () => {
   let container: HTMLDivElement;
 
   beforeEach(() => {
+    // @ts-expect-error This is a React internal
+    global.IS_REACT_ACT_ENVIRONMENT = true;
+
     vi.spyOn(console, "error").mockImplementation(() => {
       // Don't clutter the console with expected error text
     });
@@ -90,5 +93,62 @@ describe("useErrorBoundary", () => {
     );
 
     expect(container.textContent).toBe("Fallback");
+  });
+
+  it("should not rerender memoized consumers when the boundary context is unchanged", () => {
+    const renderConsumer = vi.fn();
+    const Child = memo(function Child() {
+      const { error } = useErrorBoundary();
+      renderConsumer(error);
+      return "Child";
+    });
+
+    const root = render(
+      <ErrorBoundary fallback={null}>
+        <Child />
+      </ErrorBoundary>,
+    );
+    expect(renderConsumer).toHaveBeenCalledTimes(1);
+
+    act(() =>
+      root.render(
+        <ErrorBoundary fallback={null}>
+          <Child />
+        </ErrorBoundary>,
+      ),
+    );
+    expect(renderConsumer).toHaveBeenCalledTimes(1);
+    act(() => root.unmount());
+  });
+
+  it("should not rerender memoized fallback consumers when the error is unchanged", () => {
+    const error = new Error("Thrown");
+    const renderFallback = vi.fn();
+    const Fallback = memo(function Fallback() {
+      const { error } = useErrorBoundary();
+      renderFallback(error);
+      return "Fallback";
+    });
+    function Throws(): never {
+      throw error;
+    }
+
+    const root = render(
+      <ErrorBoundary FallbackComponent={Fallback}>
+        <Throws />
+      </ErrorBoundary>,
+    );
+    expect(renderFallback).toHaveBeenLastCalledWith(error);
+    const initialRenders = renderFallback.mock.calls.length;
+
+    act(() =>
+      root.render(
+        <ErrorBoundary FallbackComponent={Fallback}>
+          <Throws />
+        </ErrorBoundary>,
+      ),
+    );
+    expect(renderFallback).toHaveBeenCalledTimes(initialRenders);
+    act(() => root.unmount());
   });
 });

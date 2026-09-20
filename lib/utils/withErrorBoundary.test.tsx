@@ -87,6 +87,31 @@ describe("withErrorBoundary", () => {
     expect(ref.current.getFoo()).toBe("abc");
   });
 
+  it("should preserve defaulted and required class props", () => {
+    class Defaulted extends Component<{ label: string; prefix: string }> {
+      static defaultProps = { label: "default" };
+
+      render() {
+        return this.props.prefix + this.props.label;
+      }
+    }
+
+    const Wrapped = withErrorBoundary(Defaulted, { fallback: null });
+    const ref = createRef<Defaulted>();
+
+    // @ts-expect-error Props without defaults must still be required.
+    <Wrapped />;
+    // @ts-expect-error Defaulted props must retain their declared type.
+    <Wrapped prefix="" label={123} />;
+
+    act(() => root.render(<Wrapped prefix="Label: " ref={ref} />));
+    expect(container.textContent).toBe("Label: default");
+    expect(ref.current).toBeInstanceOf(Defaulted);
+
+    act(() => root.render(<Wrapped prefix="Label: " label="custom" />));
+    expect(container.textContent).toBe("Label: custom");
+  });
+
   it("should forward refs to a function component that takes a ref prop", () => {
     type Handle = { getFoo: () => string };
 
