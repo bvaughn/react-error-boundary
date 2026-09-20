@@ -175,6 +175,54 @@ describe("ErrorBoundary", () => {
       });
       expect(container.textContent).toBe("");
     });
+
+    it("should accept an explicit undefined fallback and log an error", () => {
+      shouldThrow = true;
+      const onError = vi.fn();
+      const onOuterError = vi.fn();
+
+      act(() => {
+        root.render(
+          <ErrorBoundary fallback="Outer fallback" onError={onOuterError}>
+            <ErrorBoundary fallback={undefined} onError={onError}>
+              <MaybeThrows>Content</MaybeThrows>
+            </ErrorBoundary>
+          </ErrorBoundary>,
+        );
+      });
+
+      expect(container.textContent).toBe("");
+      expect(onError).toHaveBeenCalledWith(valueToThrow, expect.anything());
+      expect(onOuterError).not.toHaveBeenCalled();
+      expect(console.error).toHaveBeenCalledWith(
+        "react-error-boundary received an undefined fallback. Pass null to explicitly render nothing.",
+      );
+    });
+
+    it("should still propagate errors when no fallback prop is provided", () => {
+      shouldThrow = true;
+      const onOuterError = vi.fn();
+
+      act(() => {
+        root.render(
+          <ErrorBoundary fallback="Outer fallback" onError={onOuterError}>
+            {/* @ts-expect-error Test missing fallback props from JavaScript callers. */}
+            <ErrorBoundary>
+              <MaybeThrows>Content</MaybeThrows>
+            </ErrorBoundary>
+          </ErrorBoundary>,
+        );
+      });
+
+      expect(container.textContent).toBe("Outer fallback");
+      expect(onOuterError).toHaveBeenCalledWith(
+        valueToThrow,
+        expect.anything(),
+      );
+      expect(console.error).toHaveBeenCalledWith(
+        "react-error-boundary requires either a fallback, fallbackRender, or FallbackComponent prop",
+      );
+    });
   });
 
   describe('"FallbackComponent"', () => {
