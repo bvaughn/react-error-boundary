@@ -12,6 +12,7 @@ import { html as htmlYarnResolution } from "../public/generated/examples/YarnRes
 import { Link } from "./components/Link";
 import { NavLink } from "./components/NavLink";
 import { routes } from "./routes";
+import logo from "../public/favicon.svg";
 
 export default function App() {
   return (
@@ -64,6 +65,7 @@ export default function App() {
         </>
       }
       packageDescription="runtime error handling"
+      packageLogo={<img className="w-8 h-8" src={logo} />}
       packageName="react-error-boundary"
       repositoryUrl={repository.url}
       routes={routes}
