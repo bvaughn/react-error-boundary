@@ -65,7 +65,7 @@ export default function App() {
         </>
       }
       packageDescription="runtime error handling"
-      packageLogo={<Logo className="rrp-logo w-8 h-8" />}
+      packageLogo={<Logo className="reb-logo w-8 h-8" />}
       packageName="react-error-boundary"
       repositoryUrl={repository.url}
       routes={routes}
