@@ -7,12 +7,12 @@ import {
   type CommonQuestion,
 } from "react-lib-tools";
 import { repository } from "../package.json";
+import Logo from "../public/favicon.svg?react";
 import { html as htmlNpmResolution } from "../public/generated/examples/NpmResolution.json";
 import { html as htmlYarnResolution } from "../public/generated/examples/YarnResolution.json";
 import { Link } from "./components/Link";
 import { NavLink } from "./components/NavLink";
 import { routes } from "./routes";
-import logo from "../public/favicon.svg";
 
 export default function App() {
   return (
@@ -65,7 +65,7 @@ export default function App() {
         </>
       }
       packageDescription="runtime error handling"
-      packageLogo={<img className="w-8 h-8" src={logo} />}
+      packageLogo={<Logo className="rrp-logo w-8 h-8" />}
       packageName="react-error-boundary"
       repositoryUrl={repository.url}
       routes={routes}
