@@ -3,58 +3,23 @@ import {
   Callout,
   Code,
   ExternalLink,
-  NavSection,
   type CommonQuestion,
+  type DefaultPath,
+  type NavConfig,
 } from "react-lib-tools";
 import { repository } from "../package.json";
 import Logo from "../public/favicon.svg?react";
 import { html as htmlNpmResolution } from "../public/generated/examples/NpmResolution.json";
 import { html as htmlYarnResolution } from "../public/generated/examples/YarnResolution.json";
 import { Link } from "./components/Link";
-import { NavLink } from "./components/NavLink";
-import { routes } from "./routes";
+import { routes, type Path } from "./routes";
 
 export default function App() {
   return (
     <AppRoot
       commonQuestions={commonQuestions}
       enableSiteSearch
-      navLinks={
-        <div>
-          <NavLink path="/">Getting started</NavLink>
-          <NavSection label="Examples">
-            <NavLink path="/examples/fallback">Fallback content</NavLink>
-            <NavLink path="/examples/render-prop">Render prop</NavLink>
-            <NavLink path="/examples/fallback-component">
-              Fallback component
-            </NavLink>
-            <NavLink path="/examples/error-logging">Error logging</NavLink>
-            <NavLink path="/examples/async-user-code-errors">
-              Events & async methods
-            </NavLink>
-            <NavLink path="/examples/transition-errors">
-              Transition errors
-            </NavLink>
-            <NavLink path="/examples/retry-nearest-boundary">
-              Retry nearest boundary
-            </NavLink>
-          </NavSection>
-          <NavSection label="API">
-            <NavLink path="/api/error-boundary-props">ErrorBoundary</NavLink>
-            <NavLink path="/api/use-error-boundary-hook">
-              useErrorBoundary hook
-            </NavLink>
-            <NavLink path="/api/with-error-boundary-hoc">
-              withErrorBoundary HOC
-            </NavLink>
-            <NavLink path="/api/get-error-message">
-              getErrorMessage helper
-            </NavLink>
-          </NavSection>
-          <NavLink path="/common-questions">Common questions</NavLink>
-          <NavLink path="/support">Support</NavLink>
-        </div>
-      }
+      nav={nav}
       overview={
         <>
           <div>
@@ -72,6 +37,39 @@ export default function App() {
     />
   );
 }
+
+const nav: NavConfig<Path | DefaultPath> = [
+  { path: "/", title: "Getting started" },
+  {
+    title: "Examples",
+    links: [
+      { path: "/examples/fallback", title: "Fallback content" },
+      { path: "/examples/render-prop", title: "Render prop" },
+      { path: "/examples/fallback-component", title: "Fallback component" },
+      { path: "/examples/error-logging", title: "Error logging" },
+      {
+        path: "/examples/async-user-code-errors",
+        title: "Events & async methods",
+      },
+      { path: "/examples/transition-errors", title: "Transition errors" },
+      {
+        path: "/examples/retry-nearest-boundary",
+        title: "Retry nearest boundary",
+      },
+    ],
+  },
+  {
+    title: "API",
+    links: [
+      { path: "/api/error-boundary-props", title: "ErrorBoundary" },
+      { path: "/api/use-error-boundary-hook", title: "useErrorBoundary hook" },
+      { path: "/api/with-error-boundary-hoc", title: "withErrorBoundary HOC" },
+      { path: "/api/get-error-message", title: "getErrorMessage helper" },
+    ],
+  },
+  { path: "/common-questions", title: "Common questions" },
+  { path: "/support", title: "Support" },
+];
 
 const clientSideWarning = (
   <div className="flex flex-col gap-2">

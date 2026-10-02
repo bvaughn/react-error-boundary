@@ -63,6 +63,7 @@
           "content": "<p>Static content to render in place of an error if one is thrown.</p>\n"
         },
         {
+          "code": true,
           "content": "<div><span class=\"tok-punctuation\">&#60;</span><span class=\"tok-typeName\">ErrorBoundary</span><span class=\"\"> </span><span class=\"tok-propertyName\">fallback</span><span class=\"tok-operator\">=</span><span class=\"tok-punctuation\">{</span><span class=\"tok-punctuation\">&#60;</span><span class=\"tok-typeName\">div</span><span class=\"\"> </span><span class=\"tok-propertyName\">className</span><span class=\"tok-operator\">=</span><span class=\"tok-string\">\"text-red\"</span><span class=\"tok-punctuation\">&#62;</span><span class=\"\">Something went wrong</span><span class=\"tok-punctuation\">&#60;/</span><span class=\"tok-typeName\">div</span><span class=\"tok-punctuation\">&#62;</span><span class=\"tok-punctuation\">}</span><span class=\"\"> </span><span class=\"tok-punctuation\">/&#62;</span></div>"
         }
       ],
@@ -76,6 +77,7 @@
           "content": "<p>React component responsible for returning a fallback UI based on a thrown value.</p>\n"
         },
         {
+          "code": true,
           "content": "<div><span class=\"tok-punctuation\">&#60;</span><span class=\"tok-typeName\">ErrorBoundary</span><span class=\"\"> </span><span class=\"tok-propertyName\">FallbackComponent</span><span class=\"tok-operator\">=</span><span class=\"tok-punctuation\">{</span><span class=\"tok-variableName\">Fallback</span><span class=\"tok-punctuation\">}</span><span class=\"\"> </span><span class=\"tok-punctuation\">/&#62;</span></div>"
         }
       ],
@@ -89,6 +91,7 @@
           "content": "<p><a href=\"https://react.dev/reference/react/Children#calling-a-render-prop-to-customize-rendering\">Render prop</a> function responsible for returning a fallback UI based on a thrown value.</p>\n"
         },
         {
+          "code": true,
           "content": "<div><span class=\"tok-punctuation\">&#60;</span><span class=\"tok-typeName\">ErrorBoundary</span><span class=\"\"> </span><span class=\"tok-propertyName\">fallbackRender</span><span class=\"tok-operator\">=</span><span class=\"tok-punctuation\">{</span><span class=\"tok-punctuation\">(</span><span class=\"tok-punctuation\">{</span><span class=\"\"> </span><span class=\"tok-propertyName\">error</span><span class=\"tok-punctuation\">,</span><span class=\"\"> </span><span class=\"tok-propertyName\">resetErrorBoundary</span><span class=\"\"> </span><span class=\"tok-punctuation\">}</span><span class=\"tok-punctuation\">)</span><span class=\"\"> </span><span class=\"tok-punctuation\">=&#62;</span><span class=\"\"> </span><span class=\"tok-punctuation\">&#60;</span><span class=\"tok-typeName\">div</span><span class=\"tok-punctuation\">&#62;</span><span class=\"\">...</span><span class=\"tok-punctuation\">&#60;/</span><span class=\"tok-typeName\">div</span><span class=\"tok-punctuation\">&#62;</span><span class=\"tok-punctuation\">}</span><span class=\"\"> </span><span class=\"tok-punctuation\">/&#62;</span></div>"
         }
       ],
