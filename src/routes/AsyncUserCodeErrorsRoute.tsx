@@ -17,13 +17,13 @@ export default function AsyncUserCodeErrorsRoute() {
         <Link to="/api/use-error-boundary-hook">useErrorBoundary</Link>. You can
         use the same pattern for event handler errors:
       </div>
+      <Code html={html} />
       <div>
         In React 19, <code>useTransition</code> Actions can be an alternative:
         errors thrown from a function passed to the returned{" "}
         <code>startTransition</code> function are caught by the nearest
         boundary. <Link to="/examples/transition-errors">Learn more</Link>.
       </div>
-      <Code html={html} />
     </Box>
   );
 }

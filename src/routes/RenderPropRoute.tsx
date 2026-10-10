@@ -4,7 +4,7 @@ import { html } from "../../public/generated/examples/RenderProp.json";
 export default function RenderPropRoute() {
   return (
     <Box direction="column" gap={4}>
-      <Header section="Examples" title="Render props" />
+      <Header section="Examples" title="Render prop" />
       <div>
         <ExternalLink href="https://react.dev/reference/react/Children#calling-a-render-prop-to-customize-rendering">
           Render prop

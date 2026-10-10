@@ -83,14 +83,14 @@ const clientSideWarning = (
     <div>
       Error boundaries catch errors thrown while rendering the tree below them.
     </div>
-    <div>This means that it can't catch errors during:</div>
+    <div>This means that it can't catch errors from:</div>
     <ul className="pl-8">
-      <li className="list-disc">Server side rendering</li>
+      <li className="list-disc">Server-side rendering</li>
       <li className="list-disc">Event handlers</li>
-      <li className="list-disc">Errors thrown in the error boundary itself</li>
+      <li className="list-disc">The error boundary itself</li>
       <li className="list-disc">
-        Async code that runs after rendering, like setTimeout callbacks or
-        unresolved promises
+        Async code that runs after rendering, like <code>setTimeout</code>{" "}
+        callbacks or unresolved promises
       </li>
     </ul>
     <div>For event handler errors and async callback errors:</div>

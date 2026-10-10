@@ -1,7 +1,7 @@
 import { Box, Code, Header } from "react-lib-tools";
 import { html } from "../../public/generated/examples/FallbackContent.json";
 
-export default function RenderPropRoute() {
+export default function FallbackContentRoute() {
   return (
     <Box direction="column" gap={4}>
       <Header section="Examples" title="Fallback content" />

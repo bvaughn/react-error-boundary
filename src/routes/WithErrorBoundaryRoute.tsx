@@ -20,7 +20,7 @@ export default function WithErrorBoundaryRoute() {
         component:
       </div>
       <Code html={htmlB} />
-      <div>And then render it like this</div>
+      <div>And then render it like this:</div>
       <Code html={htmlC} />
       <div>
         This might be useful for certain types of reusable/library components.

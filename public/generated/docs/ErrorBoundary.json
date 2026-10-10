@@ -7,7 +7,7 @@
       "content": "<p>Catches errors thrown while rendering the tree below it.</p>\n"
     },
     {
-      "content": "<p>Does not catch errors thrown during:</p>\n<ul>\n<li>Server side rendering</li>\n<li>Event handlers</li>\n<li>Errors thrown in the error boundary itself</li>\n<li>Async code that runs after rendering, like <code>setTimeout</code> callbacks or unresolved promises</li>\n</ul>\n"
+      "content": "<p>Does not catch errors from:</p>\n<ul>\n<li>Server-side rendering</li>\n<li>Event handlers</li>\n<li>The error boundary itself</li>\n<li>Async code that runs after rendering, like <code>setTimeout</code> callbacks or unresolved promises</li>\n</ul>\n"
     },
     {
       "content": "<p>Event handler and async errors:</p>\n"

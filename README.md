@@ -5,7 +5,7 @@
 ### If you like this project, 🎉 [become a sponsor](https://github.com/sponsors/bvaughn/) or ☕ [buy me a coffee](http://givebrian.coffee/)
 
 > [!NOTE]
-> Projects using framework or runtimes that don't support ES Modules should use version 5 of this library.
+> Projects using frameworks or runtimes that don't support ES Modules should use version 5 of this library.
 
 ## Getting started
 
@@ -62,11 +62,11 @@ This package is built on top of React [error boundaries](https://react.dev/refer
 
 Error boundaries catch errors thrown while rendering the tree below them.
 
-Error boundaries do not catch errors thrown during:
+Error boundaries do not catch errors from:
 
-- Server side rendering
+- Server-side rendering
 - Event handlers
-- Errors thrown in the error boundary itself
+- The error boundary itself
 - Async code that runs after rendering, like `setTimeout` callbacks or unresolved promises
 
 ## Event handler and async errors
@@ -117,10 +117,10 @@ Wrap this component around other React components to "catch" errors and render a
 
 Catches errors thrown while rendering the tree below it.
 
-Does not catch errors thrown during:
-- Server side rendering
+Does not catch errors from:
+- Server-side rendering
 - Event handlers
-- Errors thrown in the error boundary itself
+- The error boundary itself
 - Async code that runs after rendering, like `setTimeout` callbacks or unresolved promises
 
 Event handler and async errors:
