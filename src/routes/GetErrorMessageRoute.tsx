@@ -11,7 +11,7 @@ export default function GetErrorMessageRoute() {
         <ExternalLink href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/throw">
           this is not always the case
         </ExternalLink>
-        . Any value can be thrown- strings, numbers, even <code>null</code> or{" "}
+        . Any value can be thrown: strings, numbers, even <code>null</code> or{" "}
         <code>undefined</code>.
       </div>
       <div>

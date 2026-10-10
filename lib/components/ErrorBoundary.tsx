@@ -25,10 +25,10 @@ const initialState: ErrorBoundaryState = {
  *
  * Catches errors thrown while rendering the tree below it.
  *
- * Does not catch errors thrown during:
- * - Server side rendering
+ * Does not catch errors from:
+ * - Server-side rendering
  * - Event handlers
- * - Errors thrown in the error boundary itself
+ * - The error boundary itself
  * - Async code that runs after rendering, like `setTimeout` callbacks or unresolved promises
  *
  * Event handler and async errors:
