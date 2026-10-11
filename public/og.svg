@@ -1,4 +1,4 @@
-<svg viewBox="0 0 1200 630" width="600" height="315" xmlns="http://www.w3.org/2000/svg"><linearGradient id="generated-og-image-bg"><stop offset="0%" stop-color="oklch(70.2% 0.183 293.541)"></stop><stop offset="100%" stop-color="oklch(49.1% 0.27 292.581)"></stop></linearGradient><rect fill="url('#generated-og-image-bg')" width="1200" height="630"></rect><g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" class="reb-logo" x="55" y="95" width="440" height="440" preserveAspectRatio="xMidYMid meet" overflow="visible">
+<svg viewBox="0 0 1200 630" width="600" height="315" xmlns="http://www.w3.org/2000/svg"><linearGradient id="generated-og-image-bg"><stop offset="0%" stop-color="#a684ff"></stop><stop offset="100%" stop-color="#7008e7"></stop></linearGradient><rect fill="url('#generated-og-image-bg')" width="1200" height="630"></rect><g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" class="reb-logo" x="60" y="115" width="400" height="400" preserveAspectRatio="xMidYMid meet" overflow="visible">
   <style>
     .reb-logo path, .reb-logo rect {
       stroke: #1A1A1A;
@@ -10,4 +10,4 @@
   <path d="M10 1.75 16.75 4.5v5.3c0 4.1-2.65 6.9-6.75 8.45-4.1-1.55-6.75-4.35-6.75-8.45V4.5Z" fill="none" stroke-width="2.5" stroke-linejoin="round" opacity="0.6"></path>
   <path d="M10 6.25v4" fill="none" stroke-width="2.5" stroke-linecap="round"></path>
   <circle cx="10" cy="13.5" r="1.4"></circle>
-</svg></g><g fill="#fff" font-family="system-ui" font-size="161" font-weight="bold"><text dominant-baseline="middle" x="535" y="149.17">react</text><text dominant-baseline="middle" x="535" y="315">error</text><text dominant-baseline="middle" x="535" y="480.83000000000004">bundary</text></g></svg>
+</svg></g><g fill="#fff" font-family="system-ui" font-size="148" font-weight="bold"><text dominant-baseline="middle" x="505" y="162">react</text><text dominant-baseline="middle" x="505" y="315">error</text><text dominant-baseline="middle" x="505" y="468">boundary</text></g></svg>
