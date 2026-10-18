@@ -5,48 +5,6 @@
     "title": "Getting started with react-error-boundary"
   },
   {
-    "path": "/examples/fallback",
-    "section": "Examples",
-    "text": "The simplest way to render a default error message. import { ErrorBoundary } from \"react-error-boundary\";\n \n<ErrorBoundary fallback={<div>Something went wrong</div>}>\n <YourApplication />\n</ErrorBoundary>;",
-    "title": "Fallback content"
-  },
-  {
-    "path": "/examples/render-prop",
-    "section": "Examples",
-    "text": "Render prop function responsible for returning a fallback UI based on a thrown value. import { ErrorBoundary, getErrorMessage } from \"react-error-boundary\";\n \n<ErrorBoundary\n fallbackRender={({ error, resetErrorBoundary }) => (\n <div role=\"alert\">\n <p>Something went wrong:</p>\n <pre style={{ color: \"red\" }}>{getErrorMessage(error)}</pre>\n <button onClick={resetErrorBoundary}>Retry</button>\n </div>\n )}\n onReset={(details) => {\n // Reset the state of your app so the error doesn't happen again\n }}\n>\n <YourApplication />\n</ErrorBoundary>;",
-    "title": "Render prop"
-  },
-  {
-    "path": "/examples/fallback-component",
-    "section": "Examples",
-    "text": "React component responsible for returning a fallback UI based on a thrown value. import { ErrorBoundary, getErrorMessage, type FallbackProps } from \"react-error-boundary\";\n \nfunction Fallback({ error, resetErrorBoundary }: FallbackProps) {\n return (\n <div role=\"alert\">\n <p>Something went wrong:</p>\n <pre style={{ color: \"red\" }}>{getErrorMessage(error)}</pre>\n <button onClick={resetErrorBoundary}>Retry</button>\n </div>\n );\n}\n \n<ErrorBoundary\n FallbackComponent={Fallback}\n onReset={(details) => {\n // Reset the state of your app so the error doesn't happen again\n }}\n>\n <YourApplication />\n</ErrorBoundary>;",
-    "title": "Fallback component"
-  },
-  {
-    "path": "/examples/error-logging",
-    "section": "Examples",
-    "text": "Use the onError callback to log errors to a service like Sentry. import type { ErrorInfo } from \"react\";\nimport { ErrorBoundary } from \"react-error-boundary\";\n \nfunction logError(error: unknown, info: ErrorInfo) {\n // Do something with the error, e.g. log to an external API\n}\n \n<ErrorBoundary FallbackComponent={ErrorFallback} onError={logError}>\n <YourApplication />\n</ErrorBoundary>;",
-    "title": "Error logging"
-  },
-  {
-    "path": "/examples/async-user-code-errors",
-    "section": "Examples",
-    "text": "React handles errors thrown while rendering the tree below an error boundary. Errors thrown in event handlers, or after async code has run, will not be caught by an error boundary automatically. For async callback errors, like errors thrown after an Effect starts loading data, catch the error yourself and pass it to the nearest boundary with useErrorBoundary. You can use the same pattern for event handler errors: import { useEffect } from \"react\";\nimport { ErrorBoundary, useErrorBoundary } from \"react-error-boundary\";\n \nfunction UserProfileContainer({ username }: { username: string }) {\n return (\n <ErrorBoundary\n fallback={<p>Could not load profile</p>}\n resetKeys={[username]}\n >\n <UserProfile username={username} />\n </ErrorBoundary>\n );\n}\n \nfunction UserProfile({ username }: { username: string }) {\n const { showBoundary } = useErrorBoundary();\n \n useEffect(() => {\n fetchGreeting(username).then(\n (response) => {\n // Set data in state and re-render ...\n },\n (error) => {\n // Show error boundary\n showBoundary(error);\n },\n );\n }, [showBoundary, username]);\n \n return null;\n} In React 19, useTransition Actions can be an alternative: errors thrown from a function passed to the returned startTransition function are caught by the nearest boundary. Learn more.",
-    "title": "Events & async methods"
-  },
-  {
-    "path": "/examples/transition-errors",
-    "section": "Examples",
-    "text": "React 19 catches errors thrown inside Actions and shows the fallback for the nearest error boundary. This includes functions passed to the startTransition function returned by useTransition. This is useful when an unexpected Action error should replace a section of the UI. It is an alternative to manually passing an error to the nearest boundary with useErrorBoundary. import { useTransition } from \"react\";\nimport { ErrorBoundary } from \"react-error-boundary\";\n \nfunction AddCommentContainer() {\n return (\n <ErrorBoundary fallback={<p>Could not add comment</p>}>\n <AddCommentButton />\n </ErrorBoundary>\n );\n}\n \nfunction AddCommentButton() {\n const [isPending, startTransition] = useTransition();\n \n function handleClick() {\n startTransition(async () => {\n await addComment();\n });\n }\n \n return (\n <button disabled={isPending} onClick={handleClick}>\n {isPending ? \"Adding...\" : \"Add comment\"}\n </button>\n );\n}",
-    "title": "Transition errors"
-  },
-  {
-    "path": "/examples/retry-nearest-boundary",
-    "section": "Examples",
-    "text": "The useErrorBoundary hook can be used to reset the nearest error boundary and retry a failed render attempt. import { useErrorBoundary } from \"react-error-boundary\";\n \nfunction Example() {\n const { resetBoundary } = useErrorBoundary();\n \n // Call resetBoundary() to reset the nearest ErrorBoundary and retry a failed render\n}",
-    "title": "Retry nearest boundary"
-  },
-  {
     "headings": [
       {
         "id": "fallback",
@@ -85,6 +43,12 @@
     "title": "ErrorBoundary component props"
   },
   {
+    "path": "/api/get-error-message",
+    "section": "API",
+    "text": "Typically thrown errors in JavaScript are instances of type Error, but this is not always the case. Any value can be thrown: strings, numbers, even null or undefined. To simplify working with thrown values, this library exports a utility method called getErrorMessage. import { getErrorMessage, type FallbackProps } from \"react-error-boundary\";\n \nfunction Fallback({ error }: FallbackProps) {\n // Because 'error' can be anything, it's safest not to assume it's an Error.\n // Use the getErrorMessage helper method to extract the message instead.\n const message = getErrorMessage(error) ?? \"Unknown error\";\n \n // Render fallback UI...\n}",
+    "title": "getErrorMessage helper"
+  },
+  {
     "path": "/api/use-error-boundary-hook",
     "section": "API",
     "text": "Convenience hook for imperatively showing or dismissing error boundaries. import { useErrorBoundary } from \"react-error-boundary\";\n \nfunction Example() {\n const {\n // The currently visible Error (if one has been thrown).\n error,\n \n // Method to reset and retry the nearest active error boundary (if one is active).\n resetBoundary,\n \n // Trigger the nearest error boundary to display the error provided.\n showBoundary,\n } = useErrorBoundary();\n \n // ...\n} This hook must only be used within an ErrorBoundary subtree.",
@@ -95,12 +59,6 @@
     "section": "API",
     "text": "This package can also be used as a higher-order component. For example, given a component like this: function UserProfile({ username }: { username: string }) {\n // Render...\n} You could use the withErrorBoundary HOC to create a wrapper component: import { withErrorBoundary } from \"react-error-boundary\";\n \nconst UserProfileWithErrorBoundary = withErrorBoundary(UserProfile, {\n fallback: <div>Something went wrong</div>,\n onError(error, info) {\n // Do something with the error\n // E.g. log to an error logging client here\n },\n}); And then render it like this: <UserProfileWithErrorBoundary username=\"Brian\" />; This might be useful for certain types of reusable/library components.",
     "title": "withErrorBoundary HOC"
-  },
-  {
-    "path": "/api/get-error-message",
-    "section": "API",
-    "text": "Typically thrown errors in JavaScript are instances of type Error, but this is not always the case. Any value can be thrown: strings, numbers, even null or undefined. To simplify working with thrown values, this library exports a utility method called getErrorMessage. import { getErrorMessage, type FallbackProps } from \"react-error-boundary\";\n \nfunction Fallback({ error }: FallbackProps) {\n // Because 'error' can be anything, it's safest not to assume it's an Error.\n // Use the getErrorMessage helper method to extract the message instead.\n const message = getErrorMessage(error) ?? \"Unknown error\";\n \n // Render fallback UI...\n}",
-    "title": "getErrorMessage helper"
   },
   {
     "headings": [
@@ -123,6 +81,48 @@
     "path": "/common-questions",
     "text": "",
     "title": "Common questions"
+  },
+  {
+    "path": "/examples/async-user-code-errors",
+    "section": "Examples",
+    "text": "React handles errors thrown while rendering the tree below an error boundary. Errors thrown in event handlers, or after async code has run, will not be caught by an error boundary automatically. For async callback errors, like errors thrown after an Effect starts loading data, catch the error yourself and pass it to the nearest boundary with useErrorBoundary. You can use the same pattern for event handler errors: import { useEffect } from \"react\";\nimport { ErrorBoundary, useErrorBoundary } from \"react-error-boundary\";\n \nfunction UserProfileContainer({ username }: { username: string }) {\n return (\n <ErrorBoundary\n fallback={<p>Could not load profile</p>}\n resetKeys={[username]}\n >\n <UserProfile username={username} />\n </ErrorBoundary>\n );\n}\n \nfunction UserProfile({ username }: { username: string }) {\n const { showBoundary } = useErrorBoundary();\n \n useEffect(() => {\n fetchGreeting(username).then(\n (response) => {\n // Set data in state and re-render ...\n },\n (error) => {\n // Show error boundary\n showBoundary(error);\n },\n );\n }, [showBoundary, username]);\n \n return null;\n} In React 19, useTransition Actions can be an alternative: errors thrown from a function passed to the returned startTransition function are caught by the nearest boundary. Learn more.",
+    "title": "Events & async methods"
+  },
+  {
+    "path": "/examples/error-logging",
+    "section": "Examples",
+    "text": "Use the onError callback to log errors to a service like Sentry. import type { ErrorInfo } from \"react\";\nimport { ErrorBoundary } from \"react-error-boundary\";\n \nfunction logError(error: unknown, info: ErrorInfo) {\n // Do something with the error, e.g. log to an external API\n}\n \n<ErrorBoundary FallbackComponent={ErrorFallback} onError={logError}>\n <YourApplication />\n</ErrorBoundary>;",
+    "title": "Error logging"
+  },
+  {
+    "path": "/examples/fallback",
+    "section": "Examples",
+    "text": "The simplest way to render a default error message. import { ErrorBoundary } from \"react-error-boundary\";\n \n<ErrorBoundary fallback={<div>Something went wrong</div>}>\n <YourApplication />\n</ErrorBoundary>;",
+    "title": "Fallback content"
+  },
+  {
+    "path": "/examples/fallback-component",
+    "section": "Examples",
+    "text": "React component responsible for returning a fallback UI based on a thrown value. import { ErrorBoundary, getErrorMessage, type FallbackProps } from \"react-error-boundary\";\n \nfunction Fallback({ error, resetErrorBoundary }: FallbackProps) {\n return (\n <div role=\"alert\">\n <p>Something went wrong:</p>\n <pre style={{ color: \"red\" }}>{getErrorMessage(error)}</pre>\n <button onClick={resetErrorBoundary}>Retry</button>\n </div>\n );\n}\n \n<ErrorBoundary\n FallbackComponent={Fallback}\n onReset={(details) => {\n // Reset the state of your app so the error doesn't happen again\n }}\n>\n <YourApplication />\n</ErrorBoundary>;",
+    "title": "Fallback component"
+  },
+  {
+    "path": "/examples/render-prop",
+    "section": "Examples",
+    "text": "Render prop function responsible for returning a fallback UI based on a thrown value. import { ErrorBoundary, getErrorMessage } from \"react-error-boundary\";\n \n<ErrorBoundary\n fallbackRender={({ error, resetErrorBoundary }) => (\n <div role=\"alert\">\n <p>Something went wrong:</p>\n <pre style={{ color: \"red\" }}>{getErrorMessage(error)}</pre>\n <button onClick={resetErrorBoundary}>Retry</button>\n </div>\n )}\n onReset={(details) => {\n // Reset the state of your app so the error doesn't happen again\n }}\n>\n <YourApplication />\n</ErrorBoundary>;",
+    "title": "Render prop"
+  },
+  {
+    "path": "/examples/retry-nearest-boundary",
+    "section": "Examples",
+    "text": "The useErrorBoundary hook can be used to reset the nearest error boundary and retry a failed render attempt. import { useErrorBoundary } from \"react-error-boundary\";\n \nfunction Example() {\n const { resetBoundary } = useErrorBoundary();\n \n // Call resetBoundary() to reset the nearest ErrorBoundary and retry a failed render\n}",
+    "title": "Retry nearest boundary"
+  },
+  {
+    "path": "/examples/transition-errors",
+    "section": "Examples",
+    "text": "React 19 catches errors thrown inside Actions and shows the fallback for the nearest error boundary. This includes functions passed to the startTransition function returned by useTransition. This is useful when an unexpected Action error should replace a section of the UI. It is an alternative to manually passing an error to the nearest boundary with useErrorBoundary. import { useTransition } from \"react\";\nimport { ErrorBoundary } from \"react-error-boundary\";\n \nfunction AddCommentContainer() {\n return (\n <ErrorBoundary fallback={<p>Could not add comment</p>}>\n <AddCommentButton />\n </ErrorBoundary>\n );\n}\n \nfunction AddCommentButton() {\n const [isPending, startTransition] = useTransition();\n \n function handleClick() {\n startTransition(async () => {\n await addComment();\n });\n }\n \n return (\n <button disabled={isPending} onClick={handleClick}>\n {isPending ? \"Adding...\" : \"Add comment\"}\n </button>\n );\n}",
+    "title": "Transition errors"
   },
   {
     "path": "/support",
