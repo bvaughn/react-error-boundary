@@ -194,6 +194,16 @@ See the documentation for examples of how to use this prop.</p>
   </tbody>
 </table>
 
+## Hooks
+
+### useErrorBoundary
+
+Convenience hook for imperatively showing or dismissing error boundaries.
+
+⚠️ This hook must only be used within an `ErrorBoundary` subtree.
+
+**Returns:** The currently visible `error` (if one has been thrown), a `resetBoundary` method to reset and retry the nearest active error boundary, and a `showBoundary` method to display an error in the nearest error boundary
+
 <!-- react-lib-tools:api:end -->
 
 # FAQ
