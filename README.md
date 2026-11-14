@@ -107,11 +107,12 @@ function AddCommentButton() {
 }
 ```
 
-## API
+<!-- react-lib-tools:api:begin -->
+
+## Components
 
 ### ErrorBoundary
 
-<!-- ErrorBoundary:description:begin -->
 A reusable React [error boundary](https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary) component.
 Wrap this component around other React components to "catch" errors and render a fallback UI.
 
@@ -133,17 +134,12 @@ Event handler and async errors:
 Refer to the documentation to determine which is best for your application.
 
 ℹ️ This is a **client component**. You can only pass props to it that are serializable or use it in files that have a `"use client";` directive.
-<!-- ErrorBoundary:description:end -->
 
 #### Required props
 
-<!-- ErrorBoundary:required-props:begin -->
 None
-<!-- ErrorBoundary:required-props:end -->
 
 #### Optional props
-
-<!-- ErrorBoundary:optional-props:begin -->
 
 <table>
   <thead>
@@ -155,9 +151,11 @@ None
   <tbody>
     <tr>
       <td>onError</td>
-      <td><p>Optional callback to enable e.g. logging error information to a server.
-@param error Value that was thrown; typically an instance of <code>Error</code>
-@param info React &quot;component stack&quot; identifying where the error was thrown</p>
+      <td><p>Optional callback to enable e.g. logging error information to a server.</p>
+<ul>
+<li><code>error</code> Value that was thrown; typically an instance of <code>Error</code></li>
+<li><code>info</code> React &quot;component stack&quot; identifying where the error was thrown</li>
+</ul>
 </td>
     </tr>
     <tr>
@@ -196,7 +194,7 @@ See the documentation for examples of how to use this prop.</p>
   </tbody>
 </table>
 
-<!-- ErrorBoundary:optional-props:end -->
+<!-- react-lib-tools:api:end -->
 
 # FAQ
 ## `ErrorBoundary` cannot be used as a JSX component
