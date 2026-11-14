@@ -16,6 +16,8 @@ export type UseErrorBoundaryApi = {
  * Convenience hook for imperatively showing or dismissing error boundaries.
  *
  * ⚠️ This hook must only be used within an `ErrorBoundary` subtree.
+ *
+ * @returns The currently visible `error` (if one has been thrown), a `resetBoundary` method to reset and retry the nearest active error boundary, and a `showBoundary` method to display an error in the nearest error boundary
  */
 export function useErrorBoundary(): {
   /**
